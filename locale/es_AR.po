@@ -1,0 +1,507 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:account.retencion,account:"
+msgid "Account"
+msgstr "Cuenta contable"
+
+msgctxt "field:account.retencion,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.retencion,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+#, fuzzy
+msgctxt "field:account.retencion,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.retencion,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.retencion,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.retencion,type:"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:account.retencion,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.retencion,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.retencion.efectuada,aliquot:"
+msgid "Aliquot"
+msgstr "Alicuota"
+
+msgctxt "field:account.retencion.efectuada,amount:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "field:account.retencion.efectuada,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.retencion.efectuada,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.retencion.efectuada,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:account.retencion.efectuada,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.retencion.efectuada,name:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:account.retencion.efectuada,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:account.retencion.efectuada,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.retencion.efectuada,tax:"
+msgid "Tax"
+msgstr "Impuesto"
+
+msgctxt "field:account.retencion.efectuada,voucher:"
+msgid "Voucher"
+msgstr "Comprobante"
+
+msgctxt "field:account.retencion.efectuada,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+#, fuzzy
+msgctxt "field:account.retencion.efectuada,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.retencion.soportada,amount:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "field:account.retencion.soportada,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+#, fuzzy
+msgctxt "field:account.retencion.soportada,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.retencion.soportada,date:"
+msgid "Date"
+msgstr "Fecha"
+
+#, fuzzy
+msgctxt "field:account.retencion.soportada,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.retencion.soportada,name:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:account.retencion.soportada,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:account.retencion.soportada,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.retencion.soportada,tax:"
+msgid "Tax"
+msgstr "Impuesto"
+
+msgctxt "field:account.retencion.soportada,voucher:"
+msgid "Voucher"
+msgstr "Comprobante"
+
+msgctxt "field:account.retencion.soportada,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.retencion.soportada,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.voucher,amount:"
+msgid "Payment"
+msgstr "Pagado"
+
+msgctxt "field:account.voucher,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:account.voucher,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.voucher,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.voucher,currency:"
+msgid "Currency"
+msgstr "Gestión de divisas"
+
+msgctxt "field:account.voucher,date:"
+msgid "Date"
+msgstr "Fecha"
+
+msgctxt "field:account.voucher,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.voucher,journal:"
+msgid "Journal"
+msgstr "Diario"
+
+msgctxt "field:account.voucher,lines:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "field:account.voucher,number:"
+msgid "Number"
+msgstr "Número"
+
+msgctxt "field:account.voucher,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:account.voucher,pay_lines:"
+msgid "Pay Mode Lines"
+msgstr "Formas de pago"
+
+msgctxt "field:account.voucher,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.voucher,retenciones_efectuadas:"
+msgid "Retenciones Efectuadas"
+msgstr ""
+
+msgctxt "field:account.voucher,retenciones_soportadas:"
+msgid "Retenciones Soportadas"
+msgstr ""
+
+msgctxt "field:account.voucher,state:"
+msgid "State"
+msgstr "Estado"
+
+msgctxt "field:account.voucher,voucher_type:"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:account.voucher,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.voucher,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.voucher.line,account:"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "field:account.voucher.line,amount:"
+msgid "Amount"
+msgstr "Importe"
+
+msgctxt "field:account.voucher.line,amount_original:"
+msgid "Original Amount"
+msgstr "Importe Original"
+
+msgctxt "field:account.voucher.line,amount_unreconciled:"
+msgid "Unreconciled amount"
+msgstr "Importe sin conciliar"
+
+msgctxt "field:account.voucher.line,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.voucher.line,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.voucher.line,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.voucher.line,line_type:"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:account.voucher.line,move_line:"
+msgid "Move Line"
+msgstr "Línea de asiento"
+
+msgctxt "field:account.voucher.line,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.voucher.line,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.voucher.line,voucher:"
+msgid "Voucher"
+msgstr "Comprobantes"
+
+msgctxt "field:account.voucher.line,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.voucher.line,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.voucher.line.paymode,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.voucher.line.paymode,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.voucher.line.paymode,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.voucher.line.paymode,pay_amount:"
+msgid "Pay Amount"
+msgstr "Importe"
+
+msgctxt "field:account.voucher.line.paymode,pay_mode:"
+msgid "Pay Mode"
+msgstr "Forma de pago"
+
+msgctxt "field:account.voucher.line.paymode,rec_name:"
+msgid "Name"
+msgstr "Nombre del campo"
+
+msgctxt "field:account.voucher.line.paymode,voucher:"
+msgid "Voucher"
+msgstr "Comprobantes"
+
+msgctxt "field:account.voucher.line.paymode,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.voucher.line.paymode,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.voucher.paymode,account:"
+msgid "Account"
+msgstr "Cuenta"
+
+msgctxt "field:account.voucher.paymode,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.voucher.paymode,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.voucher.paymode,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.voucher.paymode,name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.voucher.paymode,rec_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.voucher.paymode,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.voucher.paymode,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "field:account.voucher.sequence,create_date:"
+msgid "Create Date"
+msgstr "Fecha de Creación"
+
+msgctxt "field:account.voucher.sequence,create_uid:"
+msgid "Create User"
+msgstr "Usuario creación"
+
+msgctxt "field:account.voucher.sequence,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:account.voucher.sequence,rec_name:"
+msgid "Name"
+msgstr "Nombre del campo"
+
+msgctxt "field:account.voucher.sequence,voucher_sequence:"
+msgid "Voucher Sequence"
+msgstr "Secuencia de comprobante"
+
+msgctxt "field:account.voucher.sequence,write_date:"
+msgid "Write Date"
+msgstr "Fecha modificación"
+
+msgctxt "field:account.voucher.sequence,write_uid:"
+msgid "Write User"
+msgstr "Usuario modificación"
+
+msgctxt "help:account.voucher,number:"
+msgid "Voucher Number"
+msgstr "Número"
+
+msgctxt "model:account.retencion,name:"
+msgid "Account Retencion"
+msgstr ""
+
+msgctxt "model:account.retencion.efectuada,name:"
+msgid "Account Retencion Efectuada"
+msgstr ""
+
+msgctxt "model:account.retencion.soportada,name:"
+msgid "Account Retencion Soportada"
+msgstr ""
+
+msgctxt "model:account.voucher,name:"
+msgid "Account Check Voucher"
+msgstr "Cuenta"
+
+msgctxt "model:account.voucher.line,name:"
+msgid "Account Voucher Line"
+msgstr "Línea del comprobante"
+
+msgctxt "model:account.voucher.line.paymode,name:"
+msgid "Account Voucher Line Pay Mode"
+msgstr "Línea de comprobante de forma de pago "
+
+msgctxt "model:account.voucher.paymode,name:"
+msgid "Account Voucher Pay Mode"
+msgstr "Forma de Pago"
+
+msgctxt "model:account.voucher.sequence,name:"
+msgid "Account Voucher Sequence"
+msgstr "Secuencia de comprobante"
+
+msgctxt "model:ir.action,name:act_retencion_efectuada_tree"
+msgid "Retenciones Efectuadas"
+msgstr ""
+
+msgctxt "model:ir.action,name:act_retencion_soportada_tree"
+msgid "Retenciones Soportadas"
+msgstr ""
+
+msgctxt "model:ir.action,name:act_retencion_tree"
+msgid "Retenciones"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_retencion_configuration"
+msgid "Retenciones"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_retencion_efectuada"
+msgid "Retenciones Efectuadas"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_retencion_soportada"
+msgid "Retenciones Soportadas"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_retenciones"
+msgid "Retenciones"
+msgstr ""
+
+msgctxt "selection:account.retencion,type:"
+msgid "Efectuada"
+msgstr ""
+
+msgctxt "selection:account.retencion,type:"
+msgid "Soportada"
+msgstr ""
+
+msgctxt "selection:account.voucher,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.voucher,state:"
+msgid "Posted"
+msgstr "Confirmado"
+
+msgctxt "selection:account.voucher,voucher_type:"
+msgid "Payment"
+msgstr "Pago"
+
+msgctxt "selection:account.voucher,voucher_type:"
+msgid "Receipt"
+msgstr "Recibo"
+
+msgctxt "selection:account.voucher.line,line_type:"
+msgid "Credit"
+msgstr "Haber"
+
+msgctxt "selection:account.voucher.line,line_type:"
+msgid "Debit"
+msgstr "Débito"
+
+msgctxt "view:account.move.line:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "view:account.retencion.efectuada:"
+msgid "Retencion Efectuada"
+msgstr "Retención Efectuada"
+
+msgctxt "view:account.retencion.efectuada:"
+msgid "Retenciones Efectuadas"
+msgstr ""
+
+msgctxt "view:account.retencion.soportada:"
+msgid "Retencion Soportada"
+msgstr "Retención Soportada"
+
+msgctxt "view:account.retencion.soportada:"
+msgid "Retenciones Soportadas"
+msgstr ""
+
+msgctxt "view:account.retencion:"
+msgid "Retencion"
+msgstr "Retención"
+
+msgctxt "view:account.retencion:"
+msgid "Retencion Efectuada"
+msgstr "Retención Efectuada"
+
+msgctxt "view:account.voucher.line.paymode:"
+msgid "Pay Mode Lines"
+msgstr "Formas de pago"
+
+msgctxt "view:account.voucher.line:"
+msgid "Lines"
+msgstr "Líneas"
+
+msgctxt "view:account.voucher:"
+msgid "Retenciones"
+msgstr ""

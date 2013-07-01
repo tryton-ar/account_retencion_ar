@@ -1,0 +1,185 @@
+<?xml version="1.0"?>
+<!-- This file is part of the account_retencion_ar module for Tryton.
+The COPYRIGHT file at the top level of this repository contains
+the full copyright notices and license terms. -->
+<tryton>
+    <data>
+
+        <record model="ir.ui.view" id="account_retencion_form">
+            <field name="model">account.retencion</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form string="Retencion">
+                    <label name="name"/>
+                    <field name="name"/>
+                    <label name="account"/>
+                    <field name="account"/>
+                    <label name="type"/>
+                    <field name="type"/>
+
+                </form>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_retencion_tree">
+            <field name="model">account.retencion</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Retencion Efectuada">
+                    <field name="name"/>
+                    <field name="account"/>
+                    <field name="type"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_retencion_tree">
+            <field name="name">Retenciones</field>
+            <field name="res_model">account.retencion</field>
+        </record>
+
+        <record model="ir.action.act_window.view"
+            id="act_retencion_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_retencion_tree"/>
+            <field name="act_window" ref="act_retencion_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_retencion_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_retencion_form"/>
+            <field name="act_window" ref="act_retencion_tree"/>
+        </record>
+
+        <menuitem parent="account.menu_account_configuration"
+            action="act_retencion_tree"
+            id="menu_retencion_configuration" sequence="50"/>
+
+        <menuitem name="Retenciones" parent="account.menu_account"
+            id="menu_retenciones" sequence="22"/>
+
+    <!-- Retencion Efectuada -->
+
+        <record model="ir.ui.view" id="account_retencion_efectuada_form">
+            <field name="model">account.retencion.efectuada</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form string="Retencion Efectuada">
+                    <label name="name"/>
+                    <field name="name"/>
+                    <label name="amount"/>
+                    <field name="amount"/>
+                    <label name="aliquot"/>
+                    <field name="aliquot"/>
+                    <label name="date"/>
+                    <field name="date"/>
+                    <label name="tax"/>
+                    <field name="tax" widget="selection"/>
+                    <label name="party"/>
+                    <field name="party"/>
+                </form>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_retencion_efectuada_tree">
+            <field name="model">account.retencion.efectuada</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Retencion Efectuada">
+                    <field name="name"/>
+                    <field name="amount"/>
+                    <field name="aliquot"/>
+                    <field name="date"/>
+                    <field name="tax"/>
+                    <field name="party"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_retencion_efectuada_tree">
+            <field name="name">Retenciones Efectuadas</field>
+            <field name="res_model">account.retencion.efectuada</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_retencion_efectuada_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_retencion_efectuada_tree"/>
+            <field name="act_window" ref="act_retencion_efectuada_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_retencion_efectuada_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_retencion_efectuada_form"/>
+            <field name="act_window" ref="act_retencion_efectuada_tree"/>
+        </record>
+        <menuitem parent="menu_retenciones" action="act_retencion_efectuada_tree"
+            id="menu_retencion_efectuada" sequence="5"/>
+
+    <!-- Retencion Soportada -->
+
+        <record model="ir.ui.view" id="account_retencion_soportada_form">
+            <field name="model">account.retencion.soportada</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <form string="Retencion Soportada">
+                    <label name="name"/>
+                    <field name="name"/>
+                    <label name="amount"/>
+                    <field name="amount"/>
+                    <label name="date"/>
+                    <field name="date"/>
+                    <label name="tax"/>
+                    <field name="tax" widget="selection"/>
+                    <label name="party"/>
+                    <field name="party"/>
+                </form>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="account_retencion_soportada_tree">
+            <field name="model">account.retencion.soportada</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <![CDATA[
+                <tree string="Retencion Soportada">
+                    <field name="name"/>
+                    <field name="amount"/>
+                    <field name="date"/>
+                    <field name="tax"/>
+                    <field name="party"/>
+                </tree>
+                ]]>
+            </field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_retencion_soportada_tree">
+            <field name="name">Retenciones Soportadas</field>
+            <field name="res_model">account.retencion.soportada</field>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_retencion_soportada_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account_retencion_soportada_tree"/>
+            <field name="act_window" ref="act_retencion_soportada_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_retencion_soportada_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account_retencion_soportada_form"/>
+            <field name="act_window" ref="act_retencion_soportada_tree"/>
+        </record>
+        <menuitem parent="menu_retenciones" action="act_retencion_soportada_tree"
+            id="menu_retencion_soportada" sequence="10"/>
+
+    </data>
+</tryton>
