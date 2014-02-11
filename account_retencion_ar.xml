@@ -8,33 +8,13 @@ the full copyright notices and license terms. -->
         <record model="ir.ui.view" id="account_retencion_form">
             <field name="model">account.retencion</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Retencion">
-                    <label name="name"/>
-                    <field name="name"/>
-                    <label name="account"/>
-                    <field name="account"/>
-                    <label name="type"/>
-                    <field name="type"/>
-
-                </form>
-                ]]>
-            </field>
+            <field name="name">account_retencion_form</field>
         </record>
 
         <record model="ir.ui.view" id="account_retencion_tree">
             <field name="model">account.retencion</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Retencion Efectuada">
-                    <field name="name"/>
-                    <field name="account"/>
-                    <field name="type"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">account_retencion_tree</field>
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_tree">
@@ -67,41 +47,13 @@ the full copyright notices and license terms. -->
         <record model="ir.ui.view" id="account_retencion_efectuada_form">
             <field name="model">account.retencion.efectuada</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Retencion Efectuada">
-                    <label name="name"/>
-                    <field name="name"/>
-                    <label name="amount"/>
-                    <field name="amount"/>
-                    <label name="aliquot"/>
-                    <field name="aliquot"/>
-                    <label name="date"/>
-                    <field name="date"/>
-                    <label name="tax"/>
-                    <field name="tax" widget="selection"/>
-                    <label name="party"/>
-                    <field name="party"/>
-                </form>
-                ]]>
-            </field>
+            <field name="name">account_retencion_efectuada_form</field>
         </record>
 
         <record model="ir.ui.view" id="account_retencion_efectuada_tree">
             <field name="model">account.retencion.efectuada</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Retencion Efectuada">
-                    <field name="name"/>
-                    <field name="amount"/>
-                    <field name="aliquot"/>
-                    <field name="date"/>
-                    <field name="tax"/>
-                    <field name="party"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">account_retencion_efectuada_tree</field>
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_efectuada_tree">
@@ -128,38 +80,13 @@ the full copyright notices and license terms. -->
         <record model="ir.ui.view" id="account_retencion_soportada_form">
             <field name="model">account.retencion.soportada</field>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <form string="Retencion Soportada">
-                    <label name="name"/>
-                    <field name="name"/>
-                    <label name="amount"/>
-                    <field name="amount"/>
-                    <label name="date"/>
-                    <field name="date"/>
-                    <label name="tax"/>
-                    <field name="tax" widget="selection"/>
-                    <label name="party"/>
-                    <field name="party"/>
-                </form>
-                ]]>
-            </field>
+            <field name="name">account_retencion_soportada_form</field>
         </record>
 
         <record model="ir.ui.view" id="account_retencion_soportada_tree">
             <field name="model">account.retencion.soportada</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Retencion Soportada">
-                    <field name="name"/>
-                    <field name="amount"/>
-                    <field name="date"/>
-                    <field name="tax"/>
-                    <field name="party"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">account_retencion_soportada_tree</field>
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_soportada_tree">

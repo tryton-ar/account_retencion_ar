@@ -9,52 +9,19 @@ the full copyright notices and license terms. -->
             <field name="model">account.voucher</field>
             <field name="inherit" ref="account_voucher_ar.account_voucher_form"/>
             <field name="type">form</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <data>
-
-                    <xpath
-                        expr="/form/notebook/page[@id=&quot;pay_lines&quot;]"
-                        position="after">
-                        <page string="Retenciones" id="retenciones" col="6">
-                            <field name="retenciones_efectuadas" mode="tree" colspan="6"
-                                view_ids="account_retencion_ar.retenciones_efectuadas_view_tree"/>
-                            <field name="retenciones_soportadas" mode="tree" colspan="6"
-                                view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
-                        </page>
-                    </xpath>
-
-                </data>
-                ]]>
-            </field>
+            <field name="name">voucher_retencion_form</field>
         </record>
 
         <record model="ir.ui.view" id="retenciones_efectuadas_view_tree">
             <field name="model">account.retencion.efectuada</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Retenciones Efectuadas">
-                    <field name="name"/>
-                    <field name="tax"/>
-                    <field name="amount"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">retenciones_efectuadas_tree</field>
         </record>
 
         <record model="ir.ui.view" id="retenciones_soportadas_view_tree">
             <field name="model">account.retencion.soportada</field>
             <field name="type">tree</field>
-            <field name="arch" type="xml">
-                <![CDATA[
-                <tree string="Retenciones Soportadas">
-                    <field name="name"/>
-                    <field name="tax"/>
-                    <field name="amount"/>
-                </tree>
-                ]]>
-            </field>
+            <field name="name">retenciones_soportadas_tree</field>
         </record>
 
     </data>
