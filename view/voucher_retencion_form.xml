@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- This file is part of the account_retencion_ar module for Tryton.
+The COPYRIGHT file at the top level of this repository contains
+the full copyright notices and license terms. -->
+<data>
+    <xpath
+        expr="/form/notebook/page[@id=&quot;pay_lines&quot;]"
+        position="after">
+        <page string="Retenciones" id="retenciones" col="6">
+            <field name="retenciones_efectuadas" mode="tree" colspan="6"
+                view_ids="account_retencion_ar.retenciones_efectuadas_view_tree"/>
+            <field name="retenciones_soportadas" mode="tree" colspan="6"
+                view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
+        </page>
+    </xpath>
+</data>
