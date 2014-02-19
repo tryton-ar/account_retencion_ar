@@ -58,7 +58,7 @@ class AccountVoucher:
                         'account': retencion.tax.account.id,
                         'move': self.move.id,
                         'journal': self.journal.id,
-                        'period': Period.find(1, date=self.date),
+                        'period': Period.find(self.company.id, date=self.date),
                         'party': self.party.id,
                     })
 
@@ -71,7 +71,7 @@ class AccountVoucher:
                         'account': retencion.tax.account.id,
                         'move': self.move.id,
                         'journal': self.journal.id,
-                        'period': Period.find(1, date=self.date),
+                        'period': Period.find(self.company.id, date=self.date),
                         'party': self.party.id,
                     })
 
