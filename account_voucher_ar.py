@@ -86,10 +86,10 @@ class AccountVoucher:
 
         for voucher in vouchers:
             if voucher.retenciones_soportadas:
-                RetencionSoportada.write(voucher.retenciones_soportadas, {
+                RetencionSoportada.write(list(voucher.retenciones_soportadas), {
                     'party': voucher.party.id,
                 })
             if voucher.retenciones_efectuadas:
-                RetencionEfectuada.write(voucher.retenciones_efectuadas, {
+                RetencionEfectuada.write(list(voucher.retenciones_efectuadas), {
                     'party': voucher.party.id,
                 })
