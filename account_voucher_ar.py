@@ -33,9 +33,10 @@ class AccountVoucher:
             #'no_journal_check_account': 'You need to define a check account '
                 #'in the journal "%s",',
             #})
-        cls.amount.on_change_with.extend(['retenciones_efectuadas',
-            'retenciones_soportadas'])
 
+    @fields.depends('party', 'pay_lines', 'lines_credits', 'lines_debits',
+        'issued_check', 'third_check', 'third_pay_checks', 
+        'retenciones_efectuadas', 'retenciones_soportadas')
     def on_change_with_amount(self, name=None):
         amount = super(AccountVoucher, self).on_change_with_amount(name)
         if self.retenciones_efectuadas:
