@@ -25,19 +25,18 @@ minor_version = int(minor_version)
 requires = []
 for dep in info.get('depends', []):
     if not re.match(r'(ir|res|webdav)(\W|$)', dep):
-        requires.append('trytond_%s >= %s.%s, < %s.%s' %
+        requires.append('trytonar_%s >= %s.%s, < %s.%s' %
                 (dep, major_version, minor_version, major_version,
                     minor_version + 1))
 requires.append('trytond >= %s.%s, < %s.%s' %
         (major_version, minor_version, major_version, minor_version + 1))
 
-setup(name='trytond_account_retencion_ar',
+setup(name='trytonar_account_retencion_ar',
     version=info.get('version', '0.0.1'),
     description='Tryton module with accounting withholding for Argentina',
     long_description=read('README'),
-    author='Thymbra',
-    author_email='info@thymbra.com',
-    url='http://www.thymbra.com/',
+    author='tryton-ar',
+    url='https://bitbucket.org/thymbra/account_retencion_ar',
     package_dir={'trytond.modules.account_retencion_ar': '.'},
     packages=[
         'trytond.modules.account_retencion_ar',
@@ -48,7 +47,7 @@ setup(name='trytond_account_retencion_ar',
                 'icons/*.svg']),
         },
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Environment :: Plugins',
         'Framework :: Tryton',
         'Intended Audience :: Developers',
@@ -58,7 +57,6 @@ setup(name='trytond_account_retencion_ar',
         'Natural Language :: English',
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7',
         'Topic :: Office/Business',
         'Topic :: Office/Business :: Financial :: Accounting',
