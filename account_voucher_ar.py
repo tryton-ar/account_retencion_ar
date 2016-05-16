@@ -3,7 +3,7 @@
 #the full copyright notices and license terms.
 from decimal import Decimal
 from trytond.model import ModelView, fields
-from trytond.pyson import Eval, In, Not
+from trytond.pyson import Eval, In, Not, Or
 from trytond.pool import Pool, PoolMeta
 
 __all__ = ['AccountVoucher']
@@ -17,14 +17,18 @@ class AccountVoucher:
         'voucher', 'Retenciones Efectuadas',
         states={
             'invisible': Not(In(Eval('voucher_type'), ['payment'])),
-            'readonly': In(Eval('state'), ['posted']),
-        })
+            'readonly': Or(
+                            In(Eval('state'), ['posted']), 
+                            Not(In(Eval('currency_code'), ['ARS']))),
+            })
     retenciones_soportadas = fields.One2Many('account.retencion.soportada',
         'voucher', 'Retenciones Soportadas',
         states={
             'invisible': Not(In(Eval('voucher_type'), ['receipt'])),
-            'readonly': In(Eval('state'), ['posted']),
-        })
+            'readonly': Or(
+                            In(Eval('state'), ['posted']), 
+                            Not(In(Eval('currency_code'), ['ARS']))),
+            })
 
     @classmethod
     def __setup__(cls):
@@ -60,7 +64,6 @@ class AccountVoucher:
                         'move': self.move.id,
                         'journal': self.journal.id,
                         'period': Period.find(self.company.id, date=self.date),
-                        'party': self.party.id,
                     })
 
         if self.voucher_type == 'payment':
@@ -73,7 +76,6 @@ class AccountVoucher:
                         'move': self.move.id,
                         'journal': self.journal.id,
                         'period': Period.find(self.company.id, date=self.date),
-                        'party': self.party.id,
                     })
 
         return move_lines
