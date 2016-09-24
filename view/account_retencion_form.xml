@@ -9,4 +9,6 @@ the full copyright notices and license terms. -->
     <field name="account"/>
     <label name="type"/>
     <field name="type"/>
+    <label name="sequence"/>
+    <field name="sequence"/>
 </form>

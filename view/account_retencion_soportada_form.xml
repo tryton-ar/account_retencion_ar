@@ -13,4 +13,6 @@ the full copyright notices and license terms. -->
     <field name="tax" widget="selection"/>
     <label name="party"/>
     <field name="party"/>
+    <label name="state"/>
+    <field name="state"/>
 </form>

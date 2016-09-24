@@ -9,4 +9,5 @@ the full copyright notices and license terms. -->
     <field name="date"/>
     <field name="tax"/>
     <field name="party"/>
+    <field name="state"/>
 </tree>

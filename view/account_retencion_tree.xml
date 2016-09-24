@@ -6,4 +6,5 @@ the full copyright notices and license terms. -->
     <field name="name"/>
     <field name="account"/>
     <field name="type"/>
+    <field name="sequence"/>
 </tree>

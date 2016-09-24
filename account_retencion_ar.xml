@@ -5,12 +5,27 @@ the full copyright notices and license terms. -->
 <tryton>
     <data>
 
+        <!-- Sequences for Retencion -->
+        <record id="seq_type_account_retencion" model="ir.sequence.type">
+            <field name="name">Account Retencion</field>
+            <field name="code">account.retencion</field>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_account_retencion_group_admin">
+            <field name="sequence_type" ref="seq_type_account_retencion"/>
+            <field name="group" ref="res.group_admin"/>
+        </record>
+        <record model="ir.sequence.type-res.group"
+            id="seq_type_account_retencion_group_account_admin">
+            <field name="sequence_type" ref="seq_type_account_retencion"/>
+            <field name="group" ref="account.group_account_admin"/>
+        </record>
+
         <record model="ir.ui.view" id="account_retencion_form">
             <field name="model">account.retencion</field>
             <field name="type">form</field>
             <field name="name">account_retencion_form</field>
         </record>
-
         <record model="ir.ui.view" id="account_retencion_tree">
             <field name="model">account.retencion</field>
             <field name="type">tree</field>
@@ -21,7 +36,6 @@ the full copyright notices and license terms. -->
             <field name="name">Retenciones</field>
             <field name="res_model">account.retencion</field>
         </record>
-
         <record model="ir.action.act_window.view"
             id="act_retencion_tree_view1">
             <field name="sequence" eval="10"/>
@@ -49,7 +63,6 @@ the full copyright notices and license terms. -->
             <field name="type">form</field>
             <field name="name">account_retencion_efectuada_form</field>
         </record>
-
         <record model="ir.ui.view" id="account_retencion_efectuada_tree">
             <field name="model">account.retencion.efectuada</field>
             <field name="type">tree</field>
@@ -82,7 +95,6 @@ the full copyright notices and license terms. -->
             <field name="type">form</field>
             <field name="name">account_retencion_soportada_form</field>
         </record>
-
         <record model="ir.ui.view" id="account_retencion_soportada_tree">
             <field name="model">account.retencion.soportada</field>
             <field name="type">tree</field>

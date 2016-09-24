@@ -1,6 +1,14 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "error:account.retencion.efectuada:"
+msgid "You cannot delete retention \"%s\" because it is associated to a voucher"
+msgstr "No puede eliminar la retención «%s» porque está asociada a un Pago"
+
+msgctxt "error:account.retencion.soportada:"
+msgid "You cannot delete retention \"%s\" because it is associated to a voucher"
+msgstr "No puede eliminar la retención «%s» porque está asociada a un Recibo"
 
 msgctxt "field:account.retencion,account:"
 msgid "Account"
@@ -14,7 +22,6 @@ msgctxt "field:account.retencion,create_uid:"
 msgid "Create User"
 msgstr "Usuario creación"
 
-#, fuzzy
 msgctxt "field:account.retencion,id:"
 msgid "ID"
 msgstr "ID"
@@ -26,6 +33,10 @@ msgstr "Nombre"
 msgctxt "field:account.retencion,rec_name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:account.retencion,sequence:"
+msgid "Retencion Sequence"
+msgstr "Secuencia"
 
 msgctxt "field:account.retencion,type:"
 msgid "Type"
@@ -67,6 +78,10 @@ msgctxt "field:account.retencion.efectuada,name:"
 msgid "Number"
 msgstr "Número"
 
+msgctxt "field:account.retencion.efectuada,name_required:"
+msgid "Name Required"
+msgstr "Número Requerido"
+
 msgctxt "field:account.retencion.efectuada,party:"
 msgid "Party"
 msgstr "Tercero"
@@ -74,6 +89,10 @@ msgstr "Tercero"
 msgctxt "field:account.retencion.efectuada,rec_name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:account.retencion.efectuada,state:"
+msgid "State"
+msgstr "Estado"
 
 msgctxt "field:account.retencion.efectuada,tax:"
 msgid "Tax"
@@ -87,7 +106,6 @@ msgctxt "field:account.retencion.efectuada,write_date:"
 msgid "Write Date"
 msgstr "Fecha modificación"
 
-#, fuzzy
 msgctxt "field:account.retencion.efectuada,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
@@ -100,7 +118,6 @@ msgctxt "field:account.retencion.soportada,create_date:"
 msgid "Create Date"
 msgstr "Fecha de Creación"
 
-#, fuzzy
 msgctxt "field:account.retencion.soportada,create_uid:"
 msgid "Create User"
 msgstr "Usuario creación"
@@ -109,7 +126,6 @@ msgctxt "field:account.retencion.soportada,date:"
 msgid "Date"
 msgstr "Fecha"
 
-#, fuzzy
 msgctxt "field:account.retencion.soportada,id:"
 msgid "ID"
 msgstr "ID"
@@ -125,6 +141,10 @@ msgstr "Tercero"
 msgctxt "field:account.retencion.soportada,rec_name:"
 msgid "Name"
 msgstr "Nombre"
+
+msgctxt "field:account.retencion.soportada,state:"
+msgid "State"
+msgstr "Estado"
 
 msgctxt "field:account.retencion.soportada,tax:"
 msgid "Tax"
@@ -342,41 +362,13 @@ msgctxt "field:account.voucher.paymode,write_uid:"
 msgid "Write User"
 msgstr "Usuario modificación"
 
-msgctxt "field:account.voucher.sequence,create_date:"
-msgid "Create Date"
-msgstr "Fecha de Creación"
-
-msgctxt "field:account.voucher.sequence,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:account.voucher.sequence,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:account.voucher.sequence,rec_name:"
-msgid "Name"
-msgstr "Nombre del campo"
-
-msgctxt "field:account.voucher.sequence,voucher_sequence:"
-msgid "Voucher Sequence"
-msgstr "Secuencia de comprobante"
-
-msgctxt "field:account.voucher.sequence,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:account.voucher.sequence,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "help:account.voucher,number:"
 msgid "Voucher Number"
 msgstr "Número"
 
 msgctxt "model:account.retencion,name:"
 msgid "Account Retencion"
-msgstr ""
+msgstr "Retención"
 
 msgctxt "model:account.retencion.efectuada,name:"
 msgid "Account Retencion Efectuada"
@@ -402,10 +394,6 @@ msgctxt "model:account.voucher.paymode,name:"
 msgid "Account Voucher Pay Mode"
 msgstr "Forma de Pago"
 
-msgctxt "model:account.voucher.sequence,name:"
-msgid "Account Voucher Sequence"
-msgstr "Secuencia de comprobante"
-
 msgctxt "model:ir.action,name:act_retencion_efectuada_tree"
 msgid "Retenciones Efectuadas"
 msgstr ""
@@ -417,6 +405,10 @@ msgstr ""
 msgctxt "model:ir.action,name:act_retencion_tree"
 msgid "Retenciones"
 msgstr ""
+
+msgctxt "model:ir.sequence.type,name:seq_type_account_retencion"
+msgid "Account Retencion"
+msgstr "Retención"
 
 msgctxt "model:ir.ui.menu,name:menu_retencion_configuration"
 msgid "Retenciones"
@@ -441,6 +433,30 @@ msgstr ""
 msgctxt "selection:account.retencion,type:"
 msgid "Soportada"
 msgstr ""
+
+msgctxt "selection:account.retencion.efectuada,state:"
+msgid "Canceled"
+msgstr "Cancelada"
+
+msgctxt "selection:account.retencion.efectuada,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.retencion.efectuada,state:"
+msgid "Issued"
+msgstr "Emitida"
+
+msgctxt "selection:account.retencion.soportada,state:"
+msgid "Canceled"
+msgstr "Cancelada"
+
+msgctxt "selection:account.retencion.soportada,state:"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "selection:account.retencion.soportada,state:"
+msgid "Held"
+msgstr "En cartera"
 
 msgctxt "selection:account.voucher,state:"
 msgid "Draft"

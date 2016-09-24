@@ -15,4 +15,3 @@ def register():
         AccountRetencionSoportada,
         AccountVoucher,
         module='account_retencion_ar', type_='model')
-
