@@ -1,17 +1,18 @@
-#This file is part of the account_retencion_ar module for Tryton.
-#The COPYRIGHT file at the top level of this repository contains
-#the full copyright notices and license terms.
+# This file is part of the account_retencion_ar module for Tryton.
+# The COPYRIGHT file at the top level of this repository contains
+# the full copyright notices and license terms.
 from decimal import Decimal
+
 from trytond.model import ModelView, fields
 from trytond.pyson import Eval, In, Not, Or
 from trytond.pool import Pool, PoolMeta
 
 __all__ = ['AccountVoucher']
-__metaclass__ = PoolMeta
 
 
 class AccountVoucher:
     __name__ = 'account.voucher'
+    __metaclass__ = PoolMeta
 
     retenciones_efectuadas = fields.One2Many('account.retencion.efectuada',
         'voucher', 'Retenciones Efectuadas',
