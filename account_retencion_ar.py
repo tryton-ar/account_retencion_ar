@@ -3,15 +3,19 @@
 # the full copyright notices and license terms.
 from decimal import Decimal
 
+from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval, Bool, Not
 from trytond.pool import Pool
+from trytond.tools.multivalue import migrate_property
+from trytond.modules.company.model import (
+    CompanyMultiValueMixin, CompanyValueMixin)
 
-__all__ = ['AccountRetencion', 'AccountRetencionEfectuada',
-    'AccountRetencionSoportada']
+__all__ = ['AccountRetencion', 'AccountRetencionSequence',
+    'AccountRetencionEfectuada', 'AccountRetencionSoportada']
 
 
-class AccountRetencion(ModelSQL, ModelView):
+class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
     "Account Retencion"
     __name__ = 'account.retencion'
 
@@ -21,15 +25,55 @@ class AccountRetencion(ModelSQL, ModelView):
         ('efectuada', 'Efectuada'),
         ('soportada', 'Soportada'),
         ], 'Type', required=True)
-    sequence = fields.Property(fields.Many2One('ir.sequence',
-        'Retencion Sequence',
+    sequence = fields.MultiValue(fields.Many2One(
+        'ir.sequence', 'Retencion Sequence',
+        domain=[
+            ('company', 'in',
+                [Eval('context', {}).get('company', -1), None]),
+            ('code', '=', 'account.retencion'),
+            ],
         states={
             'invisible': Eval('type') != 'efectuada',
-            }, depends=['type'],
-        domain=[
+            }, depends=['type']))
+
+    @classmethod
+    def multivalue_model(cls, field):
+        pool = Pool()
+        if field == 'sequence':
+            return pool.get('account.retencion.sequence')
+        return super(AccountRetencion, cls).multivalue_model(field)
+
+
+class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
+    "Account Retencion Sequence"
+    __name__ = 'account.retencion.sequence'
+
+    retencion = fields.Many2One('account.retencion', 'Account Retencion',
+        ondelete='CASCADE', select=True)
+    sequence = fields.Many2One('ir.sequence',
+        'Retencion Sequence', depends=['company'], domain=[
+            ('company', 'in', [Eval('company', -1), None]),
             ('code', '=', 'account.retencion'),
-            ('company', 'in', [Eval('context', {}).get('company'), None]),
-            ]))
+            ])
+
+    @classmethod
+    def __register__(cls, module_name):
+        TableHandler = backend.get('TableHandler')
+        exist = TableHandler.table_exist(cls._table)
+
+        super(AccountRetencionSequence, cls).__register__(module_name)
+
+        if not exist:
+            cls._migrate_property([], [], [])
+
+    @classmethod
+    def _migrate_property(cls, field_names, value_names, fields):
+        field_names.append('sequence')
+        value_names.append('sequence')
+        fields.append('company')
+        migrate_property(
+            'account.retencion', field_names, cls, value_names,
+            parent='retencion', fields=fields)
 
 
 class AccountRetencionEfectuada(ModelSQL, ModelView):

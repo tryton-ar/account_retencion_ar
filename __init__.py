@@ -10,6 +10,7 @@ from .account_voucher_ar import *
 def register():
     Pool.register(
         AccountRetencion,
+        AccountRetencionSequence,
         AccountRetencionEfectuada,
         AccountRetencionSoportada,
         AccountVoucher,
