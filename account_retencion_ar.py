@@ -35,6 +35,8 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
         states={
             'invisible': Eval('type') != 'efectuada',
             }, depends=['type']))
+    sequences = fields.One2Many('account.retencion.sequence',
+        'retencion', 'Sequences')
 
     @classmethod
     def multivalue_model(cls, field):
