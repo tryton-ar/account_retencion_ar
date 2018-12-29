@@ -10,9 +10,8 @@ from trytond.pool import Pool, PoolMeta
 __all__ = ['AccountVoucher']
 
 
-class AccountVoucher:
+class AccountVoucher(metaclass=PoolMeta):
     __name__ = 'account.voucher'
-    __metaclass__ = PoolMeta
 
     retenciones_efectuadas = fields.One2Many('account.retencion.efectuada',
         'voucher', 'Retenciones Efectuadas',

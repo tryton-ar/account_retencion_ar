@@ -4,7 +4,7 @@ Installing trytond_account_retencion_ar
 Prerequisites
 -------------
 
- * Python 2.6 or later (http://www.python.org/)
+ * Python 3.4 or later (http://www.python.org/)
  * trytond (http://www.tryton.org/)
  * account_voucher_ar (https://bitbucket.org/thymbra/account_voucher_ar)
 
