@@ -7,9 +7,9 @@ the full copyright notices and license terms. -->
         expr="/form/notebook/page[@id=&quot;pay_lines&quot;]"
         position="after">
         <page string="Retenciones" id="retenciones" col="6">
-            <field name="retenciones_efectuadas" mode="tree" colspan="6"
+            <field name="retenciones_efectuadas" colspan="6"
                 view_ids="account_retencion_ar.retenciones_efectuadas_view_tree"/>
-            <field name="retenciones_soportadas" mode="tree" colspan="6"
+            <field name="retenciones_soportadas" colspan="6"
                 view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
         </page>
     </xpath>
