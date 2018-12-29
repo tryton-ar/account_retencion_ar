@@ -19,16 +19,16 @@ class AccountVoucher:
         states={
             'invisible': Not(In(Eval('voucher_type'), ['payment'])),
             'readonly': Or(
-                            In(Eval('state'), ['posted']),
-                            Not(In(Eval('currency_code'), ['ARS']))),
+                In(Eval('state'), ['posted']),
+                Not(In(Eval('currency_code'), ['ARS']))),
             })
     retenciones_soportadas = fields.One2Many('account.retencion.soportada',
         'voucher', 'Retenciones Soportadas',
         states={
             'invisible': Not(In(Eval('voucher_type'), ['receipt'])),
             'readonly': Or(
-                            In(Eval('state'), ['posted']),
-                            Not(In(Eval('currency_code'), ['ARS']))),
+                In(Eval('state'), ['posted']),
+                Not(In(Eval('currency_code'), ['ARS']))),
             })
 
     @fields.depends('party', 'pay_lines', 'lines_credits', 'lines_debits',
