@@ -2,8 +2,8 @@
 # this repository contains the full copyright notices and license terms.
 
 try:
-    from trytond.modules.account_retencion_ar.tests.tests import suite
+    from trytond.modules.account_retencion_ar.tests.test_account_retencion_ar import suite
 except ImportError:
-    from .tests import suite
+    from .test_account_retencion_ar import suite
 
 __all__ = ['suite']
