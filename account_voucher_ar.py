@@ -37,10 +37,12 @@ class AccountVoucher(metaclass=PoolMeta):
         amount = super(AccountVoucher, self).on_change_with_amount(name)
         if self.retenciones_efectuadas:
             for retencion in self.retenciones_efectuadas:
-                amount += retencion.amount
+                if retencion.amount:
+                    amount += retencion.amount
         if self.retenciones_soportadas:
             for retencion in self.retenciones_soportadas:
-                amount += retencion.amount
+                if retencion.amount:
+                    amount += retencion.amount
         return amount
 
     def prepare_move_lines(self):
