@@ -30,6 +30,14 @@ class AccountVoucher(metaclass=PoolMeta):
                 Not(In(Eval('currency_code'), ['ARS']))),
             })
 
+    @classmethod
+    def __setup__(cls):
+        super(AccountVoucher, cls).__setup__()
+        cls._error_messages.update({
+            'missing_retencion_seq': 'You must set a sequence to '
+                'Retencion efecutada.',
+        })
+
     @fields.depends('party', 'pay_lines', 'lines_credits', 'lines_debits',
         'issued_check', 'third_check', 'third_pay_checks',
         'retenciones_efectuadas', 'retenciones_soportadas')
@@ -95,6 +103,9 @@ class AccountVoucher(metaclass=PoolMeta):
                     })
             if voucher.retenciones_efectuadas:
                 for retencion in voucher.retenciones_efectuadas:
+                    if not retencion.tax.sequence:
+                        cls.raise_user_error('missing_retencion_seq')
+
                     RetencionEfectuada.write([retencion], {
                         'party': voucher.party.id,
                         'name': Sequence.get_id(retencion.tax.sequence.id),
