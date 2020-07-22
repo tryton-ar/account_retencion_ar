@@ -44,8 +44,9 @@ major_version = int(major_version)
 minor_version = int(minor_version)
 name = 'trytonar_account_retencion_ar'
 
-download_url = 'https://github.com/tryton-ar/account_retencion_ar/tree/%s.%s' % (
-    major_version, minor_version)
+download_url = (
+    'https://github.com/tryton-ar/account_retencion_ar/tree/%s.%s' % (
+        major_version, minor_version))
 if minor_version % 2:
     version = '%s.%s.dev0' % (major_version, minor_version)
     download_url = 'git+http://github.com/tryton-ar/%s#egg=%s-%s' % (
