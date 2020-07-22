@@ -6,6 +6,8 @@ from decimal import Decimal
 from trytond.model import ModelView, fields
 from trytond.pyson import Eval, In, Not, Or
 from trytond.pool import Pool, PoolMeta
+from trytond.exceptions import UserError
+from trytond.i18n import gettext
 
 __all__ = ['AccountVoucher']
 
@@ -29,14 +31,6 @@ class AccountVoucher(metaclass=PoolMeta):
                 In(Eval('state'), ['posted']),
                 Not(In(Eval('currency_code'), ['ARS']))),
             })
-
-    @classmethod
-    def __setup__(cls):
-        super(AccountVoucher, cls).__setup__()
-        cls._error_messages.update({
-            'missing_retencion_seq': 'You must set a sequence to '
-                'Retencion efecutada.',
-        })
 
     @fields.depends('party', 'pay_lines', 'lines_credits', 'lines_debits',
         'issued_check', 'third_check', 'third_pay_checks',
@@ -104,7 +98,8 @@ class AccountVoucher(metaclass=PoolMeta):
             if voucher.retenciones_efectuadas:
                 for retencion in voucher.retenciones_efectuadas:
                     if not retencion.tax.sequence:
-                        cls.raise_user_error('missing_retencion_seq')
+                        raise UserError(gettext(
+                            'account_retencion_ar.msg_missing_retencion_seq'))
 
                     RetencionEfectuada.write([retencion], {
                         'party': voucher.party.id,

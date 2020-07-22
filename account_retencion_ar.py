@@ -7,6 +7,8 @@ from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pyson import Eval, Bool, Not
 from trytond.pool import Pool
+from trytond.exceptions import UserError
+from trytond.i18n import gettext
 from trytond.tools.multivalue import migrate_property
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
@@ -103,14 +105,6 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
         ('canceled', 'Canceled'),
         ], 'State', readonly=True)
 
-    @classmethod
-    def __setup__(cls):
-        super(AccountRetencionEfectuada, cls).__setup__()
-        cls._error_messages.update({
-            'not_delete': ('You cannot delete retention "%s" because '
-                'it is associated to a voucher'),
-            })
-
     @staticmethod
     def default_amount():
         return Decimal('0.00')
@@ -139,7 +133,9 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
     def check_delete(cls, retenciones):
         for retencion in retenciones:
             if retencion.voucher:
-                cls.raise_user_error('not_delete', (retencion.name,))
+                raise UserError(gettext(
+                    'account_retencion_ar.msg_not_delete',
+                    retention=retencion.name))
 
     @classmethod
     def copy(cls, retenciones, default=None):
@@ -170,14 +166,6 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
         ('canceled', 'Canceled'),
         ], 'State', readonly=True)
 
-    @classmethod
-    def __setup__(cls):
-        super(AccountRetencionSoportada, cls).__setup__()
-        cls._error_messages.update({
-            'not_delete': ('You cannot delete retention "%s" because '
-                'it is associated to a voucher'),
-            })
-
     @staticmethod
     def default_amount():
         return Decimal('0.00')
@@ -200,7 +188,9 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
     def check_delete(cls, retenciones):
         for retencion in retenciones:
             if retencion.voucher:
-                cls.raise_user_error('not_delete', (retencion.name,))
+                raise UserError(gettext(
+                    'account_invoice_ar.msg_not_delete',
+                    retention=retencion.name))
 
     @classmethod
     def copy(cls, retenciones, default=None):

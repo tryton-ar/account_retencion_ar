@@ -2,14 +2,6 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
-msgctxt "error:account.retencion.efectuada:"
-msgid "You cannot delete retention \"%s\" because it is associated to a voucher"
-msgstr "No puede eliminar la retención «%s» porque está asociada a un Pago"
-
-msgctxt "error:account.retencion.soportada:"
-msgid "You cannot delete retention \"%s\" because it is associated to a voucher"
-msgstr "No puede eliminar la retención «%s» porque está asociada a un Recibo"
-
 msgctxt "field:account.retencion,account:"
 msgid "Account"
 msgstr "Cuenta contable"
@@ -449,6 +441,14 @@ msgstr ""
 msgctxt "model:ir.action,name:act_retencion_tree"
 msgid "Retenciones"
 msgstr "Retenciones"
+
+msgctxt "model:ir.message,text:msg_not_delete"
+msgid ""
+"You cannot delete retention \"%(retention)s\" because it is associated to a "
+"voucher"
+msgstr ""
+"No puede eliminar la retención \"%(retention)s\" porque está asociada a un "
+"Comprobante"
 
 msgctxt "model:ir.sequence.type,name:seq_type_account_retencion"
 msgid "Account Retencion"
