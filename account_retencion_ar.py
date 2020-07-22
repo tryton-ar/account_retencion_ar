@@ -189,7 +189,7 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
         for retencion in retenciones:
             if retencion.voucher:
                 raise UserError(gettext(
-                    'account_invoice_ar.msg_not_delete',
+                    'account_retencion_ar.msg_not_delete',
                     retention=retencion.name))
 
     @classmethod
