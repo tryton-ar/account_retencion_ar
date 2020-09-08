@@ -7,8 +7,10 @@ import io
 import os
 import re
 from configparser import ConfigParser
-from setuptools import setup, find_packages
+from setuptools import setup
 
+MODULE = 'account_retencion_ar'
+PREFIX = 'trytonar'
 MODULE2PREFIX = {
     'account_voucher_ar': 'trytonar',
     }
@@ -33,7 +35,7 @@ def get_require_version(name):
 
 
 config = ConfigParser()
-config.read_file(open('tryton.cfg'))
+config.read_file(open(os.path.join(os.path.dirname(__file__), 'tryton.cfg')))
 info = dict(config.items('tryton'))
 for key in ('depends', 'extras_depend', 'xml'):
     if key in info:
@@ -42,21 +44,10 @@ version = info.get('version', '0.0.1')
 major_version, minor_version, _ = version.split('.', 2)
 major_version = int(major_version)
 minor_version = int(minor_version)
-name = 'trytonar_account_retencion_ar'
 
 download_url = (
     'https://github.com/tryton-ar/account_retencion_ar/tree/%s.%s' % (
         major_version, minor_version))
-if minor_version % 2:
-    version = '%s.%s.dev0' % (major_version, minor_version)
-    download_url = 'git+http://github.com/tryton-ar/%s#egg=%s-%s' % (
-        name.replace('trytonar', 'trytond'), name, version)
-local_version = []
-for build in ['CI_BUILD_NUMBER', 'CI_JOB_NUMBER', 'CI_JOB_ID']:
-    if os.environ.get(build):
-        local_version.append(os.environ[build])
-if local_version:
-    version += '+' + '.'.join(local_version)
 
 LINKS = {
     'trytonar_account_voucher_ar': ('git+https://github.com/tryton-ar/'
@@ -75,7 +66,7 @@ requires.append(get_require_version('trytond'))
 tests_require = [get_require_version('proteus')]
 dependency_links = list(LINKS.values())
 
-setup(name=name,
+setup(name='%s_%s' % (PREFIX, MODULE),
     version=version,
     description='',
     long_description=read('README.rst'),
@@ -89,14 +80,13 @@ setup(name=name,
         "Source Code": 'https://github.com/tryton-ar/account_retencion_ar',
         },
     keywords='tryton, account, retencion',
-    package_dir={'trytond.modules.account_retencion_ar': '.'},
-    packages=(
-        ['trytond.modules.account_retencion_ar'] +
-        ['trytond.modules.account_retencion_ar.%s' % p
-            for p in find_packages()]
-        ),
+    package_dir={'trytond.modules.%s' % MODULE: '.'},
+    packages=[
+        'trytond.modules.%s' % MODULE,
+        'trytond.modules.%s.tests' % MODULE,
+        ],
     package_data={
-        'trytond.modules.account_retencion_ar': (info.get('xml', []) + [
+        'trytond.modules.%s' % MODULE: (info.get('xml', []) + [
             'tryton.cfg', 'view/*.xml', 'locale/*.po', '*.fodt',
             'icons/*.svg', 'tests/*.rst']),
         },
@@ -107,8 +97,8 @@ setup(name=name,
         'Intended Audience :: Developers',
         'Intended Audience :: Financial and Insurance Industry',
         'Intended Audience :: Legal Industry',
-        'License :: OSI Approved :: GNU General Public License v3 or later'
-        ' (GPLv3+)',
+        'License :: OSI Approved :: '
+        'GNU General Public License v3 or later (GPLv3+)',
         'Natural Language :: English',
         'Natural Language :: Spanish',
         'Operating System :: OS Independent',
@@ -129,8 +119,8 @@ setup(name=name,
     zip_safe=False,
     entry_points="""
     [trytond.modules]
-    account_retencion_ar = trytond.modules.account_retencion_ar
-    """,
+    %s = trytond.modules.%s
+    """ % (MODULE, MODULE),
     test_suite='tests',
     test_loader='trytond.test_loader:Loader',
     tests_require=tests_require,
