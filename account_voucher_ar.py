@@ -36,7 +36,7 @@ class AccountVoucher(metaclass=PoolMeta):
         'issued_check', 'third_check', 'third_pay_checks',
         'retenciones_efectuadas', 'retenciones_soportadas')
     def on_change_with_amount(self, name=None):
-        amount = super(AccountVoucher, self).on_change_with_amount(name)
+        amount = super().on_change_with_amount(name)
         if self.retenciones_efectuadas:
             for retencion in self.retenciones_efectuadas:
                 if retencion.amount:
@@ -48,7 +48,7 @@ class AccountVoucher(metaclass=PoolMeta):
         return amount
 
     def prepare_move_lines(self):
-        move_lines = super(AccountVoucher, self).prepare_move_lines()
+        move_lines = super().prepare_move_lines()
         Period = Pool().get('account.period')
         if self.voucher_type == 'receipt':
             if self.retenciones_soportadas:
@@ -86,7 +86,7 @@ class AccountVoucher(metaclass=PoolMeta):
         RetencionEfectuada = pool.get('account.retencion.efectuada')
         Sequence = pool.get('ir.sequence')
 
-        super(AccountVoucher, cls).post(vouchers)
+        super().post(vouchers)
 
         for voucher in vouchers:
             if voucher.retenciones_soportadas:
@@ -114,7 +114,7 @@ class AccountVoucher(metaclass=PoolMeta):
         RetencionSoportada = pool.get('account.retencion.soportada')
         RetencionEfectuada = pool.get('account.retencion.efectuada')
 
-        super(AccountVoucher, cls).cancel(vouchers)
+        super().cancel(vouchers)
 
         for voucher in vouchers:
             if voucher.retenciones_soportadas:

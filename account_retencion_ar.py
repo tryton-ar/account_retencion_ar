@@ -45,7 +45,7 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
         pool = Pool()
         if field == 'sequence':
             return pool.get('account.retencion.sequence')
-        return super(AccountRetencion, cls).multivalue_model(field)
+        return super().multivalue_model(field)
 
 
 class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
@@ -65,8 +65,8 @@ class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
         TableHandler = backend.get('TableHandler')
         exist = TableHandler.table_exist(cls._table)
 
-        super(AccountRetencionSequence, cls).__register__(module_name)
 
+        super().__register__(module_name)
         if not exist:
             cls._migrate_property([], [], [])
 
@@ -127,7 +127,7 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
     @classmethod
     def delete(cls, retenciones):
         cls.check_delete(retenciones)
-        super(AccountRetencionEfectuada, cls).delete(retenciones)
+        super().delete(retenciones)
 
     @classmethod
     def check_delete(cls, retenciones):
@@ -145,8 +145,7 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
         current_default['state'] = 'draft'
         current_default['name'] = None
         current_default['voucher'] = None
-        return super(AccountRetencionEfectuada, cls).copy(retenciones,
-            default=current_default)
+        return super().copy(retenciones, default=current_default)
 
 
 class AccountRetencionSoportada(ModelSQL, ModelView):
@@ -182,7 +181,7 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
     @classmethod
     def delete(cls, retenciones):
         cls.check_delete(retenciones)
-        super(AccountRetencionSoportada, cls).delete(retenciones)
+        super().delete(retenciones)
 
     @classmethod
     def check_delete(cls, retenciones):
@@ -200,5 +199,4 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
         current_default['state'] = 'draft'
         current_default['name'] = None
         current_default['voucher'] = None
-        return super(AccountRetencionSoportada, cls).copy(retenciones,
-            default=current_default)
+        return super().copy(retenciones, default=current_default)
