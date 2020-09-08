@@ -13,9 +13,6 @@ from trytond.tools.multivalue import migrate_property
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
-__all__ = ['AccountRetencion', 'AccountRetencionSequence',
-    'AccountRetencionEfectuada', 'AccountRetencionSoportada']
-
 
 class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
     "Account Retencion"

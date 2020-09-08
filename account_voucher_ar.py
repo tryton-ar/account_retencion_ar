@@ -9,8 +9,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 
-__all__ = ['AccountVoucher']
-
 
 class AccountVoucher(metaclass=PoolMeta):
     __name__ = 'account.voucher'

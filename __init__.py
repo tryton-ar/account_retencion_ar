@@ -6,8 +6,6 @@ from trytond.pool import Pool
 from . import account_retencion_ar
 from . import account_voucher_ar
 
-__all__ = ['register']
-
 
 def register():
     Pool.register(
