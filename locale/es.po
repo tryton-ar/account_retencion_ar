@@ -6,24 +6,8 @@ msgctxt "field:account.retencion,account:"
 msgid "Account"
 msgstr "Cuenta contable"
 
-msgctxt "field:account.retencion,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:account.retencion,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:account.retencion,id:"
-msgid "ID"
-msgstr "ID"
-
 msgctxt "field:account.retencion,name:"
 msgid "Name"
-msgstr "Nombre"
-
-msgctxt "field:account.retencion,rec_name:"
-msgid "Record Name"
 msgstr "Nombre"
 
 msgctxt "field:account.retencion,sequence:"
@@ -38,14 +22,6 @@ msgctxt "field:account.retencion,type:"
 msgid "Type"
 msgstr "Tipo"
 
-msgctxt "field:account.retencion,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:account.retencion,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "field:account.retencion.efectuada,aliquot:"
 msgid "Aliquot"
 msgstr "Alicuota"
@@ -54,21 +30,9 @@ msgctxt "field:account.retencion.efectuada,amount:"
 msgid "Amount"
 msgstr "Importe"
 
-msgctxt "field:account.retencion.efectuada,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:account.retencion.efectuada,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
 msgctxt "field:account.retencion.efectuada,date:"
 msgid "Date"
 msgstr "Fecha"
-
-msgctxt "field:account.retencion.efectuada,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:account.retencion.efectuada,name:"
 msgid "Number"
@@ -82,10 +46,6 @@ msgctxt "field:account.retencion.efectuada,party:"
 msgid "Party"
 msgstr "Tercero"
 
-msgctxt "field:account.retencion.efectuada,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
-
 msgctxt "field:account.retencion.efectuada,state:"
 msgid "State"
 msgstr "Estado"
@@ -98,33 +58,9 @@ msgctxt "field:account.retencion.efectuada,voucher:"
 msgid "Voucher"
 msgstr "Comprobante"
 
-msgctxt "field:account.retencion.efectuada,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:account.retencion.efectuada,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "field:account.retencion.sequence,company:"
 msgid "Company"
 msgstr "Empresa"
-
-msgctxt "field:account.retencion.sequence,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:account.retencion.sequence,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
-msgctxt "field:account.retencion.sequence,id:"
-msgid "ID"
-msgstr "ID"
-
-msgctxt "field:account.retencion.sequence,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
 
 msgctxt "field:account.retencion.sequence,retencion:"
 msgid "Account Retencion"
@@ -134,33 +70,13 @@ msgctxt "field:account.retencion.sequence,sequence:"
 msgid "Retencion Sequence"
 msgstr "Secuencia"
 
-msgctxt "field:account.retencion.sequence,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:account.retencion.sequence,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
-
 msgctxt "field:account.retencion.soportada,amount:"
 msgid "Amount"
 msgstr "Importe"
 
-msgctxt "field:account.retencion.soportada,create_date:"
-msgid "Create Date"
-msgstr "Fecha creación"
-
-msgctxt "field:account.retencion.soportada,create_uid:"
-msgid "Create User"
-msgstr "Usuario creación"
-
 msgctxt "field:account.retencion.soportada,date:"
 msgid "Date"
 msgstr "Fecha"
-
-msgctxt "field:account.retencion.soportada,id:"
-msgid "ID"
-msgstr "ID"
 
 msgctxt "field:account.retencion.soportada,name:"
 msgid "Number"
@@ -169,10 +85,6 @@ msgstr "Número"
 msgctxt "field:account.retencion.soportada,party:"
 msgid "Party"
 msgstr "Tercero"
-
-msgctxt "field:account.retencion.soportada,rec_name:"
-msgid "Record Name"
-msgstr "Nombre"
 
 msgctxt "field:account.retencion.soportada,state:"
 msgid "State"
@@ -185,14 +97,6 @@ msgstr "Impuesto"
 msgctxt "field:account.retencion.soportada,voucher:"
 msgid "Voucher"
 msgstr "Comprobante"
-
-msgctxt "field:account.retencion.soportada,write_date:"
-msgid "Write Date"
-msgstr "Fecha modificación"
-
-msgctxt "field:account.retencion.soportada,write_uid:"
-msgid "Write User"
-msgstr "Usuario modificación"
 
 msgctxt "field:account.voucher,retenciones_efectuadas:"
 msgid "Retenciones Efectuadas"
@@ -229,6 +133,10 @@ msgstr "Retenciones Soportadas"
 msgctxt "model:ir.action,name:act_retencion_tree"
 msgid "Retenciones"
 msgstr "Retenciones"
+
+msgctxt "model:ir.message,text:msg_missing_retencion_seq"
+msgid "You must set a sequence to Retencion efecutada."
+msgstr ""
 
 msgctxt "model:ir.message,text:msg_not_delete"
 msgid ""
