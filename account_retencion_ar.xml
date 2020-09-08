@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
-<!-- This file is part of the account_retencion_ar module for Tryton.
-The COPYRIGHT file at the top level of this repository contains
-the full copyright notices and license terms. -->
 <tryton>
     <data>
 
-        <!-- Sequences for Retencion -->
+<!-- Sequences for Retencion -->
+
         <record id="seq_type_account_retencion" model="ir.sequence.type">
             <field name="name">Account Retencion</field>
             <field name="code">account.retencion</field>
@@ -56,7 +54,7 @@ the full copyright notices and license terms. -->
         <menuitem name="Retenciones" parent="account.menu_account"
             id="menu_retenciones" sequence="22"/>
 
-    <!-- Retencion Efectuada -->
+<!-- Retencion Efectuada -->
 
         <record model="ir.ui.view" id="account_retencion_efectuada_form">
             <field name="model">account.retencion.efectuada</field>
@@ -88,7 +86,7 @@ the full copyright notices and license terms. -->
         <menuitem parent="menu_retenciones" action="act_retencion_efectuada_tree"
             id="menu_retencion_efectuada" sequence="5"/>
 
-    <!-- Retencion Soportada -->
+<!-- Retencion Soportada -->
 
         <record model="ir.ui.view" id="account_retencion_soportada_form">
             <field name="model">account.retencion.soportada</field>
