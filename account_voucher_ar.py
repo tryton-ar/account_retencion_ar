@@ -4,8 +4,8 @@
 from decimal import Decimal
 
 from trytond.model import ModelView, fields
-from trytond.pyson import Eval, In, Not, Or
 from trytond.pool import Pool, PoolMeta
+from trytond.pyson import Eval, Or
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 
@@ -16,23 +16,23 @@ class AccountVoucher(metaclass=PoolMeta):
     retenciones_efectuadas = fields.One2Many('account.retencion.efectuada',
         'voucher', 'Retenciones Efectuadas',
         states={
-            'invisible': Not(In(Eval('voucher_type'), ['payment'])),
+            'invisible': Eval('voucher_type') != 'payment',
             'readonly': Or(
                 Eval('state') == 'posted',
                 Eval('currency_code') != 'ARS'),
-            })
+            },
+        depends=['voucher_type', 'state', 'currency_code'])
     retenciones_soportadas = fields.One2Many('account.retencion.soportada',
         'voucher', 'Retenciones Soportadas',
         states={
-            'invisible': Not(In(Eval('voucher_type'), ['receipt'])),
+            'invisible': Eval('voucher_type') != 'receipt',
             'readonly': Or(
                 Eval('state') == 'posted',
                 Eval('currency_code') != 'ARS'),
-            })
+            },
+        depends=['voucher_type', 'state', 'currency_code'])
 
-    @fields.depends('party', 'pay_lines', 'lines_credits', 'lines_debits',
-        'issued_check', 'third_check', 'third_pay_checks',
-        'retenciones_efectuadas', 'retenciones_soportadas')
+    @fields.depends('retenciones_efectuadas', 'retenciones_soportadas')
     def on_change_with_amount(self, name=None):
         amount = super().on_change_with_amount(name)
         if self.retenciones_efectuadas:

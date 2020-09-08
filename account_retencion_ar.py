@@ -5,8 +5,8 @@ from decimal import Decimal
 
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pyson import Eval, Bool, Not
 from trytond.pool import Pool
+from trytond.pyson import Eval, Bool, Not
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 from trytond.tools.multivalue import migrate_property
@@ -31,9 +31,8 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
                 [Eval('context', {}).get('company', -1), None]),
             ('code', '=', 'account.retencion'),
             ],
-        states={
-            'invisible': Eval('type') != 'efectuada',
-            }, depends=['type']))
+        states={'invisible': Eval('type') != 'efectuada'},
+        depends=['type']))
     sequences = fields.One2Many('account.retencion.sequence',
         'retencion', 'Sequences')
 
