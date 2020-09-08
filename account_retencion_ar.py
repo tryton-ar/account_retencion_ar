@@ -19,7 +19,11 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
     __name__ = 'account.retencion'
 
     name = fields.Char('Name', required=True)
-    account = fields.Many2One('account.account', 'Account', required=True)
+    account = fields.Many2One('account.account', 'Account', required=True,
+        domain=[
+            ('type', '!=', None),
+            ('closed', '!=', True),
+            ])
     type = fields.Selection([
         ('efectuada', 'Efectuada'),
         ('soportada', 'Soportada'),
