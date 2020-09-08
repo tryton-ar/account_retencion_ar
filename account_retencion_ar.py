@@ -62,10 +62,7 @@ class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
 
     @classmethod
     def __register__(cls, module_name):
-        TableHandler = backend.get('TableHandler')
-        exist = TableHandler.table_exist(cls._table)
-
-
+        exist = backend.TableHandler.table_exist(cls._table)
         super().__register__(module_name)
         if not exist:
             cls._migrate_property([], [], [])
