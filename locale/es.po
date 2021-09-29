@@ -175,7 +175,7 @@ msgid "Soportada"
 msgstr "Soportada"
 
 msgctxt "selection:account.retencion.efectuada,state:"
-msgid "Canceled"
+msgid "Cancelled"
 msgstr "Cancelada"
 
 msgctxt "selection:account.retencion.efectuada,state:"
@@ -187,7 +187,7 @@ msgid "Issued"
 msgstr "Emitida"
 
 msgctxt "selection:account.retencion.soportada,state:"
-msgid "Canceled"
+msgid "Cancelled"
 msgstr "Cancelada"
 
 msgctxt "selection:account.retencion.soportada,state:"

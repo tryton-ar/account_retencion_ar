@@ -118,11 +118,11 @@ class AccountVoucher(metaclass=PoolMeta):
                 RetencionSoportada.write(list(
                         voucher.retenciones_soportadas), {
                     'party': None,
-                    'state': 'canceled',
+                    'state': 'cancelled',
                     })
             if voucher.retenciones_efectuadas:
                 RetencionEfectuada.write(list(
                         voucher.retenciones_efectuadas), {
                     'party': None,
-                    'state': 'canceled',
+                    'state': 'cancelled',
                     })

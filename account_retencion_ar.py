@@ -7,6 +7,7 @@ from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
 from trytond.pyson import Eval, Bool, Not, Id
+from trytond.transaction import Transaction
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 from trytond.tools.multivalue import migrate_property
@@ -101,8 +102,17 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('issued', 'Issued'),
-        ('canceled', 'Canceled'),
+        ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+        super().__register__(module_name)
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'canceled'))
 
     @staticmethod
     def default_amount():
@@ -161,8 +171,17 @@ class AccountRetencionSoportada(ModelSQL, ModelView):
     state = fields.Selection([
         ('draft', 'Draft'),
         ('held', 'Held'),
-        ('canceled', 'Canceled'),
+        ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
+
+    @classmethod
+    def __register__(cls, module_name):
+        cursor = Transaction().connection.cursor()
+        sql_table = cls.__table__()
+        super().__register__(module_name)
+        cursor.execute(*sql_table.update(
+                [sql_table.state], ['cancelled'],
+                where=sql_table.state == 'canceled'))
 
     @staticmethod
     def default_amount():
