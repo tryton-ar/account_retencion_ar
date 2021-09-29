@@ -6,7 +6,7 @@ from decimal import Decimal
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool
-from trytond.pyson import Eval, Bool, Not
+from trytond.pyson import Eval, Bool, Not, Id
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
 from trytond.tools.multivalue import migrate_property
@@ -31,9 +31,10 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
     sequence = fields.MultiValue(fields.Many2One(
         'ir.sequence', 'Retencion Sequence',
         domain=[
+            ('sequence_type', '=',
+                Id('account_retencion_ar', 'seq_type_account_retencion')),
             ('company', 'in',
                 [Eval('context', {}).get('company', -1), None]),
-            ('code', '=', 'account.retencion'),
             ],
         states={'invisible': Eval('type') != 'efectuada'},
         depends=['type']))
@@ -56,8 +57,9 @@ class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
         ondelete='CASCADE', select=True)
     sequence = fields.Many2One('ir.sequence',
         'Retencion Sequence', depends=['company'], domain=[
+            ('sequence_type', '=',
+                Id('account_retencion_ar', 'seq_type_account_retencion')),
             ('company', 'in', [Eval('company', -1), None]),
-            ('code', '=', 'account.retencion'),
             ])
 
     @classmethod

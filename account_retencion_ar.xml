@@ -4,9 +4,8 @@
 
 <!-- Sequences for Retencion -->
 
-        <record id="seq_type_account_retencion" model="ir.sequence.type">
+        <record model="ir.sequence.type" id="seq_type_account_retencion">
             <field name="name">Account Retencion</field>
-            <field name="code">account.retencion</field>
         </record>
         <record model="ir.sequence.type-res.group"
             id="seq_type_account_retencion_group_admin">

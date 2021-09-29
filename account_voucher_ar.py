@@ -82,7 +82,6 @@ class AccountVoucher(metaclass=PoolMeta):
         pool = Pool()
         RetencionSoportada = pool.get('account.retencion.soportada')
         RetencionEfectuada = pool.get('account.retencion.efectuada')
-        Sequence = pool.get('ir.sequence')
 
         super().post(vouchers)
 
@@ -101,7 +100,7 @@ class AccountVoucher(metaclass=PoolMeta):
 
                     RetencionEfectuada.write([retencion], {
                         'party': voucher.party.id,
-                        'name': Sequence.get_id(retencion.tax.sequence.id),
+                        'name': retencion.tax.sequence.get(),
                         'state': 'issued',
                         })
 
