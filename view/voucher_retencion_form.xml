@@ -1,11 +1,9 @@
 <?xml version="1.0"?>
 <data>
-    <xpath expr="/form/notebook/page[@id='pay_lines']" position="after">
-        <page string="Retenciones" id="retenciones" col="6">
-            <field name="retenciones_efectuadas" colspan="6"
-                view_ids="account_retencion_ar.retenciones_efectuadas_view_tree"/>
-            <field name="retenciones_soportadas" colspan="6"
-                view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
-        </page>
+    <xpath expr="/form/notebook/page[@id='payments']" position="inside">
+        <field name="retenciones_efectuadas" colspan="4"
+            view_ids="account_retencion_ar.retenciones_efectuadas_view_tree"/>
+        <field name="retenciones_soportadas" colspan="4"
+            view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
     </xpath>
 </data>
