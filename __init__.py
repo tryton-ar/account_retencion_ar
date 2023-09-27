@@ -9,6 +9,7 @@ from . import party
 from . import company
 from . import product
 from . import invoice
+from . import sicore
 
 
 def register():
@@ -31,9 +32,12 @@ def register():
         product.Product,
         invoice.Invoice,
         invoice.InvoiceLine,
+        sicore.ExportSICOREStart,
+        sicore.ExportSICOREResult,
         module='account_retencion_ar', type_='model')
     Pool.register(
         account_voucher_ar.RecalculateWithholdings,
+        sicore.ExportSICORE,
         module='account_retencion_ar', type_='wizard')
     Pool.register(
         account_retencion_ar.TaxWithholdingSubmittedReport,

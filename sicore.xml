@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- Export SICORE Wizard -->
+
+        <record model="ir.ui.view" id="sicore_start_view_form">
+            <field name="model">account.sicore.start</field>
+            <field name="type">form</field>
+            <field name="name">sicore_start_form</field>
+        </record>
+        <record model="ir.ui.view" id="sicore_result_view_form">
+            <field name="model">account.sicore.result</field>
+            <field name="type">form</field>
+            <field name="name">sicore_result_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wizard_sicore">
+            <field name="name">Retenciones y Percepciones SICORE</field>
+            <field name="wiz_name">account.sicore</field>
+        </record>
+
+        <menuitem parent="account.menu_reporting" action="wizard_sicore"
+            id="menu_sicore" icon="tryton-export"/>
+
+        <record model="ir.model.field.access"
+            id="access_sicore_start_regimenes_retencion">
+            <field name="field"
+                search="[('name', '=', 'regimenes_retencion'), ('model.model', '=', 'account.sicore.start')]"/>
+            <field name="perm_read" eval="True"/>
+            <field name="perm_write" eval="True"/>
+            <field name="perm_create" eval="False"/>
+            <field name="perm_delete" eval="False"/>
+        </record>
+
+    </data>
+</tryton>
