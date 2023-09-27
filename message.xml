@@ -2,10 +2,31 @@
 <tryton>
     <data grouped="1">
         <record model="ir.message" id="msg_not_delete">
-            <field name="text">You cannot delete retention "%(retention)s" because it is associated to a voucher</field>
+            <field name="text">You cannot delete Tax Withholding "%(retencion)s" because it is associated with a Voucher</field>
         </record>
         <record model="ir.message" id="msg_missing_retencion_seq">
-            <field name="text">You must set a sequence to Retencion efecutada.</field>
+            <field name="text">You must define the Sequence for the Tax Withholding</field>
+        </record>
+        <record model="ir.message" id="msg_print_not_issued">
+            <field name="text">You cannot print Tax Withholding "%(retencion)s" because it is not issued</field>
+        </record>
+        <record model="ir.message" id="msg_party_iva_condition">
+            <field name="text">El Tercero no tiene definida su Condición ante IVA</field>
+        </record>
+        <record model="ir.message" id="msg_party_iibb_condition">
+            <field name="text">El Tercero no tiene definida su Condición ante Ingresos Brutos</field>
+        </record>
+        <record model="ir.message" id="msg_party_ganancias_condition">
+            <field name="text">El Tercero no tiene definida su Condición ante Ganancias</field>
+        </record>
+        <record model="ir.message" id="msg_party_subdivision">
+            <field name="text">El Tercero no tiene definida una Provincia/Jurisdicción</field>
+        </record>
+        <record model="ir.message" id="msg_party_iibb_regimenes">
+            <field name="text">The Party does not have any Regime defined for Ingresos Brutos</field>
+        </record>
+        <record model="ir.message" id="msg_company_subdivision">
+            <field name="text">La empresa no tiene definida una Provincia/Jurisdicción</field>
         </record>
     </data>
 </tryton>

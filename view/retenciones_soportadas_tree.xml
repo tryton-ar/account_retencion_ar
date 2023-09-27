@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <tree>
-    <field name="name"/>
     <field name="tax"/>
+    <field name="name"/>
     <field name="amount"/>
 </tree>

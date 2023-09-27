@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<form>
+    <label name="regimen_retencion"/>
+    <field name="regimen_retencion"/>
+    <label name="rate_retencion"/>
+    <field name="rate_retencion"/>
+    <label name="regimen_percepcion"/>
+    <field name="regimen_percepcion"/>
+    <label name="rate_percepcion"/>
+    <field name="rate_percepcion"/>
+</form>

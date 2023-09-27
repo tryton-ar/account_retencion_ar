@@ -2,10 +2,29 @@
 <form>
     <label name="name"/>
     <field name="name"/>
-    <label name="account"/>
-    <field name="account"/>
+    <label name="tax"/>
+    <field name="tax"/>
     <label name="type"/>
     <field name="type"/>
+    <label name="account"/>
+    <field name="account"/>
     <label name="sequence"/>
     <field name="sequence"/>
+    <label name="subdivision"/>
+    <field name="subdivision"/>
+    <label name="regime_code"/>
+    <field name="regime_code"/>
+    <label name="regime_name"/>
+    <field name="regime_name"/>
+    <group id="calculation" colspan="4" string="Automatic Calculation">
+        <label name="minimum_non_taxable_amount"/>
+        <field name="minimum_non_taxable_amount"/>
+        <label name="minimum_withholdable_amount"/>
+        <field name="minimum_withholdable_amount"/>
+        <label name="rate_registered"/>
+        <field name="rate_registered"/>
+        <label name="rate_non_registered"/>
+        <field name="rate_non_registered"/>
+        <field name="scales" colspan="4"/>
+    </group>
 </form>

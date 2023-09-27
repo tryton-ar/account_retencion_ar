@@ -2,10 +2,11 @@
 # The COPYRIGHT file at the top level of this repository contains
 # the full copyright notices and license terms.
 from decimal import Decimal
+from sql import Null
 
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pool import Pool
+from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Bool, Not, Id
 from trytond.transaction import Transaction
 from trytond.exceptions import UserError
@@ -24,6 +25,7 @@ class TaxWithholdingType(ModelSQL, ModelView, CompanyMultiValueMixin):
         ('efectuada', 'Submitted'),
         ('soportada', 'Received'),
         ], 'Type', required=True)
+    tax = fields.Selection('get_tax', 'Tax', required=True, sort=False)
     account = fields.Many2One('account.account', 'Account', required=True,
         domain=[
             ('type', '!=', None),
@@ -40,6 +42,38 @@ class TaxWithholdingType(ModelSQL, ModelView, CompanyMultiValueMixin):
         states={'invisible': Eval('type') != 'efectuada'}))
     sequences = fields.One2Many('account.retencion.sequence',
         'retencion', 'Sequences')
+    regime_code = fields.Char('Regime code')
+    regime_name = fields.Char('Regime name')
+    subdivision = fields.Many2One('country.subdivision', 'Subdivision',
+        domain=[('country.code', '=', 'AR')],
+        states={'invisible': Eval('tax') != 'iibb'})
+    minimum_non_taxable_amount = fields.Numeric('Minimum Non-Taxable Amount',
+        digits=(16, 2))
+    rate_registered = fields.Numeric('% Withholding to Registered',
+        digits=(14, 10))
+    rate_non_registered = fields.Numeric('% Withholding to Non-Registered',
+        digits=(14, 10))
+    minimum_withholdable_amount = fields.Numeric('Minimum Amount to Withhold',
+        digits=(16, 2))
+    scales = fields.One2Many('account.retencion.scale', 'retencion', 'Scales')
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls._order.insert(0, ('type', 'ASC'))
+        cls._order.insert(1, ('name', 'ASC'))
+        cls._order.insert(2, ('regime_code', 'ASC'))
+
+    @classmethod
+    def get_tax(cls):
+        selection = [
+            ('iva', 'IVA'),
+            ('gana', 'Ganancias'),
+            ('suss', 'SUSS'),
+            ('iibb', 'Ingresos Brutos'),
+            ('otro', 'Otro'),
+            ]
+        return selection
 
     @classmethod
     def multivalue_model(cls, field):
@@ -47,6 +81,18 @@ class TaxWithholdingType(ModelSQL, ModelView, CompanyMultiValueMixin):
         if field == 'sequence':
             return pool.get('account.retencion.sequence')
         return super().multivalue_model(field)
+
+    def get_rec_name(self, name):
+        if self.regime_name:
+            return '%s - %s' % (self.name, self.regime_name)
+        return self.name
+
+    @classmethod
+    def view_attributes(cls):
+        return super().view_attributes() + [
+            ('//group[@id="calculation"]', 'states',
+                {'invisible': Eval('type') != 'efectuada'}),
+            ]
 
 
 class TaxWithholdingTypeSequence(ModelSQL, CompanyValueMixin):
@@ -80,6 +126,26 @@ class TaxWithholdingTypeSequence(ModelSQL, CompanyValueMixin):
             parent='retencion', fields=fields)
 
 
+class TaxWithholdingTypeScale(ModelSQL, ModelView):
+    'Tax Withholding Type Scale'
+    __name__ = 'account.retencion.scale'
+
+    retencion = fields.Many2One('account.retencion', 'Tax Withholding Type',
+        ondelete='CASCADE')
+    start_amount = fields.Numeric('Amount from', digits=(16, 2))
+    end_amount = fields.Numeric('Amount up to', digits=(16, 2))
+    fixed_withholdable_amount = fields.Numeric('Fixed Amount to Withhold',
+        digits=(16, 2))
+    rate = fields.Numeric('% Withholding', digits=(14, 10))
+    minimum_non_taxable_amount = fields.Numeric('Non-Taxable Base',
+        digits=(16, 2))
+
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls._order.insert(0, ('start_amount', 'ASC'))
+
+
 class TaxWithholdingSubmitted(ModelSQL, ModelView):
     'Tax Withholding Submitted'
     __name__ = 'account.retencion.efectuada'
@@ -95,7 +161,10 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
         'on_change_with_name_required')
     tax = fields.Many2One('account.retencion', 'Type',
         domain=[('type', '=', 'efectuada')], states=_states)
-    aliquot = fields.Float('Aliquot')
+    regime_code = fields.Function(fields.Char('Regime code'),
+        'get_tax_field')
+    regime_name = fields.Function(fields.Char('Regime name'),
+        'get_tax_field')
     date = fields.Date('Date', required=True, states=_states)
     voucher = fields.Many2One('account.voucher', 'Voucher', readonly=True)
     party = fields.Many2One('party.party', 'Party', states=_states)
@@ -104,6 +173,26 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
         ('issued', 'Issued'),
         ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
+    payment_amount = fields.Numeric('Payment Amount',
+        digits=(16, 2), readonly=True)
+    accumulated_amount = fields.Numeric('Accumulated Amount',
+        digits=(16, 2), readonly=True)
+    minimum_non_taxable_amount = fields.Numeric('Minimum Non-Taxable Amount',
+        digits=(16, 2), readonly=True)
+    scale_non_taxable_amount = fields.Numeric('Non-Taxable Base (Scale)',
+        digits=(16, 2), readonly=True)
+    taxable_amount = fields.Numeric('Taxable Amount',
+        digits=(16, 2), readonly=True)
+    rate = fields.Numeric('% Withholding',
+        digits=(14, 10), readonly=True)
+    scale_fixed_amount = fields.Numeric('Fixed Amount to Withhold (Scale)',
+        digits=(16, 2), readonly=True)
+    computed_amount = fields.Numeric('Computed Amount',
+        digits=(16, 2), readonly=True)
+    minimum_withholdable_amount = fields.Numeric('Minimum Amount to Withhold',
+        digits=(16, 2), readonly=True)
+    accumulated_withheld = fields.Numeric('Accumulated Withheld',
+        digits=(16, 2), readonly=True)
     amount = fields.Numeric('Amount', digits=(16, 2), required=True,
         states=_states)
 
@@ -113,10 +202,19 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
     def __register__(cls, module_name):
         cursor = Transaction().connection.cursor()
         sql_table = cls.__table__()
+        table_h = cls.__table_handler__(module_name)
+
+        aliquot_exist = table_h.column_exist('aliquot')
+
         super().__register__(module_name)
         cursor.execute(*sql_table.update(
                 [sql_table.state], ['cancelled'],
                 where=sql_table.state == 'canceled'))
+        if aliquot_exist:
+            cursor.execute(*sql_table.update(
+                    [sql_table.rate], [sql_table.aliquot.cast('NUMERIC')],
+                    where=sql_table.aliquot != Null))
+            table_h.drop_column('aliquot')
 
     @staticmethod
     def default_state():
@@ -144,11 +242,13 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
 
     @classmethod
     def check_delete(cls, retenciones):
+        if Transaction().context.get('delete_calculated', False):
+            return
         for retencion in retenciones:
             if retencion.voucher:
                 raise UserError(gettext(
                     'account_retencion_ar.msg_not_delete',
-                    retention=retencion.name))
+                    retencion=retencion.name))
 
     @classmethod
     def copy(cls, retenciones, default=None):
@@ -159,6 +259,27 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
         current_default['name'] = None
         current_default['voucher'] = None
         return super().copy(retenciones, default=current_default)
+
+    @classmethod
+    def get_tax_field(cls, retenciones, names):
+        result = {}
+        for name in names:
+            result[name] = {}
+            if cls._fields[name]._type == 'many2one':
+                for r in retenciones:
+                    field = getattr(r.tax, name, None)
+                    result[name][r.id] = field.id if field else None
+            elif cls._fields[name]._type == 'boolean':
+                for r in retenciones:
+                    result[name][r.id] = getattr(r.tax, name, False)
+            else:
+                for r in retenciones:
+                    result[name][r.id] = getattr(r.tax, name, None)
+        return result
+
+    @classmethod
+    def search_tax_field(cls, name, clause):
+        return [('tax.' + name,) + tuple(clause[1:])]
 
 
 class TaxWithholdingReceived(ModelSQL, ModelView):
@@ -216,7 +337,7 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
             if retencion.voucher:
                 raise UserError(gettext(
                     'account_retencion_ar.msg_not_delete',
-                    retention=retencion.name))
+                    retencion=retencion.name))
 
     @classmethod
     def copy(cls, retenciones, default=None):

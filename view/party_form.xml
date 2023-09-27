@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<data>
+    <xpath expr="/form/notebook/page[@id='empresa']" position="after">
+        <page id="taxes" string="Withholding and Perception of Taxes">
+            <label name="ganancias_condition"/>
+            <field name="ganancias_condition"/>
+            <label name="ganancias_regimen"/>
+            <field name="ganancias_regimen"/>
+            <label name="iibb_condition"/>
+            <field name="iibb_condition"/>
+            <field name="iibb_regimenes" colspan="4"/>
+            <field name="exemptions" colspan="4"/>
+        </page>
+    </xpath>
+</data>

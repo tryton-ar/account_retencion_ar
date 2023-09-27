@@ -1,7 +1,8 @@
 <?xml version="1.0"?>
 <tree>
     <field name="name"/>
-    <field name="account"/>
+    <field name="tax"/>
     <field name="type"/>
-    <field name="sequence"/>
+    <field name="account"/>
+    <field name="regime_name"/>
 </tree>

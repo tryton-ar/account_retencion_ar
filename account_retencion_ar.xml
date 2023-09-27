@@ -55,6 +55,19 @@
         <menuitem name="Tax Withholdings" parent="account.menu_account"
             id="menu_retenciones" sequence="22"/>
 
+<!-- Tax Withholding Type Scales -->
+
+        <record model="ir.ui.view" id="account_retencion_scale_form">
+            <field name="model">account.retencion.scale</field>
+            <field name="type">form</field>
+            <field name="name">account_retencion_scale_form</field>
+        </record>
+        <record model="ir.ui.view" id="account_retencion_scale_tree">
+            <field name="model">account.retencion.scale</field>
+            <field name="type">tree</field>
+            <field name="name">account_retencion_scale_tree</field>
+        </record>
+
 <!-- Tax Withholdings Submitted -->
 
         <record model="ir.ui.view" id="account_retencion_efectuada_form">

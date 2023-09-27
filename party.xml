@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<tryton>
+    <data>
+
+<!-- Party -->
+
+        <record model="ir.ui.view" id="party_view_form">
+            <field name="model">party.party</field>
+            <field name="inherit" ref="party.party_view_form"/>
+            <field name="name">party_form</field>
+        </record>
+
+<!-- Exención de Retención/Percepción de Tercero -->
+
+        <record model="ir.ui.view" id="party_exemption_view_form">
+            <field name="model">party.exemption</field>
+            <field name="type">form</field>
+            <field name="name">party_exemption_form</field>
+        </record>
+        <record model="ir.ui.view" id="party_exemption_view_tree">
+            <field name="model">party.exemption</field>
+            <field name="type">tree</field>
+            <field name="name">party_exemption_tree</field>
+        </record>
+
+<!-- Régimen de Ingresos Brutos de Tercero -->
+
+        <record model="ir.ui.view" id="party_retencion_iibb_view_form">
+            <field name="model">party.retencion.iibb</field>
+            <field name="type">form</field>
+            <field name="name">party_retencion_iibb_form</field>
+        </record>
+        <record model="ir.ui.view" id="party_retencion_iibb_view_tree">
+            <field name="model">party.retencion.iibb</field>
+            <field name="type">tree</field>
+            <field name="name">party_retencion_iibb_tree</field>
+        </record>
+
+    </data>
+</tryton>

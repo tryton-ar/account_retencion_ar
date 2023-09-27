@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<tree>
+    <field name="start_amount"/>
+    <field name="end_amount"/>
+    <field name="fixed_withholdable_amount"/>
+    <field name="rate"/>
+    <field name="minimum_non_taxable_amount"/>
+</tree>

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <form>
+    <label name="tax"/>
+    <field name="tax" widget="selection"/>
     <label name="name"/>
     <field name="name"/>
     <label name="amount"/>
     <field name="amount"/>
     <label name="date"/>
     <field name="date"/>
-    <label name="tax"/>
-    <field name="tax" widget="selection"/>
     <label name="party"/>
     <field name="party"/>
     <label name="state"/>

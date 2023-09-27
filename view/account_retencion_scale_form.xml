@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<form>
+    <label name="start_amount"/>
+    <field name="start_amount"/>
+    <label name="end_amount"/>
+    <field name="end_amount"/>
+    <label name="fixed_withholdable_amount"/>
+    <field name="fixed_withholdable_amount"/>
+    <label name="rate"/>
+    <field name="rate"/>
+    <label name="minimum_non_taxable_amount"/>
+    <field name="minimum_non_taxable_amount"/>
+</form>

@@ -6,4 +6,9 @@
         <field name="retenciones_soportadas" colspan="4"
             view_ids="account_retencion_ar.retenciones_soportadas_view_tree"/>
     </xpath>
+    <xpath expr="/form/group[@id='buttons']/button[@name='post']" position="before">
+        <button name="draft"/>
+        <button name="calculate"/>
+        <button name="recalculate"/>
+    </xpath>
 </data>

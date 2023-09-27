@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<form>
+    <label name="amount"/>
+    <field name="amount"/>
+    <label name="amount_option"/>
+    <field name="amount_option"/>
+</form>
