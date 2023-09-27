@@ -2,37 +2,93 @@
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
+msgctxt "field:account.invoice.line,ganancias_regimen:"
+msgid "Régimen Ganancias"
+msgstr ""
+
 msgctxt "field:account.retencion,account:"
 msgid "Account"
 msgstr "Cuenta contable"
+
+msgctxt "field:account.retencion,minimum_non_taxable_amount:"
+msgid "Minimum Non-Taxable Amount"
+msgstr "Monto no imponible de impuesto"
+
+msgctxt "field:account.retencion,minimum_withholdable_amount:"
+msgid "Minimum Amount to Withhold"
+msgstr "Importe mínimo a retener"
 
 msgctxt "field:account.retencion,name:"
 msgid "Name"
 msgstr "Nombre"
 
+msgctxt "field:account.retencion,rate_non_registered:"
+msgid "% Withholding to Non-Registered"
+msgstr "% Retención a No Inscriptos"
+
+msgctxt "field:account.retencion,rate_registered:"
+msgid "% Withholding to Registered"
+msgstr "% Retención a Inscriptos"
+
+msgctxt "field:account.retencion,regime_code:"
+msgid "Regime code"
+msgstr "Código Régimen"
+
+msgctxt "field:account.retencion,regime_name:"
+msgid "Regime name"
+msgstr "Nombre Régimen"
+
+msgctxt "field:account.retencion,scales:"
+msgid "Scales"
+msgstr "Escalas"
+
 msgctxt "field:account.retencion,sequence:"
-msgid "Retencion Sequence"
+msgid "Sequence"
 msgstr "Secuencia"
 
 msgctxt "field:account.retencion,sequences:"
 msgid "Sequences"
 msgstr "Secuencias"
 
+msgctxt "field:account.retencion,subdivision:"
+msgid "Subdivision"
+msgstr "Jurisdicción"
+
+msgctxt "field:account.retencion,tax:"
+msgid "Tax"
+msgstr "Impuesto"
+
 msgctxt "field:account.retencion,type:"
 msgid "Type"
 msgstr "Tipo"
 
-msgctxt "field:account.retencion.efectuada,aliquot:"
-msgid "Aliquot"
-msgstr "Alicuota"
+msgctxt "field:account.retencion.efectuada,accumulated_amount:"
+msgid "Accumulated Amount"
+msgstr "Monto acumulado"
+
+msgctxt "field:account.retencion.efectuada,accumulated_withheld:"
+msgid "Accumulated Withheld"
+msgstr "Retenciones acumuladas"
 
 msgctxt "field:account.retencion.efectuada,amount:"
 msgid "Amount"
 msgstr "Importe"
 
+msgctxt "field:account.retencion.efectuada,computed_amount:"
+msgid "Computed Amount"
+msgstr "Retención calculada"
+
 msgctxt "field:account.retencion.efectuada,date:"
 msgid "Date"
 msgstr "Fecha"
+
+msgctxt "field:account.retencion.efectuada,minimum_non_taxable_amount:"
+msgid "Minimum Non-Taxable Amount"
+msgstr "Monto no imponible de impuesto"
+
+msgctxt "field:account.retencion.efectuada,minimum_withholdable_amount:"
+msgid "Minimum Amount to Withhold"
+msgstr "Importe mínimo a retener"
 
 msgctxt "field:account.retencion.efectuada,name:"
 msgid "Number"
@@ -40,34 +96,86 @@ msgstr "Número"
 
 msgctxt "field:account.retencion.efectuada,name_required:"
 msgid "Name Required"
-msgstr "Número Requerido"
+msgstr "Número requerido"
 
 msgctxt "field:account.retencion.efectuada,party:"
 msgid "Party"
 msgstr "Tercero"
+
+msgctxt "field:account.retencion.efectuada,payment_amount:"
+msgid "Payment Amount"
+msgstr "Importe del pago"
+
+msgctxt "field:account.retencion.efectuada,rate:"
+msgid "% Withholding"
+msgstr "% Retención"
+
+msgctxt "field:account.retencion.efectuada,regime_code:"
+msgid "Regime code"
+msgstr "Código Régimen"
+
+msgctxt "field:account.retencion.efectuada,regime_name:"
+msgid "Regime name"
+msgstr "Nombre Régimen"
+
+msgctxt "field:account.retencion.efectuada,scale_fixed_amount:"
+msgid "Fixed Amount to Withhold (Scale)"
+msgstr "Importe fijo a retener (Escala)"
+
+msgctxt "field:account.retencion.efectuada,scale_non_taxable_amount:"
+msgid "Non-Taxable Base (Scale)"
+msgstr "Base no imponible (Escala)"
 
 msgctxt "field:account.retencion.efectuada,state:"
 msgid "State"
 msgstr "Estado"
 
 msgctxt "field:account.retencion.efectuada,tax:"
-msgid "Tax"
-msgstr "Impuesto"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:account.retencion.efectuada,taxable_amount:"
+msgid "Taxable Amount"
+msgstr "Base imponible"
 
 msgctxt "field:account.retencion.efectuada,voucher:"
 msgid "Voucher"
 msgstr "Comprobante"
+
+msgctxt "field:account.retencion.scale,end_amount:"
+msgid "Amount up to"
+msgstr "Hasta Importe"
+
+msgctxt "field:account.retencion.scale,fixed_withholdable_amount:"
+msgid "Fixed Amount to Withhold"
+msgstr "Importe fijo a retener"
+
+msgctxt "field:account.retencion.scale,minimum_non_taxable_amount:"
+msgid "Non-Taxable Base"
+msgstr "Base no imponible"
+
+msgctxt "field:account.retencion.scale,rate:"
+msgid "% Withholding"
+msgstr "% Retención"
+
+msgctxt "field:account.retencion.scale,retencion:"
+msgid "Tax Withholding Type"
+msgstr "Tipo de retención"
+
+msgctxt "field:account.retencion.scale,start_amount:"
+msgid "Amount from"
+msgstr "Desde Importe"
 
 msgctxt "field:account.retencion.sequence,company:"
 msgid "Company"
 msgstr "Empresa"
 
 msgctxt "field:account.retencion.sequence,retencion:"
-msgid "Account Retencion"
-msgstr "Retención"
+msgid "Tax Withholding Type"
+msgstr "Tipo de retención"
 
 msgctxt "field:account.retencion.sequence,sequence:"
-msgid "Retencion Sequence"
+msgid "Sequence"
 msgstr "Secuencia"
 
 msgctxt "field:account.retencion.soportada,amount:"
@@ -91,88 +199,426 @@ msgid "State"
 msgstr "Estado"
 
 msgctxt "field:account.retencion.soportada,tax:"
-msgid "Tax"
-msgstr "Impuesto"
+msgid "Type"
+msgstr "Tipo"
 
 msgctxt "field:account.retencion.soportada,voucher:"
 msgid "Voucher"
 msgstr "Comprobante"
 
+msgctxt "field:account.sicore.result,file_:"
+msgid "File"
+msgstr "Archivo"
+
+msgctxt "field:account.sicore.result,file_name:"
+msgid "Name"
+msgstr "Nombre"
+
+msgctxt "field:account.sicore.result,message:"
+msgid "Message"
+msgstr "Mensaje"
+
+msgctxt "field:account.sicore.start,csv_format:"
+msgid "CSV format"
+msgstr "Formato CSV"
+
+msgctxt "field:account.sicore.start,end_date:"
+msgid "End date"
+msgstr "Fecha de finalización"
+
+msgctxt "field:account.sicore.start,regimenes_retencion:"
+msgid "Regímenes"
+msgstr ""
+
+msgctxt "field:account.sicore.start,start_date:"
+msgid "Start date"
+msgstr "Fecha de inicio"
+
+msgctxt "field:account.tax,minimum_non_taxable_amount:"
+msgid "Minimum Non-Taxable Amount"
+msgstr "Monto no imponible de impuesto"
+
+msgctxt "field:account.tax,minimum_perceivable_amount:"
+msgid "Minimum Amount to be Perceived"
+msgstr "Importe mínimo a percibir"
+
+msgctxt "field:account.tax,rate_non_registered:"
+msgid "% Perception to Non-Registered"
+msgstr "% Percepción a No Inscriptos"
+
+msgctxt "field:account.tax,rate_registered:"
+msgid "% Perception to Registered"
+msgstr "% Percepción a Inscriptos"
+
+msgctxt "field:account.tax,subdivision:"
+msgid "Subdivision"
+msgstr "Jurisdicción"
+
 msgctxt "field:account.voucher,retenciones_efectuadas:"
-msgid "Retenciones Efectuadas"
-msgstr "Retenciones Efectuadas"
+msgid "Tax Withholding Submitted"
+msgstr "Retención efectuada"
 
 msgctxt "field:account.voucher,retenciones_soportadas:"
-msgid "Retenciones Soportadas"
-msgstr "Retenciones Soportadas"
+msgid "Tax Withholding Received"
+msgstr "Retención soportada"
+
+msgctxt "field:account.voucher.recalculate_withholdings.start,amount:"
+msgid "Payment Amount"
+msgstr "Importe del pago"
+
+msgctxt "field:account.voucher.recalculate_withholdings.start,amount_option:"
+msgid "Option"
+msgstr "Opción"
+
+msgctxt "field:company.company,ganancias_agente_retencion:"
+msgid "Agente de Retención de Impuesto a las Ganancias"
+msgstr ""
+
+msgctxt "field:company.company,ganancias_regimen_retencion:"
+msgid "Régimen de Ganancias"
+msgstr ""
+
+msgctxt "field:company.company,iibb_agente_percepcion:"
+msgid "Agente de Percepción de Impuesto a los Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:company.company,iibb_agente_retencion:"
+msgid "Agente de Retención de Impuesto a los Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:company.company,iibb_regimenes_percepcion:"
+msgid "Jurisdicciones de Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:company.company,iibb_regimenes_retencion:"
+msgid "Jurisdicciones de Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:company.percepcion.iibb,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:company.percepcion.iibb,regimen:"
+msgid "Régimen"
+msgstr ""
+
+msgctxt "field:company.retencion.iibb,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:company.retencion.iibb,regimen:"
+msgid "Régimen"
+msgstr ""
+
+msgctxt "field:party.exemption,end_date:"
+msgid "Valid until"
+msgstr "Vigente hasta"
+
+msgctxt "field:party.exemption,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:party.exemption,tax:"
+msgid "Type"
+msgstr "Tipo"
+
+msgctxt "field:party.party,exemptions:"
+msgid "Exenciones de Retención y Percepción"
+msgstr ""
+
+msgctxt "field:party.party,ganancias_regimen:"
+msgid "Régimen de Ganancias"
+msgstr ""
+
+msgctxt "field:party.party,iibb_regimenes:"
+msgid "Jurisdicciones de Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:party.retencion.iibb,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:party.retencion.iibb,rate_percepcion:"
+msgid "% Percepción"
+msgstr ""
+
+msgctxt "field:party.retencion.iibb,rate_retencion:"
+msgid "% Retención"
+msgstr ""
+
+msgctxt "field:party.retencion.iibb,regimen_percepcion:"
+msgid "Percepción"
+msgstr ""
+
+msgctxt "field:party.retencion.iibb,regimen_retencion:"
+msgid "Retención"
+msgstr ""
+
+msgctxt "field:product.category,ganancias_regimen:"
+msgid "Régimen de Ganancias"
+msgstr ""
+
+msgctxt "field:product.product,ganancias_regimen_used:"
+msgid "Régimen Ganancias"
+msgstr ""
+
+msgctxt "help:account.sicore.start,csv_format:"
+msgid "Check this box if you want export to csv format."
+msgstr "Marque aquí si quiere exportar a formato CSV"
 
 msgctxt "model:account.retencion,name:"
-msgid "Account Retencion"
-msgstr "Retención"
+msgid "Tax Withholding Type"
+msgstr "Tipo de retención"
 
 msgctxt "model:account.retencion.efectuada,name:"
-msgid "Account Retencion Efectuada"
-msgstr "Retención Efectuada"
+msgid "Tax Withholding Submitted"
+msgstr "Retención efectuada"
+
+msgctxt "model:account.retencion.scale,name:"
+msgid "Tax Withholding Type Scale"
+msgstr "Escala de Tipo de retención"
 
 msgctxt "model:account.retencion.sequence,name:"
-msgid "Account Retencion Sequence"
-msgstr "Secuencia"
+msgid "Tax Withholding Type Sequence"
+msgstr "Secuencia de Tipo de retención"
 
 msgctxt "model:account.retencion.soportada,name:"
-msgid "Account Retencion Soportada"
-msgstr "Retención Soportada"
+msgid "Tax Withholding Received"
+msgstr "Retención soportada"
+
+msgctxt "model:account.sicore.result,name:"
+msgid "Retenciones y Percepciones SICORE"
+msgstr ""
+
+msgctxt "model:account.sicore.start,name:"
+msgid "Retenciones y Percepciones SICORE"
+msgstr ""
+
+msgctxt "model:account.voucher.recalculate_withholdings.start,name:"
+msgid "Recalculate withholdings"
+msgstr "Recalcular retenciones"
+
+msgctxt "model:company.percepcion.iibb,name:"
+msgid "Régimen de Ingresos Brutos de Empresa"
+msgstr ""
+
+msgctxt "model:company.retencion.iibb,name:"
+msgid "Régimen de Ingresos Brutos de Empresa"
+msgstr ""
+
+msgctxt "model:ir.action,name:act_percepcion_tree"
+msgid "Tax Perception Types"
+msgstr "Tipos de percepciones"
 
 msgctxt "model:ir.action,name:act_retencion_efectuada_tree"
-msgid "Retenciones Efectuadas"
-msgstr "Retenciones Efectuadas"
+msgid "Tax Withholdings Submitted"
+msgstr "Retenciones efectuadas"
 
 msgctxt "model:ir.action,name:act_retencion_soportada_tree"
-msgid "Retenciones Soportadas"
-msgstr "Retenciones Soportadas"
+msgid "Tax Withholdings Received"
+msgstr "Retenciones soportadas"
 
 msgctxt "model:ir.action,name:act_retencion_tree"
-msgid "Retenciones"
-msgstr "Retenciones"
+msgid "Tax Withholding Types"
+msgstr "Tipos de retenciones"
+
+msgctxt "model:ir.action,name:report_account_retencion_efectuada"
+msgid "Tax Withholding"
+msgstr "Retención"
+
+msgctxt "model:ir.action,name:wizard_recalculate_withholdings"
+msgid "Recalculate withholdings"
+msgstr "Recalcular retenciones"
+
+msgctxt "model:ir.action,name:wizard_sicore"
+msgid "Retenciones y Percepciones SICORE"
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_company_subdivision"
+msgid "La empresa no tiene definida una Provincia/Jurisdicción"
+msgstr ""
 
 msgctxt "model:ir.message,text:msg_missing_retencion_seq"
-msgid "You must set a sequence to Retencion efecutada."
-msgstr ""
+msgid "You must define the Sequence for the Tax Withholding"
+msgstr "Debe definir la secuencia para la retención"
 
 msgctxt "model:ir.message,text:msg_not_delete"
 msgid ""
-"You cannot delete retention \"%(retention)s\" because it is associated to a "
-"voucher"
+"You cannot delete Tax Withholding \"%(retencion)s\" because it is associated"
+" with a Voucher"
 msgstr ""
-"No puede eliminar la retención \"%(retention)s\" porque está asociada a un "
-"Comprobante"
+"No puede eliminar la retención \"%(retencion)s\" porque está asociada a un "
+"comprobante"
+
+msgctxt "model:ir.message,text:msg_party_ganancias_condition"
+msgid "El Tercero no tiene definida su Condición ante Ganancias"
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_party_iibb_condition"
+msgid "El Tercero no tiene definida su Condición ante Ingresos Brutos"
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_party_iibb_regimenes"
+msgid "The Party does not have any Regime defined for Ingresos Brutos"
+msgstr "El Tercero no tiene definido ningún Régimen para Ingresos Brutos"
+
+msgctxt "model:ir.message,text:msg_party_iva_condition"
+msgid "El Tercero no tiene definida su Condición ante IVA"
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_party_subdivision"
+msgid "El Tercero no tiene definida una Provincia/Jurisdicción"
+msgstr ""
+
+msgctxt "model:ir.message,text:msg_print_not_issued"
+msgid ""
+"You cannot print Tax Withholding \"%(retencion)s\" because it is not issued"
+msgstr "No puede imprimir la retención \"%(retencion)s\" porque no está emitida"
+
+msgctxt ""
+"model:ir.model.button,string:retencion_efectuada_execute_report_button"
+msgid "Print"
+msgstr "Imprimir"
+
+msgctxt "model:ir.model.button,string:voucher_calculate_button"
+msgid "Calculate withholdings"
+msgstr "Calcular retenciones"
+
+msgctxt "model:ir.model.button,string:voucher_draft_button"
+msgid "Draft"
+msgstr "Borrador"
+
+msgctxt "model:ir.model.button,string:voucher_recalculate_button"
+msgid "Recalculate withholdings"
+msgstr "Recalcular retenciones"
 
 msgctxt "model:ir.sequence.type,name:seq_type_account_retencion"
-msgid "Account Retencion"
+msgid "Tax Withholding"
 msgstr "Retención"
 
+msgctxt "model:ir.ui.menu,name:menu_percepcion_configuration"
+msgid "Tax Perception Types"
+msgstr "Tipos de percepciones"
+
 msgctxt "model:ir.ui.menu,name:menu_retencion_configuration"
-msgid "Retenciones"
-msgstr "Retenciones"
+msgid "Tax Withholding Types"
+msgstr "Tipos de retenciones"
 
 msgctxt "model:ir.ui.menu,name:menu_retencion_efectuada"
-msgid "Retenciones Efectuadas"
-msgstr "Retenciones Efectuadas"
+msgid "Tax Withholdings Submitted"
+msgstr "Retenciones efectuadas"
 
 msgctxt "model:ir.ui.menu,name:menu_retencion_soportada"
-msgid "Retenciones Soportadas"
-msgstr "Retenciones Soportadas"
+msgid "Tax Withholdings Received"
+msgstr "Retenciones soportadas"
 
 msgctxt "model:ir.ui.menu,name:menu_retenciones"
-msgid "Retenciones"
+msgid "Tax Withholdings"
 msgstr "Retenciones"
 
-msgctxt "selection:account.retencion,type:"
-msgid "Efectuada"
-msgstr "Efectuada"
+msgctxt "model:ir.ui.menu,name:menu_sicore"
+msgid "Retenciones y Percepciones SICORE"
+msgstr ""
+
+msgctxt "model:party.exemption,name:"
+msgid "Exención de Retención/Percepción de Tercero"
+msgstr ""
+
+msgctxt "model:party.retencion.iibb,name:"
+msgid "Régimen de Ingresos Brutos de Tercero"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "A. - Datos del Agente de Retención"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Aclaración:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Apellido y Nombre o Denominación:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "B. - Datos del Sujeto Retenido"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "C. - Datos de la Retención Practicada"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "C.U.I.T. Nº:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Cargo:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Certificado de Retención"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Comprobante"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Comprobantes que originan la Retención:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Domicilio:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Factura"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Fecha:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Firma del Agente de Retención:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Imposibilidad de Retención:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Impuesto:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Monto"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Monto de la Retención:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "No"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Número:"
+msgstr ""
+
+msgctxt "report:account.retencion.efectuada.report:"
+msgid "Régimen:"
+msgstr ""
 
 msgctxt "selection:account.retencion,type:"
-msgid "Soportada"
+msgid "Received"
 msgstr "Soportada"
+
+msgctxt "selection:account.retencion,type:"
+msgid "Submitted"
+msgstr "Efectuada"
 
 msgctxt "selection:account.retencion.efectuada,state:"
 msgid "Cancelled"
@@ -198,6 +644,64 @@ msgctxt "selection:account.retencion.soportada,state:"
 msgid "Held"
 msgstr "En cartera"
 
-msgctxt "view:account.voucher:"
-msgid "Retenciones"
-msgstr "Retenciones"
+msgctxt "selection:account.voucher,state:"
+msgid "Calculated"
+msgstr "Calculado"
+
+msgctxt ""
+"selection:account.voucher.recalculate_withholdings.start,amount_option:"
+msgid "Add withholdings to the amount"
+msgstr "Sumar retenciones al importe"
+
+msgctxt "selection:party.exemption,tax:"
+msgid "Percepción"
+msgstr ""
+
+msgctxt "selection:party.exemption,tax:"
+msgid "Retención"
+msgstr ""
+
+msgctxt "view:account.retencion:"
+msgid "Automatic Calculation"
+msgstr "Cálculo automático"
+
+msgctxt "view:account.sicore.result:"
+msgid "Message"
+msgstr "Mensaje"
+
+msgctxt "view:account.tax:"
+msgid "Automatic Calculation"
+msgstr "Cálculo automático"
+
+msgctxt "view:company.company:"
+msgid "Withholding and Perception of Taxes"
+msgstr "Retención y Percepción de Impuestos"
+
+msgctxt "view:party.party:"
+msgid "Withholding and Perception of Taxes"
+msgstr "Retención y Percepción de Impuestos"
+
+msgctxt "view:product.category:"
+msgid "Withholding"
+msgstr "Retención"
+
+msgctxt "wizard_button:account.sicore,result,end:"
+msgid "Close"
+msgstr "Cerrar"
+
+msgctxt "wizard_button:account.sicore,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.sicore,start,export:"
+msgid "Export"
+msgstr "Exportar"
+
+msgctxt "wizard_button:account.voucher.recalculate_withholdings,start,end:"
+msgid "Cancelar"
+msgstr "Cancelar"
+
+msgctxt ""
+"wizard_button:account.voucher.recalculate_withholdings,start,recalculate:"
+msgid "Recalculate"
+msgstr "Recalcular"
