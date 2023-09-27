@@ -30,15 +30,14 @@ class TaxWithholdingType(ModelSQL, ModelView, CompanyMultiValueMixin):
             ('closed', '!=', True),
             ])
     sequence = fields.MultiValue(fields.Many2One(
-        'ir.sequence', 'Retencion Sequence',
+        'ir.sequence', 'Sequence',
         domain=[
             ('sequence_type', '=',
                 Id('account_retencion_ar', 'seq_type_account_retencion')),
             ('company', 'in',
                 [Eval('context', {}).get('company', -1), None]),
             ],
-        states={'invisible': Eval('type') != 'efectuada'},
-        depends=['type']))
+        states={'invisible': Eval('type') != 'efectuada'}))
     sequences = fields.One2Many('account.retencion.sequence',
         'retencion', 'Sequences')
 
@@ -55,9 +54,10 @@ class TaxWithholdingTypeSequence(ModelSQL, CompanyValueMixin):
     __name__ = 'account.retencion.sequence'
 
     retencion = fields.Many2One('account.retencion', 'Tax Withholding Type',
-        ondelete='CASCADE', select=True)
+        ondelete='CASCADE', context={'company': Eval('company', -1)},
+        depends={'company'})
     sequence = fields.Many2One('ir.sequence',
-        'Retencion Sequence', depends=['company'], domain=[
+        'Sequence', domain=[
             ('sequence_type', '=',
                 Id('account_retencion_ar', 'seq_type_account_retencion')),
             ('company', 'in', [Eval('company', -1), None]),
@@ -84,26 +84,30 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
     'Tax Withholding Submitted'
     __name__ = 'account.retencion.efectuada'
 
+    _states = {'readonly': Eval('state') != 'draft'}
+
     name = fields.Char('Number',
         states={
             'required': Bool(Eval('name_required')),
             'readonly': Not(Bool(Eval('name_required'))),
-            },
-        depends=['name_required'])
+            })
     name_required = fields.Function(fields.Boolean('Name Required'),
         'on_change_with_name_required')
     tax = fields.Many2One('account.retencion', 'Type',
-    amount = fields.Numeric('Amount', digits=(16, 2), required=True)
+        domain=[('type', '=', 'efectuada')], states=_states)
     aliquot = fields.Float('Aliquot')
-    date = fields.Date('Date', required=True)
-        domain=[('type', '=', 'efectuada')])
-    voucher = fields.Many2One('account.voucher', 'Voucher')
-    party = fields.Many2One('party.party', 'Party')
+    date = fields.Date('Date', required=True, states=_states)
+    voucher = fields.Many2One('account.voucher', 'Voucher', readonly=True)
+    party = fields.Many2One('party.party', 'Party', states=_states)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('issued', 'Issued'),
         ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
+    amount = fields.Numeric('Amount', digits=(16, 2), required=True,
+        states=_states)
+
+    del _states
 
     @classmethod
     def __register__(cls, module_name):
@@ -115,23 +119,23 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
                 where=sql_table.state == 'canceled'))
 
     @staticmethod
-    def default_amount():
-        return Decimal('0.00')
+    def default_state():
+        return 'draft'
 
     @staticmethod
     def default_date():
         Date = Pool().get('ir.date')
         return Date.today()
 
+    @staticmethod
+    def default_amount():
+        return Decimal('0.00')
+
     @fields.depends('tax')
     def on_change_with_name_required(self, name=None):
         if self.tax and self.tax.sequence:
             return False
         return True
-
-    @staticmethod
-    def default_state():
-        return 'draft'
 
     @classmethod
     def delete(cls, retenciones):
@@ -161,18 +165,23 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
     'Tax Withholding Received'
     __name__ = 'account.retencion.soportada'
 
-    name = fields.Char('Number', required=True)
-    amount = fields.Numeric('Amount', digits=(16, 2), required=True)
-    date = fields.Date('Date', required=True)
-        domain=[('type', '=', 'soportada')])
-    voucher = fields.Many2One('account.voucher', 'Voucher')
-    party = fields.Many2One('party.party', 'Party')
+    _states = {'readonly': Eval('state') != 'draft'}
+
+    name = fields.Char('Number', required=True, states=_states)
     tax = fields.Many2One('account.retencion', 'Type',
+        domain=[('type', '=', 'soportada')], states=_states)
+    date = fields.Date('Date', required=True, states=_states)
+    voucher = fields.Many2One('account.voucher', 'Voucher', readonly=True)
+    party = fields.Many2One('party.party', 'Party', states=_states)
     state = fields.Selection([
         ('draft', 'Draft'),
         ('held', 'Held'),
         ('cancelled', 'Cancelled'),
         ], 'State', readonly=True)
+    amount = fields.Numeric('Amount', digits=(16, 2), required=True,
+        states=_states)
+
+    del _states
 
     @classmethod
     def __register__(cls, module_name):
@@ -184,8 +193,8 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
                 where=sql_table.state == 'canceled'))
 
     @staticmethod
-    def default_amount():
-        return Decimal('0.00')
+    def default_state():
+        return 'draft'
 
     @staticmethod
     def default_date():
@@ -193,8 +202,8 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
         return Date.today()
 
     @staticmethod
-    def default_state():
-        return 'draft'
+    def default_amount():
+        return Decimal('0.00')
 
     @classmethod
     def delete(cls, retenciones):

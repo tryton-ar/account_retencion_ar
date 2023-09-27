@@ -20,8 +20,7 @@ class AccountVoucher(metaclass=PoolMeta):
             'readonly': Or(
                 Eval('state') == 'posted',
                 Eval('currency_code') != 'ARS'),
-            },
-        depends=['voucher_type', 'state', 'currency_code'])
+            })
     retenciones_soportadas = fields.One2Many('account.retencion.soportada',
         'voucher', 'Tax Withholding Received',
         states={
@@ -29,8 +28,7 @@ class AccountVoucher(metaclass=PoolMeta):
             'readonly': Or(
                 Eval('state') == 'posted',
                 Eval('currency_code') != 'ARS'),
-            },
-        depends=['voucher_type', 'state', 'currency_code'])
+            })
 
     @fields.depends('retenciones_efectuadas', 'retenciones_soportadas')
     def on_change_with_amount(self, name=None):
