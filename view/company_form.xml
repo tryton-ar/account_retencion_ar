@@ -9,6 +9,9 @@
             <label name="iibb_agente_retencion"/>
             <field name="iibb_agente_retencion"/>
             <field name="iibb_regimenes_retencion" colspan="4"/>
+            <label name="iibb_agente_percepcion"/>
+            <field name="iibb_agente_percepcion"/>
+            <field name="iibb_regimenes_percepcion" colspan="4"/>
         </page>
     </xpath>
 </data>

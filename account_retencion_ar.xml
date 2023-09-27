@@ -132,5 +132,38 @@
         <menuitem parent="menu_retenciones" action="act_retencion_soportada_tree"
             id="menu_retencion_soportada" sequence="10"/>
 
+
+<!-- Perceptions -->
+
+        <record model="ir.ui.view" id="tax_view_form">
+            <field name="model">account.tax</field>
+            <field name="inherit" ref="account.tax_view_form"/>
+            <field name="name">perception_form</field>
+        </record>
+
+        <record model="ir.action.act_window" id="act_percepcion_tree">
+            <field name="name">Tax Perception Types</field>
+            <field name="res_model">account.tax</field>
+            <field name="domain"
+                eval="[('afip_kind', 'in', ['nacional', 'provincial', 'municipal'])]"
+                pyson="1"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_percepcion_tree_view1">
+            <field name="sequence" eval="10"/>
+            <field name="view" ref="account.tax_view_list"/>
+            <field name="act_window" ref="act_percepcion_tree"/>
+        </record>
+        <record model="ir.action.act_window.view"
+            id="act_percepcion_tree_view2">
+            <field name="sequence" eval="20"/>
+            <field name="view" ref="account.tax_view_form"/>
+            <field name="act_window" ref="act_percepcion_tree"/>
+        </record>
+
+        <menuitem parent="account.menu_account_configuration"
+            action="act_percepcion_tree"
+            id="menu_percepcion_configuration" sequence="55"/>
+
     </data>
 </tryton>

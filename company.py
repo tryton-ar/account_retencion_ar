@@ -21,6 +21,16 @@ class Company(metaclass=PoolMeta):
         'company', 'regimen', 'Jurisdicciones de Ingresos Brutos',
         domain=[('type', '=', 'efectuada'), ('tax', '=', 'iibb')])
 
+    iibb_agente_percepcion = fields.Boolean(
+        'Agente de Percepción de Impuesto a los Ingresos Brutos')
+    iibb_regimenes_percepcion = fields.Many2Many('company.percepcion.iibb',
+        'company', 'regimen', 'Jurisdicciones de Ingresos Brutos',
+        domain=[
+            ('company', '=', Eval('id')),
+            ('group.afip_kind', '=', 'provincial'),
+            ('group.kind', '=', 'sale'),
+            ])
+
 
 class CompanyWithholdingIIBB(ModelSQL):
     'Régimen de Ingresos Brutos de Empresa'
@@ -29,4 +39,14 @@ class CompanyWithholdingIIBB(ModelSQL):
     company = fields.Many2One('company.company', 'Company',
         ondelete='CASCADE', required=True)
     regimen = fields.Many2One('account.retencion', 'Régimen',
+        ondelete='CASCADE', required=True)
+
+
+class CompanyPerceptionIIBB(ModelSQL):
+    'Régimen de Ingresos Brutos de Empresa'
+    __name__ = 'company.percepcion.iibb'
+
+    company = fields.Many2One('company.company', 'Company',
+        ondelete='CASCADE', required=True)
+    regimen = fields.Many2One('account.tax', 'Régimen',
         ondelete='CASCADE', required=True)

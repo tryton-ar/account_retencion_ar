@@ -8,6 +8,7 @@ from . import account_voucher_ar
 from . import party
 from . import company
 from . import product
+from . import invoice
 
 
 def register():
@@ -17,6 +18,7 @@ def register():
         account_retencion_ar.TaxWithholdingTypeScale,
         account_retencion_ar.TaxWithholdingSubmitted,
         account_retencion_ar.TaxWithholdingReceived,
+        account_retencion_ar.Perception,
         account_voucher_ar.AccountVoucher,
         account_voucher_ar.RecalculateWithholdingsStart,
         party.Party,
@@ -24,8 +26,10 @@ def register():
         party.PartyWithholdingIIBB,
         company.Company,
         company.CompanyWithholdingIIBB,
+        company.CompanyPerceptionIIBB,
         product.Category,
         product.Product,
+        invoice.Invoice,
         invoice.InvoiceLine,
         module='account_retencion_ar', type_='model')
     Pool.register(

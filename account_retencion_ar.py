@@ -348,3 +348,27 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
         current_default['name'] = None
         current_default['voucher'] = None
         return super().copy(retenciones, default=current_default)
+
+
+class Perception(metaclass=PoolMeta):
+    __name__ = 'account.tax'
+
+    subdivision = fields.Many2One('country.subdivision', 'Subdivision',
+        domain=[('country.code', '=', 'AR')],
+        states={'invisible': Eval('afip_kind') != 'provincial'})
+    minimum_non_taxable_amount = fields.Numeric('Minimum Non-Taxable Amount',
+        digits=(16, 2))
+    rate_registered = fields.Numeric('% Perception to Registered',
+        digits=(14, 10))
+    rate_non_registered = fields.Numeric('% Perception to Non-Registered',
+        digits=(14, 10))
+    minimum_perceivable_amount = fields.Numeric(
+        'Minimum Amount to be Perceived', digits=(16, 2))
+
+    @classmethod
+    def view_attributes(cls):
+        return super().view_attributes() + [
+            ('//group[@id="calculation"]', 'states',
+                {'invisible': ~Eval('afip_kind').in_(
+                    ['nacional', 'provincial', 'municipal'])}),
+            ]
