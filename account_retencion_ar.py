@@ -6,6 +6,7 @@ from sql import Null
 
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
+from trytond.report import Report
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Bool, Not, Id
 from trytond.transaction import Transaction
@@ -216,6 +217,16 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
                     where=sql_table.aliquot != Null))
             table_h.drop_column('aliquot')
 
+    @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls._buttons.update({
+            'execute_report': {
+                'invisible': Eval('state') != 'issued',
+                'depends': ['state'],
+                },
+            })
+
     @staticmethod
     def default_state():
         return 'draft'
@@ -280,6 +291,12 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
     @classmethod
     def search_tax_field(cls, name, clause):
         return [('tax.' + name,) + tuple(clause[1:])]
+
+    @classmethod
+    @ModelView.button_action(
+        'account_retencion_ar.report_account_retencion_efectuada')
+    def execute_report(cls, retenciones):
+        pass
 
 
 class TaxWithholdingReceived(ModelSQL, ModelView):
@@ -348,6 +365,40 @@ class TaxWithholdingReceived(ModelSQL, ModelView):
         current_default['name'] = None
         current_default['voucher'] = None
         return super().copy(retenciones, default=current_default)
+
+
+class TaxWithholdingSubmittedReport(Report):
+    __name__ = 'account.retencion.efectuada.report'
+
+    @classmethod
+    def execute(cls, ids, data):
+        pool = Pool()
+        TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
+
+        for retencion in TaxWithholdingSubmitted.browse(ids):
+            if retencion.state != 'issued':
+                raise UserError(gettext(
+                    'account_retencion_ar.msg_print_not_issued',
+                    retencion=retencion.name))
+        return super().execute(ids, data)
+
+    @classmethod
+    def get_context(cls, records, header, data):
+        pool = Pool()
+        Company = pool.get('company.company')
+
+        report_context = super().get_context(records, header, data)
+
+        company = Company(Transaction().context.get('company'))
+        report_context['company'] = company
+        report_context['format_vat_number'] = cls.format_vat_number
+        return report_context
+
+    @classmethod
+    def format_vat_number(cls, vat_number=''):
+        if not vat_number:
+            return ''
+        return '%s-%s-%s' % (vat_number[:2], vat_number[2:-1], vat_number[-1])
 
 
 class Perception(metaclass=PoolMeta):

@@ -35,3 +35,6 @@ def register():
     Pool.register(
         account_voucher_ar.RecalculateWithholdings,
         module='account_retencion_ar', type_='wizard')
+    Pool.register(
+        account_retencion_ar.TaxWithholdingSubmittedReport,
+        module='account_retencion_ar', type_='report')

@@ -22,6 +22,12 @@
             <field name="name">retenciones_soportadas_tree</field>
         </record>
 
+        <record model="ir.model.button" id="retencion_efectuada_execute_report_button">
+            <field name="name">execute_report</field>
+           <field name="string">Print</field>
+            <field name="model" search="[('model', '=', 'account.retencion.efectuada')]"/>
+        </record>
+
         <record model="ir.model.button" id="voucher_calculate_button">
             <field name="name">calculate</field>
             <field name="string">Calculate withholdings</field>

@@ -132,6 +132,20 @@
         <menuitem parent="menu_retenciones" action="act_retencion_soportada_tree"
             id="menu_retencion_soportada" sequence="10"/>
 
+<!-- Tax Withholding Submitted Report -->
+
+        <record model="ir.action.report" id="report_account_retencion_efectuada">
+            <field name="name">Tax Withholding</field>
+            <field name="model">account.retencion.efectuada</field>
+            <field name="report_name">account.retencion.efectuada.report</field>
+            <field name="report">account_retencion_ar/account_retencion_efectuada.fodt</field>
+        </record>
+
+        <record model="ir.action.keyword" id="report_account_retencion_efectuada_keyword">
+            <field name="keyword">form_print</field>
+            <field name="model">account.retencion.efectuada,-1</field>
+            <field name="action" ref="report_account_retencion_efectuada"/>
+        </record>
 
 <!-- Perceptions -->
 

@@ -3,4 +3,5 @@
     <field name="tax"/>
     <field name="name"/>
     <field name="amount"/>
+    <button name="execute_report"/>
 </tree>
