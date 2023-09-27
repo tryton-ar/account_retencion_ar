@@ -14,7 +14,7 @@ class AccountVoucher(metaclass=PoolMeta):
     __name__ = 'account.voucher'
 
     retenciones_efectuadas = fields.One2Many('account.retencion.efectuada',
-        'voucher', 'Retenciones Efectuadas',
+        'voucher', 'Tax Withholding Submitted',
         states={
             'invisible': Eval('voucher_type') != 'payment',
             'readonly': Or(
@@ -23,7 +23,7 @@ class AccountVoucher(metaclass=PoolMeta):
             },
         depends=['voucher_type', 'state', 'currency_code'])
     retenciones_soportadas = fields.One2Many('account.retencion.soportada',
-        'voucher', 'Retenciones Soportadas',
+        'voucher', 'Tax Withholding Received',
         states={
             'invisible': Eval('voucher_type') != 'receipt',
             'readonly': Or(
@@ -80,14 +80,14 @@ class AccountVoucher(metaclass=PoolMeta):
     @ModelView.button
     def post(cls, vouchers):
         pool = Pool()
-        RetencionSoportada = pool.get('account.retencion.soportada')
-        RetencionEfectuada = pool.get('account.retencion.efectuada')
+        TaxWithholdingReceived = pool.get('account.retencion.soportada')
+        TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
 
         super().post(vouchers)
 
         for voucher in vouchers:
             if voucher.retenciones_soportadas:
-                RetencionSoportada.write(list(
+                TaxWithholdingReceived.write(list(
                         voucher.retenciones_soportadas), {
                     'party': voucher.party.id,
                     'state': 'held',
@@ -98,7 +98,7 @@ class AccountVoucher(metaclass=PoolMeta):
                         raise UserError(gettext(
                             'account_retencion_ar.msg_missing_retencion_seq'))
 
-                    RetencionEfectuada.write([retencion], {
+                    TaxWithholdingSubmitted.write([retencion], {
                         'party': voucher.party.id,
                         'name': retencion.tax.sequence.get(),
                         'state': 'issued',
@@ -108,20 +108,20 @@ class AccountVoucher(metaclass=PoolMeta):
     @ModelView.button
     def cancel(cls, vouchers):
         pool = Pool()
-        RetencionSoportada = pool.get('account.retencion.soportada')
-        RetencionEfectuada = pool.get('account.retencion.efectuada')
+        TaxWithholdingReceived = pool.get('account.retencion.soportada')
+        TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
 
         super().cancel(vouchers)
 
         for voucher in vouchers:
             if voucher.retenciones_soportadas:
-                RetencionSoportada.write(list(
+                TaxWithholdingReceived.write(list(
                         voucher.retenciones_soportadas), {
                     'party': None,
                     'state': 'cancelled',
                     })
             if voucher.retenciones_efectuadas:
-                RetencionEfectuada.write(list(
+                TaxWithholdingSubmitted.write(list(
                         voucher.retenciones_efectuadas), {
                     'party': None,
                     'state': 'cancelled',

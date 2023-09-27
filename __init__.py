@@ -9,9 +9,9 @@ from . import account_voucher_ar
 
 def register():
     Pool.register(
-        account_retencion_ar.AccountRetencion,
-        account_retencion_ar.AccountRetencionSequence,
-        account_retencion_ar.AccountRetencionEfectuada,
-        account_retencion_ar.AccountRetencionSoportada,
+        account_retencion_ar.TaxWithholdingType,
+        account_retencion_ar.TaxWithholdingTypeSequence,
+        account_retencion_ar.TaxWithholdingSubmitted,
+        account_retencion_ar.TaxWithholdingReceived,
         account_voucher_ar.AccountVoucher,
         module='account_retencion_ar', type_='model')

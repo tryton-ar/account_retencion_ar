@@ -2,10 +2,10 @@
 <tryton>
     <data>
 
-<!-- Sequences for Retencion -->
+<!-- Tax Withholding Sequence -->
 
         <record model="ir.sequence.type" id="seq_type_account_retencion">
-            <field name="name">Account Retencion</field>
+            <field name="name">Tax Withholding</field>
         </record>
         <record model="ir.sequence.type-res.group"
             id="seq_type_account_retencion_group_admin">
@@ -17,6 +17,8 @@
             <field name="sequence_type" ref="seq_type_account_retencion"/>
             <field name="group" ref="account.group_account_admin"/>
         </record>
+
+<!-- Tax Withholding Types -->
 
         <record model="ir.ui.view" id="account_retencion_form">
             <field name="model">account.retencion</field>
@@ -30,7 +32,7 @@
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_tree">
-            <field name="name">Retenciones</field>
+            <field name="name">Tax Withholding Types</field>
             <field name="res_model">account.retencion</field>
         </record>
         <record model="ir.action.act_window.view"
@@ -50,10 +52,10 @@
             action="act_retencion_tree"
             id="menu_retencion_configuration" sequence="50"/>
 
-        <menuitem name="Retenciones" parent="account.menu_account"
+        <menuitem name="Tax Withholdings" parent="account.menu_account"
             id="menu_retenciones" sequence="22"/>
 
-<!-- Retencion Efectuada -->
+<!-- Tax Withholdings Submitted -->
 
         <record model="ir.ui.view" id="account_retencion_efectuada_form">
             <field name="model">account.retencion.efectuada</field>
@@ -67,7 +69,7 @@
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_efectuada_tree">
-            <field name="name">Retenciones Efectuadas</field>
+            <field name="name">Tax Withholdings Submitted</field>
             <field name="res_model">account.retencion.efectuada</field>
         </record>
         <record model="ir.action.act_window.view"
@@ -85,7 +87,7 @@
         <menuitem parent="menu_retenciones" action="act_retencion_efectuada_tree"
             id="menu_retencion_efectuada" sequence="5"/>
 
-<!-- Retencion Soportada -->
+<!-- Tax Withholdings Received -->
 
         <record model="ir.ui.view" id="account_retencion_soportada_form">
             <field name="model">account.retencion.soportada</field>
@@ -99,7 +101,7 @@
         </record>
 
         <record model="ir.action.act_window" id="act_retencion_soportada_tree">
-            <field name="name">Retenciones Soportadas</field>
+            <field name="name">Tax Withholdings Received</field>
             <field name="res_model">account.retencion.soportada</field>
         </record>
         <record model="ir.action.act_window.view"

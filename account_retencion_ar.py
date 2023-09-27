@@ -15,20 +15,20 @@ from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
 
-class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
-    "Account Retencion"
+class TaxWithholdingType(ModelSQL, ModelView, CompanyMultiValueMixin):
+    'Tax Withholding Type'
     __name__ = 'account.retencion'
 
     name = fields.Char('Name', required=True)
+    type = fields.Selection([
+        ('efectuada', 'Submitted'),
+        ('soportada', 'Received'),
+        ], 'Type', required=True)
     account = fields.Many2One('account.account', 'Account', required=True,
         domain=[
             ('type', '!=', None),
             ('closed', '!=', True),
             ])
-    type = fields.Selection([
-        ('efectuada', 'Efectuada'),
-        ('soportada', 'Soportada'),
-        ], 'Type', required=True)
     sequence = fields.MultiValue(fields.Many2One(
         'ir.sequence', 'Retencion Sequence',
         domain=[
@@ -50,11 +50,11 @@ class AccountRetencion(ModelSQL, ModelView, CompanyMultiValueMixin):
         return super().multivalue_model(field)
 
 
-class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
-    "Account Retencion Sequence"
+class TaxWithholdingTypeSequence(ModelSQL, CompanyValueMixin):
+    'Tax Withholding Type Sequence'
     __name__ = 'account.retencion.sequence'
 
-    retencion = fields.Many2One('account.retencion', 'Account Retencion',
+    retencion = fields.Many2One('account.retencion', 'Tax Withholding Type',
         ondelete='CASCADE', select=True)
     sequence = fields.Many2One('ir.sequence',
         'Retencion Sequence', depends=['company'], domain=[
@@ -80,8 +80,8 @@ class AccountRetencionSequence(ModelSQL, CompanyValueMixin):
             parent='retencion', fields=fields)
 
 
-class AccountRetencionEfectuada(ModelSQL, ModelView):
-    'Account Retencion Efectuada'
+class TaxWithholdingSubmitted(ModelSQL, ModelView):
+    'Tax Withholding Submitted'
     __name__ = 'account.retencion.efectuada'
 
     name = fields.Char('Number',
@@ -92,10 +92,10 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
         depends=['name_required'])
     name_required = fields.Function(fields.Boolean('Name Required'),
         'on_change_with_name_required')
+    tax = fields.Many2One('account.retencion', 'Type',
     amount = fields.Numeric('Amount', digits=(16, 2), required=True)
     aliquot = fields.Float('Aliquot')
     date = fields.Date('Date', required=True)
-    tax = fields.Many2One('account.retencion', 'Tax',
         domain=[('type', '=', 'efectuada')])
     voucher = fields.Many2One('account.voucher', 'Voucher')
     party = fields.Many2One('party.party', 'Party')
@@ -157,17 +157,17 @@ class AccountRetencionEfectuada(ModelSQL, ModelView):
         return super().copy(retenciones, default=current_default)
 
 
-class AccountRetencionSoportada(ModelSQL, ModelView):
-    'Account Retencion Soportada'
+class TaxWithholdingReceived(ModelSQL, ModelView):
+    'Tax Withholding Received'
     __name__ = 'account.retencion.soportada'
 
     name = fields.Char('Number', required=True)
     amount = fields.Numeric('Amount', digits=(16, 2), required=True)
     date = fields.Date('Date', required=True)
-    tax = fields.Many2One('account.retencion', 'Tax',
         domain=[('type', '=', 'soportada')])
     voucher = fields.Many2One('account.voucher', 'Voucher')
     party = fields.Many2One('party.party', 'Party')
+    tax = fields.Many2One('account.retencion', 'Type',
     state = fields.Selection([
         ('draft', 'Draft'),
         ('held', 'Held'),
