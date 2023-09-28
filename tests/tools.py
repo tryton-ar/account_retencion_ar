@@ -15,7 +15,7 @@ def create_retencion_sequence(company=None, config=None):
         company = get_company()
 
     retencion_seq_type, = SequenceType.find([
-        ('name', '=', 'Account Retencion'),
+        ('name', '=', 'Tax Withholding'),
         ], limit=1)
     retencion_seq = Sequence(
         name='Retencion',

@@ -56,10 +56,21 @@ Create chart of accounts::
     >>> account_tax = accounts['tax']
     >>> account_cash = accounts['cash']
 
+Create tax groups::
+
+    >>> TaxGroup = Model.get('account.tax.group')
+    >>> tax_group = TaxGroup()
+    >>> tax_group.name = 'gravado'
+    >>> tax_group.code = 'gravado'
+    >>> tax_group.kind = 'both'
+    >>> tax_group.afip_kind = 'gravado'
+    >>> tax_group.save()
+
 Create tax::
 
     >>> TaxCode = Model.get('account.tax.code')
     >>> tax = create_tax(Decimal('.10'))
+    >>> tax.group = tax_group
     >>> tax.save()
     >>> invoice_base_code = create_tax_code(tax, 'base', 'invoice')
     >>> invoice_base_code.save()
@@ -155,10 +166,12 @@ Create Retenciones::
     >>> retencion_soportada = Retencion(name='Retencion soportada')
     >>> retencion_soportada.account = account_tax
     >>> retencion_soportada.type = 'soportada'
+    >>> retencion_soportada.tax = 'iva'
     >>> retencion_soportada.save()
     >>> retencion_efectuada = Retencion(name='Retencion efectuada')
     >>> retencion_efectuada.account = account_tax
     >>> retencion_efectuada.type = 'efectuada'
+    >>> retencion_efectuada.tax = 'iva'
     >>> retencion_efectuada.sequence = create_retencion_sequence()
     >>> retencion_efectuada.save()
 
@@ -168,7 +181,7 @@ Create invoice::
     >>> InvoiceLine = Model.get('account.invoice.line')
     >>> invoice = Invoice()
     >>> invoice.party = party
-    >>> invoice.payment_term = None
+    >>> invoice.payment_term = payment_term
     >>> line = InvoiceLine()
     >>> invoice.lines.append(line)
     >>> line.product = product

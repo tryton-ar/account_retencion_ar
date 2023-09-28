@@ -52,10 +52,12 @@ class AccountVoucher(metaclass=PoolMeta):
                 'depends': ['voucher_type', 'state'],
                 },
             'recalculate': {
-                'invisible': And(
+                'invisible': Or(
+                    Eval('voucher_type') != 'payment',
                     Eval('state') != 'calculated',
                     Eval('amount_to_pay', 0) > Eval('amount', 0)),
-                'depends': ['state', 'amount_to_pay', 'amount'],
+                'depends': ['voucher_type', 'state', 'amount_to_pay',
+                    'amount'],
                 },
             'draft': {
                 'invisible': Eval('state') != 'calculated',
