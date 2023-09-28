@@ -39,7 +39,8 @@ class CompanyWithholdingIIBB(ModelSQL):
     company = fields.Many2One('company.company', 'Company',
         ondelete='CASCADE', required=True)
     regimen = fields.Many2One('account.retencion', 'Régimen',
-        ondelete='CASCADE', required=True)
+        ondelete='CASCADE', required=True,
+        context={'company': Eval('company', -1)}, depends={'company'})
 
 
 class CompanyPerceptionIIBB(ModelSQL):
@@ -49,4 +50,5 @@ class CompanyPerceptionIIBB(ModelSQL):
     company = fields.Many2One('company.company', 'Company',
         ondelete='CASCADE', required=True)
     regimen = fields.Many2One('account.tax', 'Régimen',
-        ondelete='CASCADE', required=True)
+        ondelete='CASCADE', required=True,
+        context={'company': Eval('company', -1)}, depends={'company'})

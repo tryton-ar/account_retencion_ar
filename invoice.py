@@ -136,7 +136,8 @@ class InvoiceLine(metaclass=PoolMeta):
     ganancias_regimen = fields.Many2One('account.retencion',
         'Régimen Ganancias',
         domain=[('type', '=', 'efectuada'), ('tax', '=', 'gana')],
-        states={'invisible': Eval('invoice_type') != 'in'})
+        states={'invisible': Eval('invoice_type') != 'in'},
+        context={'company': Eval('company', -1)}, depends={'company'})
 
     @fields.depends('product', 'invoice', '_parent_invoice.type',
         'invoice_type')
