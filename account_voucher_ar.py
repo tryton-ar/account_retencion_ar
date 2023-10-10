@@ -595,10 +595,6 @@ class RecalculateWithholdingsStart(ModelView):
         #('included', 'Withholdings included in the amount'),
         ], 'Option', required=True, sort=False)
 
-    @staticmethod
-    def default_amount_option():
-        return 'add'
-
 
 class RecalculateWithholdings(Wizard):
     'Recalculate withholdings'
@@ -612,12 +608,24 @@ class RecalculateWithholdings(Wizard):
         ])
     recalculate = StateTransition()
 
+    def default_start(self, fields):
+        AccountVoucher = Pool().get('account.voucher')
+
+        voucher = AccountVoucher(Transaction().context['active_id'])
+
+        res = {
+            'amount': Decimal(0),
+            'amount_option': 'add',
+            }
+        if voucher:
+           res['amount'] = voucher.amount
+
+        return res
+
     def transition_recalculate(self):
         AccountVoucher = Pool().get('account.voucher')
 
         voucher = AccountVoucher(Transaction().context['active_id'])
-        if not voucher:
-            return {}
 
         voucher.delete_withholding()
         voucher.calculate_withholdings(context={
