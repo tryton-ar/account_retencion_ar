@@ -78,6 +78,8 @@ class Invoice(metaclass=PoolMeta):
                 'account_retencion_ar.msg_party_iibb_condition'))
         if self.party.iibb_condition in ['ex', 'rs', 'na', 'cs']:
             return {}
+        if self.party.iva_condition not in ['responsable_inscripto', 'exento']:
+            return {}
         company_address = self.company.party.address_get('invoice')
         if not company_address or not company_address.subdivision:
             raise UserError(gettext(
