@@ -337,7 +337,8 @@ class AccountVoucher(metaclass=PoolMeta):
                     res['scale_fixed_amount'] = (
                         scale.fixed_withholdable_amount)
                     return res
-        if self.party.ganancias_condition == 'in':
+        if (self.party.ganancias_condition == 'in' or
+                self.party.company_type == 's_de_h'):
             res['rate'] = regimen.rate_registered
         else:
             res['rate'] = regimen.rate_non_registered
