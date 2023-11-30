@@ -29,6 +29,7 @@ class Invoice(metaclass=PoolMeta):
     def _get_perception_iibb(self):
         taxes = {}
         quantize = Decimal(10) ** -Decimal(2)
+        factor = 1
 
         untaxed_amount = Decimal(0)
         if self.lines:
@@ -36,6 +37,10 @@ class Invoice(metaclass=PoolMeta):
                 untaxed_amount += getattr(line, 'amount', None) or 0
         if not untaxed_amount:
             return taxes
+
+        if untaxed_amount < 0:
+            untaxed_amount = abs(untaxed_amount)
+            factor = -1
 
         perception_data = self._get_perception_data_iibb()
         for data in perception_data.values():
@@ -60,8 +65,8 @@ class Invoice(metaclass=PoolMeta):
             if computed_amount < minimum_perceivable_amount:
                 continue
 
-            base = untaxed_amount
-            amount = computed_amount
+            base = untaxed_amount * factor
+            amount = computed_amount * factor
             taxline = self._compute_tax_line(amount, base, tax)
             if taxline not in taxes:
                 taxes[taxline] = taxline
