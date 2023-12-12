@@ -6,6 +6,18 @@ msgctxt "field:account.invoice.line,ganancias_regimen:"
 msgid "Régimen Ganancias"
 msgstr ""
 
+msgctxt "field:account.print_iibb_subdivision.start,end_date:"
+msgid "End date"
+msgstr "Fecha hasta"
+
+msgctxt "field:account.print_iibb_subdivision.start,start_date:"
+msgid "Start date"
+msgstr "Fecha desde"
+
+msgctxt "field:account.print_iibb_subdivision.start,subdivision:"
+msgid "Subdivision"
+msgstr "Jurisdicción"
+
 msgctxt "field:account.retencion,account:"
 msgid "Account"
 msgstr "Cuenta contable"
@@ -366,6 +378,10 @@ msgctxt "help:account.sicore.start,csv_format:"
 msgid "Check this box if you want export to csv format."
 msgstr "Marque aquí si quiere exportar a formato CSV"
 
+msgctxt "model:account.print_iibb_subdivision.start,name:"
+msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
+
 msgctxt "model:account.retencion,name:"
 msgid "Tax Withholding Type"
 msgstr "Tipo de retención"
@@ -425,6 +441,10 @@ msgstr "Tipos de retenciones"
 msgctxt "model:ir.action,name:report_account_retencion_efectuada"
 msgid "Tax Withholding"
 msgstr "Retención"
+
+msgctxt "model:ir.action,name:report_iibb_subdivision"
+msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
 
 msgctxt "model:ir.action,name:wizard_recalculate_withholdings"
 msgid "Recalculate withholdings"

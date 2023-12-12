@@ -6,6 +6,7 @@ from sql import Null
 
 from trytond import backend
 from trytond.model import ModelView, ModelSQL, fields
+from trytond.wizard import Wizard, StateView, StateReport, Button
 from trytond.report import Report
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, Bool, Not, Id
@@ -423,3 +424,142 @@ class Perception(metaclass=PoolMeta):
                 {'invisible': ~Eval('afip_kind').in_(
                     ['nacional', 'provincial', 'municipal'])}),
             ]
+
+
+class PrintIIBBSubdivisionStart(ModelView):
+    'Retenciones y Percepciones de Ingresos Brutos por Jurisdicción'
+    __name__ = 'account.print_iibb_subdivision.start'
+
+    start_date = fields.Date('Start date', required=True)
+    end_date = fields.Date('End date', required=True)
+    subdivision = fields.Many2One('country.subdivision', 'Subdivision',
+        domain=[('country.code', '=', 'AR')], required=True)
+
+
+class PrintIIBBSubdivision(Wizard):
+    'Retenciones y Percepciones de Ingresos Brutos por Jurisdicción'
+    __name__ = 'account.print_iibb_subdivision'
+
+    start = StateView('account.print_iibb_subdivision.start',
+        'flexar_silix.print_iibb_subdivision_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('account.iibb_subdivision.report')
+
+    def do_print_(self, action):
+        data = {
+            'start_date': self.start.start_date,
+            'end_date': self.start.end_date,
+            'subdivision': self.start.subdivision.id,
+            }
+        return action, data
+
+    def transition_print_(self):
+        return 'end'
+
+
+class IIBBSubdivisionReport(Report):
+    'Retenciones y Percepciones de Ingresos Brutos por Jurisdicción'
+    __name__ = 'account.iibb_subdivision.report'
+
+    @classmethod
+    def get_context(cls, records, header, data):
+        pool = Pool()
+        Subdivision = pool.get('country.subdivision')
+
+        report_context = super().get_context(records, header, data)
+
+        company = report_context['user'].company
+        report_context['company'] = company
+        report_context['start_date'] = data['start_date']
+        report_context['end_date'] = data['end_date']
+        report_context['subdivision'] = Subdivision(
+            data['subdivision']).rec_name
+        report_context['retenciones'] = cls._get_retenciones(
+            company, data['start_date'], data['end_date'], data['subdivision'])
+        report_context['percepciones'] = cls._get_percepciones(
+            company, data['start_date'], data['end_date'], data['subdivision'])
+        return report_context
+
+    @classmethod
+    def _get_retenciones(cls, company, start_date, end_date, subdivision):
+        pool = Pool()
+        WithholdingType = pool.get('account.retencion')
+        TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
+
+        withholding_type = WithholdingType.search([
+            ('tax', '=', 'iibb'),
+            ('type', '=', 'efectuada'),
+            ('subdivision', '=', subdivision),
+            ])
+        if not withholding_type:
+            return []
+        withholding_type = withholding_type[0]
+
+        res = []
+        retenciones = TaxWithholdingSubmitted.search([
+            ('tax', '=', withholding_type),
+            ('date', '>=', start_date),
+            ('date', '<=', end_date),
+            ('state', '=', 'issued'),
+            ], order=[
+            ('date', 'ASC'),
+            ('name', 'ASC'),
+            ])
+        for retencion in retenciones:
+            record = {
+                'date': retencion.date,
+                'vat_number': retencion.party.vat_number,
+                'party_name': retencion.party.rec_name,
+                'base': retencion.payment_amount,
+                'amount': retencion.amount,
+                'number': retencion.name,
+                }
+            res.append(record)
+
+        return res
+
+    @classmethod
+    def _get_percepciones(cls, company, start_date, end_date, subdivision):
+        pool = Pool()
+        PerceptionType = pool.get('account.tax')
+        Invoice = pool.get('account.invoice')
+
+        perception_type = PerceptionType.search([
+            ('group.afip_kind', '=', 'provincial'),
+            ('group.kind', '=', 'sale'),
+            ('company', '=', company),
+            ('subdivision', '=', subdivision),
+            ])
+        if not perception_type:
+            return []
+        perception_type = perception_type[0]
+
+        res = []
+        invoices = Invoice.search([
+            ('type', '=', 'out'),
+            ['OR', ('state', 'in', ['posted', 'paid']),
+                [('state', '=', 'cancelled'), ('number', '!=', None)]],
+            ('move.date', '>=', start_date),
+            ('move.date', '<=', end_date),
+            #('pos.pos_do_not_report', '=', False),
+            ], order=[
+            ('number', 'ASC'),
+            ('invoice_date', 'ASC'),
+            ])
+        for invoice in invoices:
+            for percepcion in invoice.taxes:
+                if percepcion.tax != perception_type:
+                    continue
+                record = {
+                    'date': invoice.invoice_date,
+                    'vat_number': invoice.party.vat_number,
+                    'party_name': invoice.party.rec_name,
+                    'base': invoice.untaxed_amount,
+                    'amount': percepcion.amount,
+                    'number': invoice.number,
+                    }
+                res.append(record)
+
+        return res

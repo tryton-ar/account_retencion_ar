@@ -623,7 +623,7 @@ class RecalculateWithholdings(Wizard):
             'amount_option': 'add',
             }
         if voucher:
-           res['amount'] = voucher.amount
+            res['amount'] = voucher.amount
 
         return res
 
