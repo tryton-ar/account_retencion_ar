@@ -179,5 +179,30 @@
             action="act_percepcion_tree"
             id="menu_percepcion_configuration" sequence="55"/>
 
+<!-- Retenciones y Percepciones de Ingresos Brutos por Jurisdicción -->
+
+        <record model="ir.action.report" id="report_iibb_subdivision">
+            <field name="name">Retenciones y Percepciones de Ingresos Brutos por Jurisdicción</field>
+            <field name="report_name">account.iibb_subdivision.report</field>
+            <field name="report">account_retencion_ar/iibb_subdivision.fods</field>
+            <field name="extension">xls</field>
+        </record>
+
+        <record model="ir.ui.view" id="print_iibb_subdivision_start_view_form">
+            <field name="model">account.print_iibb_subdivision.start</field>
+            <field name="type">form</field>
+            <field name="name">print_iibb_subdivision_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wiz_print_iibb_subdivision">
+            <field name="name">Retenciones y Percepciones de Ingresos Brutos por Jurisdicción</field>
+            <field name="wiz_name">account.print_iibb_subdivision</field>
+        </record>
+
+        <menuitem action="wiz_print_iibb_subdivision"
+            id="menu_print_iibb_subdivision"
+            parent="account.menu_reporting"
+            icon="tryton-print"/>
+
     </data>
 </tryton>

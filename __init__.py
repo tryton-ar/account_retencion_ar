@@ -20,6 +20,7 @@ def register():
         account_retencion_ar.TaxWithholdingSubmitted,
         account_retencion_ar.TaxWithholdingReceived,
         account_retencion_ar.Perception,
+        account_retencion_ar.PrintIIBBSubdivisionStart,
         account_voucher_ar.AccountVoucher,
         account_voucher_ar.RecalculateWithholdingsStart,
         party.Party,
@@ -36,9 +37,11 @@ def register():
         sicore.ExportSICOREResult,
         module='account_retencion_ar', type_='model')
     Pool.register(
+        account_retencion_ar.PrintIIBBSubdivision,
         account_voucher_ar.RecalculateWithholdings,
         sicore.ExportSICORE,
         module='account_retencion_ar', type_='wizard')
     Pool.register(
         account_retencion_ar.TaxWithholdingSubmittedReport,
+        account_retencion_ar.IIBBSubdivisionReport,
         module='account_retencion_ar', type_='report')
