@@ -138,7 +138,7 @@
             <field name="name">Tax Withholding</field>
             <field name="model">account.retencion.efectuada</field>
             <field name="report_name">account.retencion.efectuada.report</field>
-            <field name="report">account_retencion_ar/account_retencion_efectuada.fodt</field>
+            <field name="report">account_retencion_ar/report/account_retencion_efectuada.fodt</field>
         </record>
 
         <record model="ir.action.keyword" id="report_account_retencion_efectuada_keyword">
@@ -184,7 +184,7 @@
         <record model="ir.action.report" id="report_iibb_subdivision">
             <field name="name">Retenciones y Percepciones de Ingresos Brutos por Jurisdicción</field>
             <field name="report_name">account.iibb_subdivision.report</field>
-            <field name="report">account_retencion_ar/iibb_subdivision.fods</field>
+            <field name="report">account_retencion_ar/report/iibb_subdivision.fods</field>
             <field name="extension">xls</field>
         </record>
 
@@ -201,6 +201,31 @@
 
         <menuitem action="wiz_print_iibb_subdivision"
             id="menu_print_iibb_subdivision"
+            parent="account.menu_reporting"
+            icon="tryton-print"/>
+
+<!-- Percepciones por Jurisdicción -->
+
+        <record model="ir.action.report" id="report_perception_subdivision">
+            <field name="name">Percepciones por Jurisdicción</field>
+            <field name="report_name">account.perception_subdivision.report</field>
+            <field name="report">account_retencion_ar/report/perception_subdivision.fods</field>
+            <field name="extension">xls</field>
+        </record>
+
+        <record model="ir.ui.view" id="print_perception_subdivision_start_view_form">
+            <field name="model">account.print_perception_subdivision.start</field>
+            <field name="type">form</field>
+            <field name="name">print_perception_subdivision_start_form</field>
+        </record>
+
+        <record model="ir.action.wizard" id="wiz_print_perception_subdivision">
+            <field name="name">Percepciones por Jurisdicción</field>
+            <field name="wiz_name">account.print_perception_subdivision</field>
+        </record>
+
+        <menuitem action="wiz_print_perception_subdivision"
+            id="menu_print_perception_subdivision"
             parent="account.menu_reporting"
             icon="tryton-print"/>
 
