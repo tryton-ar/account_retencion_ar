@@ -18,6 +18,22 @@ msgctxt "field:account.print_iibb_subdivision.start,subdivision:"
 msgid "Subdivision"
 msgstr "Jurisdicción"
 
+msgctxt "field:account.print_perception_subdivision.start,date:"
+msgid "Use"
+msgstr "Utilizar"
+
+msgctxt "field:account.print_perception_subdivision.start,end_date:"
+msgid "End date"
+msgstr "Fecha hasta"
+
+msgctxt "field:account.print_perception_subdivision.start,kind:"
+msgid "Kind"
+msgstr "Clase"
+
+msgctxt "field:account.print_perception_subdivision.start,start_date:"
+msgid "Start date"
+msgstr "Fecha desde"
+
 msgctxt "field:account.retencion,account:"
 msgid "Account"
 msgstr "Cuenta contable"
@@ -382,6 +398,10 @@ msgctxt "model:account.print_iibb_subdivision.start,name:"
 msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
 msgstr ""
 
+msgctxt "model:account.print_perception_subdivision.start,name:"
+msgid "Percepciones por Jurisdicción"
+msgstr ""
+
 msgctxt "model:account.retencion,name:"
 msgid "Tax Withholding Type"
 msgstr "Tipo de retención"
@@ -444,6 +464,18 @@ msgstr "Retención"
 
 msgctxt "model:ir.action,name:report_iibb_subdivision"
 msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
+
+msgctxt "model:ir.action,name:report_perception_subdivision"
+msgid "Percepciones por Jurisdicción"
+msgstr ""
+
+msgctxt "model:ir.action,name:wiz_print_iibb_subdivision"
+msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
+
+msgctxt "model:ir.action,name:wiz_print_perception_subdivision"
+msgid "Percepciones por Jurisdicción"
 msgstr ""
 
 msgctxt "model:ir.action,name:wizard_recalculate_withholdings"
@@ -520,6 +552,14 @@ msgctxt "model:ir.ui.menu,name:menu_percepcion_configuration"
 msgid "Tax Perception Types"
 msgstr "Tipos de percepciones"
 
+msgctxt "model:ir.ui.menu,name:menu_print_iibb_subdivision"
+msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
+
+msgctxt "model:ir.ui.menu,name:menu_print_perception_subdivision"
+msgid "Percepciones por Jurisdicción"
+msgstr ""
+
 msgctxt "model:ir.ui.menu,name:menu_retencion_configuration"
 msgid "Tax Withholding Types"
 msgstr "Tipos de retenciones"
@@ -546,6 +586,270 @@ msgstr ""
 
 msgctxt "model:party.retencion.iibb,name:"
 msgid "Régimen de Ingresos Brutos de Tercero"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "$"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "("
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid ")"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid ","
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "- Hasta:"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "/"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "/ Desde:"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "/for"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "00/00/0000"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "00:00:00"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "???"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Base"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "CUIT"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Cliente"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Fecha"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Importe"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Número"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Page"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Percepciones"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Proveedor"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Retenciones"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "Retenciones y Percepciones de Ingresos Brutos por Jurisdicción"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "for each=\"line in percepciones\""
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "for each=\"line in retenciones\""
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "format_date(end_date, user.language)"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "format_date(line.date, user.language) or ''"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "format_date(start_date, user.language)"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "line.amount"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "line.base"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "line.number"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "line.party_name"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "line.vat_number"
+msgstr ""
+
+msgctxt "report:account.iibb_subdivision.report:"
+msgid "subdivision"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "$"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "("
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid ")"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid ","
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "- Hasta:"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "/"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "/for"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "00/00/0000"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "00:00:00"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "???"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Base"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "CUIT"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Comprobante"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Desde:"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Fecha"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Importe"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Impuesto"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Page"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Percepciones por Jurisdicción"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "Razón Social"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "for each=\"line in subdivision.records\""
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "for each=\"subdivision in records\""
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "format_date(end_date, user.language)"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "format_date(line.date, user.language) or ''"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "format_date(start_date, user.language)"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.amount"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.base"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.invoice_number"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.invoice_type"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.party_name"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.tax_name"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "line.vat_number"
+msgstr ""
+
+msgctxt "report:account.perception_subdivision.report:"
+msgid "subdivision.name"
 msgstr ""
 
 msgctxt "report:account.retencion.efectuada.report:"
@@ -632,6 +936,22 @@ msgctxt "report:account.retencion.efectuada.report:"
 msgid "Régimen:"
 msgstr ""
 
+msgctxt "selection:account.print_perception_subdivision.start,date:"
+msgid "Effective Date"
+msgstr "Fecha efectiva"
+
+msgctxt "selection:account.print_perception_subdivision.start,date:"
+msgid "Post Date"
+msgstr "Fecha contabilización"
+
+msgctxt "selection:account.print_perception_subdivision.start,kind:"
+msgid "Purchase"
+msgstr "Compra"
+
+msgctxt "selection:account.print_perception_subdivision.start,kind:"
+msgid "Sale"
+msgstr "Venta"
+
 msgctxt "selection:account.retencion,type:"
 msgid "Received"
 msgstr "Soportada"
@@ -704,6 +1024,22 @@ msgstr "Retención y Percepción de Impuestos"
 msgctxt "view:product.category:"
 msgid "Withholding"
 msgstr "Retención"
+
+msgctxt "wizard_button:account.print_iibb_subdivision,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.print_iibb_subdivision,start,print_:"
+msgid "Print"
+msgstr "Imprimir"
+
+msgctxt "wizard_button:account.print_perception_subdivision,start,end:"
+msgid "Cancel"
+msgstr "Cancelar"
+
+msgctxt "wizard_button:account.print_perception_subdivision,start,print_:"
+msgid "Print"
+msgstr "Imprimir"
 
 msgctxt "wizard_button:account.sicore,result,end:"
 msgid "Close"

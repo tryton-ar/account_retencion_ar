@@ -441,7 +441,7 @@ class PrintIIBBSubdivision(Wizard):
     __name__ = 'account.print_iibb_subdivision'
 
     start = StateView('account.print_iibb_subdivision.start',
-        'flexar_silix.print_iibb_subdivision_start_view_form', [
+        'account_retencion_ar.print_iibb_subdivision_start_view_form', [
             Button('Cancel', 'end', 'tryton-cancel'),
             Button('Print', 'print_', 'tryton-print', default=True),
             ])
@@ -538,6 +538,7 @@ class IIBBSubdivisionReport(Report):
 
         res = []
         invoices = Invoice.search([
+            ('company', '=', company),
             ('type', '=', 'out'),
             ['OR', ('state', 'in', ['posted', 'paid']),
                 [('state', '=', 'cancelled'), ('number', '!=', None)]],
@@ -563,3 +564,156 @@ class IIBBSubdivisionReport(Report):
                 res.append(record)
 
         return res
+
+
+class PrintPerceptionBySubdivisionStart(ModelView):
+    'Percepciones por Jurisdicción'
+    __name__ = 'account.print_perception_subdivision.start'
+
+    kind = fields.Selection([
+        ('sale', 'Sale'),
+        ('purchase', 'Purchase'),
+        ], 'Kind', required=True)
+    date = fields.Selection([
+        ('date', 'Effective Date'),
+        ('post_date', 'Post Date'),
+        ], 'Use', required=True)
+    start_date = fields.Date('Start date', required=True)
+    end_date = fields.Date('End date', required=True)
+
+    @staticmethod
+    def default_kind():
+        return 'purchase'
+
+    @staticmethod
+    def default_date():
+        return 'post_date'
+
+
+class PrintPerceptionBySubdivision(Wizard):
+    'Percepciones por Jurisdicción'
+    __name__ = 'account.print_perception_subdivision'
+
+    start = StateView('account.print_perception_subdivision.start',
+        'account_retencion_ar.print_perception_subdivision_start_view_form', [
+            Button('Cancel', 'end', 'tryton-cancel'),
+            Button('Print', 'print_', 'tryton-print', default=True),
+            ])
+    print_ = StateReport('account.perception_subdivision.report')
+
+    def do_print_(self, action):
+        data = {
+            'kind': self.start.kind,
+            'date': self.start.date,
+            'start_date': self.start.start_date,
+            'end_date': self.start.end_date,
+            }
+        return action, data
+
+    def transition_print_(self):
+        return 'end'
+
+
+class PerceptionBySubdivisionReport(Report):
+    'Percepciones por Jurisdicción'
+    __name__ = 'account.perception_subdivision.report'
+
+    @classmethod
+    def get_context(cls, records, header, data):
+        report_context = super().get_context(records, header, data)
+        company = report_context['user'].company
+        report_context['company'] = company
+        report_context['start_date'] = data['start_date']
+        report_context['end_date'] = data['end_date']
+        report_context['records'] = cls._get_records(
+            company, data['kind'], data['date'],
+            data['start_date'], data['end_date'])
+        return report_context
+
+    @classmethod
+    def _get_records(cls, company, kind, date_used, start_date, end_date):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+        PerceptionType = pool.get('account.tax')
+
+        invoices_clause = [
+            ('company', '=', company),
+            ]
+        perceptions_clause = [
+            ('company', '=', company),
+            ('group.afip_kind', 'in', ['nacional', 'provincial', 'municipal']),
+            ]
+
+        if kind == 'purchase':
+            invoices_clause.extend([
+                ('type', '=', 'in'),
+                ('state', 'in', ['posted', 'paid']),
+                ])
+            perceptions_clause.extend([
+                ('group.kind', '=', 'purchase'),
+                ])
+        else:  # kind == 'sale'
+            invoices_clause.extend([
+                ('type', '=', 'out'),
+                ['OR', ('state', 'in', ['posted', 'paid']),
+                    [('state', '=', 'cancelled'), ('number', '!=', None)]],
+                #('pos.pos_do_not_report', '=', False),
+                ])
+            perceptions_clause.extend([
+                ('group.kind', '=', 'sale'),
+                ])
+
+        if date_used == 'post_date':
+            invoices_clause.extend([
+                ('move.post_date', '>=', start_date),
+                ('move.post_date', '<=', end_date),
+                ])
+        else:  # date_used == 'date':
+            invoices_clause.extend([
+                ('move.date', '>=', start_date),
+                ('move.date', '<=', end_date),
+                ])
+
+        res = {}
+        allowed_perceptions = PerceptionType.search(perceptions_clause)
+        invoices = Invoice.search(invoices_clause, order=[
+            ('invoice_date', 'ASC'),
+            ('number', 'ASC'),
+            ])
+        for invoice in invoices:
+            subdivision = invoice.invoice_address.subdivision
+            for percepcion in invoice.taxes:
+                if percepcion.tax not in allowed_perceptions:
+                    continue
+                key = subdivision and subdivision.id or None
+                if key not in res:
+                    res[key] = {
+                        'name': key and subdivision.name or 'Sin Jurisdicción',
+                        'records': [],
+                        }
+                if kind == 'purchase':
+                    record = {
+                        'date': invoice.invoice_date,
+                        'invoice_type': invoice.tipo_comprobante_string,
+                        'invoice_number': invoice.reference,
+                        'party_name': invoice.party.rec_name,
+                        'vat_number': invoice.party.vat_number,
+                        'tax_name': percepcion.tax.name,
+                        'base': invoice.untaxed_amount,
+                        'amount': percepcion.amount,
+                        }
+                else:  # kind == 'sale'
+                    record = {
+                        'date': invoice.invoice_date,
+                        'invoice_type': (
+                            invoice.invoice_type.invoice_type_string),
+                        'invoice_number': invoice.number,
+                        'party_name': invoice.party.rec_name,
+                        'vat_number': invoice.party.vat_number,
+                        'tax_name': percepcion.tax.name,
+                        'base': invoice.untaxed_amount,
+                        'amount': percepcion.amount,
+                        }
+                res[key]['records'].append(record)
+
+        return res.values()
