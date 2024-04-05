@@ -681,10 +681,12 @@ class PerceptionBySubdivisionReport(Report):
             ('number', 'ASC'),
             ])
         for invoice in invoices:
-            subdivision = invoice.invoice_address.subdivision
+            invoice_subdivision = invoice.invoice_address.subdivision
             for percepcion in invoice.taxes:
                 if percepcion.tax not in allowed_perceptions:
                     continue
+                tax_subdivision = percepcion.tax.subdivision
+                subdivision = tax_subdivision or invoice_subdivision
                 key = subdivision and subdivision.id or None
                 if key not in res:
                     res[key] = {
