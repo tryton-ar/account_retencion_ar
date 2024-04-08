@@ -28,6 +28,7 @@ class Company(metaclass=PoolMeta):
         domain=[
             ('company', '=', Eval('id')),
             ('group.afip_kind', '=', 'provincial'),
+            ('perception_tax_code', '=', 'iibb'),
             ('group.kind', '=', 'sale'),
             ])
 
