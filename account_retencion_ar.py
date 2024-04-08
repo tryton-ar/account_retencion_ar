@@ -528,6 +528,7 @@ class IIBBSubdivisionReport(Report):
 
         perception_type = PerceptionType.search([
             ('group.afip_kind', '=', 'provincial'),
+            ('perception_tax_code', '=', 'iibb'),
             ('group.kind', '=', 'sale'),
             ('company', '=', company),
             ('subdivision', '=', subdivision),

@@ -56,6 +56,7 @@ class PartyWithholdingIIBB(ModelSQL, ModelView):
         'Percepción', ondelete='CASCADE',
         domain=[
             ('group.afip_kind', '=', 'provincial'),
+            ('perception_tax_code', '=', 'iibb'),
             ('group.kind', '=', 'sale'),
             ])
     rate_percepcion = fields.Numeric('% Percepción', digits=(14, 10))
