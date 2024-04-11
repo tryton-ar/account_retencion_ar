@@ -118,10 +118,40 @@ class AccountVoucher(metaclass=PoolMeta):
         pass
 
     def calculate_withholdings(self, context={}):
-        if self.company.ganancias_agente_retencion:
+        if self._applies_withholding_ganancias():
             self._calculate_withholding_ganancias(context)
-        if self.company.iibb_agente_retencion:
+        if self._applies_withholding_iva():
+            self._calculate_withholding_iva(context)
+        if self._applies_withholding_iibb():
             self._calculate_withholding_iibb(context)
+
+    def _applies_withholding_ganancias(self):
+        if self.company.ganancias_agente_retencion:
+            return True
+        return False
+
+    def _applies_withholding_iva(self):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+
+        if self.company.iva_agente_retencion:
+            return True
+
+        for line in self.lines:
+            origin = str(line.move_line.move_origin)
+            if origin[:origin.find(',')] != 'account.invoice':
+                continue
+            invoice = Invoice(line.move_line.move_origin.id)
+            if invoice.tipo_comprobante in (
+                    '051', '052', '053', '054', '118', '119', '120'):
+                return True
+
+        return False
+
+    def _applies_withholding_iibb(self):
+        if self.company.iibb_agente_retencion:
+            return True
+        return False
 
     def _calculate_withholding_ganancias(self, context={}):
         pool = Pool()
@@ -342,6 +372,144 @@ class AccountVoucher(metaclass=PoolMeta):
             res['rate'] = regimen.rate_registered
         else:
             res['rate'] = regimen.rate_non_registered
+        return res
+
+    def _calculate_withholding_iva(self, context={}):
+        pool = Pool()
+        TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
+
+        quantize = Decimal(10) ** -Decimal(2)
+
+        withholding_data = self._get_withholding_data_iva(context)
+        for data in withholding_data.values():
+
+            withholding_type = data['tax']
+
+            payment_amount = data['payment_amount']
+            accumulated_amount = data['accumulated_amount'] + payment_amount
+            minimum_non_taxable_amount = (
+                withholding_type.minimum_non_taxable_amount or Decimal(0))
+            if accumulated_amount < minimum_non_taxable_amount:
+                continue
+
+            taxable_amount = accumulated_amount - minimum_non_taxable_amount
+            rate = data['rate']
+            if not rate:
+                continue
+
+            computed_amount = taxable_amount * rate / Decimal(100)
+            computed_amount = computed_amount.quantize(quantize)
+
+            minimum_withholdable_amount = (
+                withholding_type.minimum_withholdable_amount or Decimal(0))
+            if computed_amount < minimum_withholdable_amount:
+                continue
+
+            accumulated_withheld = data['accumulated_withheld']
+            amount = computed_amount - accumulated_withheld
+
+            withholding = TaxWithholdingSubmitted()
+            withholding.tax = withholding_type
+            withholding.voucher = self
+            withholding.party = self.party
+            withholding.date = self.date
+            withholding.payment_amount = payment_amount
+            withholding.accumulated_amount = accumulated_amount
+            withholding.minimum_non_taxable_amount = minimum_non_taxable_amount
+            withholding.taxable_amount = taxable_amount
+            withholding.rate = rate
+            withholding.computed_amount = computed_amount
+            withholding.minimum_withholdable_amount = (
+                minimum_withholdable_amount)
+            withholding.accumulated_withheld = accumulated_withheld
+            withholding.amount = amount
+            withholding.save()
+
+    def _get_withholding_data_iva(self, context={}):
+        pool = Pool()
+        Invoice = pool.get('account.invoice')
+
+        # Verify conditions
+        if not self.party.iva_condition:
+            raise UserError(gettext(
+                'account_retencion_ar.msg_party_iva_condition'))
+        if self.party.iva_condition != 'responsable_inscripto':
+            return {}
+
+        quantize = Decimal(10) ** -Decimal(2)
+        res = {}
+
+        default_regimen = self.party.iva_regimen
+        if not default_regimen:
+            default_regimen = self.company.iva_regimen_retencion
+        if not default_regimen:
+            return {}
+
+        # Payment Amount
+        vat_rate = context.get('vat_rate', Decimal(0.21))
+        tax = default_regimen
+        if context:
+            amount = context.get('amount', Decimal(0))
+            amount_option = context.get('amount_option', 'add')
+
+            if amount_option == 'add':
+                if tax.id not in res:
+                    res[tax.id] = {
+                        'tax': tax,
+                        'payment_amount': Decimal(0),
+                        'accumulated_amount': Decimal(0),
+                        'accumulated_withheld': Decimal(0),
+                        }
+                payment_amount = amount - (amount / (1 + vat_rate))
+                res[tax.id]['payment_amount'] += (
+                    payment_amount.quantize(quantize))
+
+            else:  # amount_option == 'included'
+                pass
+
+        else:
+            for line in self.lines:
+                origin = str(line.move_line.move_origin)
+                if origin[:origin.find(',')] != 'account.invoice':
+                    continue
+                if not line.amount:
+                    continue
+
+                if tax.id not in res:
+                    res[tax.id] = {
+                        'tax': tax,
+                        'payment_amount': Decimal(0),
+                        'accumulated_amount': Decimal(0),
+                        'accumulated_withheld': Decimal(0),
+                        }
+
+                invoice = Invoice(line.move_line.move_origin.id)
+                payment_rate = Decimal(line.amount / invoice.total_amount)
+                payment_amount = invoice.pyafipws_imp_iva * payment_rate
+                res[tax.id]['payment_amount'] += (
+                        payment_amount.quantize(quantize))
+
+        # Verify exemptions
+        taxes = [x for x in res.keys()]
+        for exemption in self.party.exemptions:
+            for tax_id in taxes:
+                reference = 'account.retencion,%s' % str(tax_id)
+                if (str(exemption.tax) == reference and
+                        exemption.end_date >= self.date):
+                    del res[tax_id]
+
+        # Rate and extra data
+        for tax_id, tax in res.items():
+            tax.update(self._get_withholding_extra_data_iva(tax))
+
+        return res
+
+    def _get_withholding_extra_data_iva(self, tax_data):
+        res = {
+            'rate': Decimal(0),
+            }
+        regimen = tax_data['tax']
+        res['rate'] = regimen.rate_registered
         return res
 
     def _calculate_withholding_iibb(self, context={}):

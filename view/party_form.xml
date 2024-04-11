@@ -6,6 +6,10 @@
             <field name="ganancias_condition"/>
             <label name="ganancias_regimen"/>
             <field name="ganancias_regimen"/>
+            <label name="iva_condition"/>
+            <field name="iva_condition"/>
+            <label name="iva_regimen"/>
+            <field name="iva_regimen"/>
             <label name="iibb_condition"/>
             <field name="iibb_condition"/>
             <field name="iibb_regimenes" colspan="4"/>

@@ -6,6 +6,10 @@
             <field name="ganancias_agente_retencion"/>
             <label name="ganancias_regimen_retencion"/>
             <field name="ganancias_regimen_retencion"/>
+            <label name="iva_agente_retencion"/>
+            <field name="iva_agente_retencion"/>
+            <label name="iva_regimen_retencion"/>
+            <field name="iva_regimen_retencion"/>
             <label name="iibb_agente_retencion"/>
             <field name="iibb_agente_retencion"/>
             <field name="iibb_regimenes_retencion" colspan="4"/>

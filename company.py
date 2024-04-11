@@ -15,6 +15,11 @@ class Company(metaclass=PoolMeta):
     ganancias_regimen_retencion = fields.Many2One('account.retencion',
         'Régimen de Ganancias',
         domain=[('type', '=', 'efectuada'), ('tax', '=', 'gana')])
+    iva_agente_retencion = fields.Boolean(
+        'Agente de Retención de IVA')
+    iva_regimen_retencion = fields.Many2One('account.retencion',
+        'Régimen de IVA',
+        domain=[('type', '=', 'efectuada'), ('tax', '=', 'iva')])
     iibb_agente_retencion = fields.Boolean(
         'Agente de Retención de Impuesto a los Ingresos Brutos')
     iibb_regimenes_retencion = fields.Many2Many('company.retencion.iibb',

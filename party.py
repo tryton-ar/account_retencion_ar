@@ -14,6 +14,9 @@ class Party(metaclass=PoolMeta):
     ganancias_regimen = fields.Many2One('account.retencion',
         'Régimen de Ganancias',
         domain=[('type', '=', 'efectuada'), ('tax', '=', 'gana')])
+    iva_regimen = fields.Many2One('account.retencion',
+        'Régimen de IVA',
+        domain=[('type', '=', 'efectuada'), ('tax', '=', 'iva')])
     iibb_regimenes = fields.One2Many('party.retencion.iibb',
         'party', 'Jurisdicciones de Ingresos Brutos')
 

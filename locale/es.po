@@ -322,6 +322,14 @@ msgctxt "field:company.company,iibb_regimenes_retencion:"
 msgid "Jurisdicciones de Ingresos Brutos"
 msgstr ""
 
+msgctxt "field:company.company,iva_agente_retencion:"
+msgid "Agente de Retención de IVA"
+msgstr ""
+
+msgctxt "field:company.company,iva_regimen_retencion:"
+msgid "Régimen de IVA"
+msgstr ""
+
 msgctxt "field:company.percepcion.iibb,company:"
 msgid "Company"
 msgstr "Empresa"
@@ -360,6 +368,10 @@ msgstr ""
 
 msgctxt "field:party.party,iibb_regimenes:"
 msgid "Jurisdicciones de Ingresos Brutos"
+msgstr ""
+
+msgctxt "field:party.party,iva_regimen:"
+msgid "Régimen de IVA"
 msgstr ""
 
 msgctxt "field:party.retencion.iibb,party:"
