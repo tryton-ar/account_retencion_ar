@@ -636,6 +636,7 @@ class PerceptionBySubdivisionReport(Report):
         pool = Pool()
         Invoice = pool.get('account.invoice')
         PerceptionType = pool.get('account.tax')
+        Currency = pool.get('currency.currency')
 
         invoices_clause = [
             ('company', '=', company),
@@ -683,6 +684,7 @@ class PerceptionBySubdivisionReport(Report):
             ])
         for invoice in invoices:
             invoice_subdivision = invoice.invoice_address.subdivision
+            currency_rate = invoice.currency_rate or Decimal(1)
             for percepcion in invoice.taxes:
                 if percepcion.tax not in allowed_perceptions:
                     continue
@@ -694,29 +696,25 @@ class PerceptionBySubdivisionReport(Report):
                         'name': key and subdivision.name or 'Sin Jurisdicción',
                         'records': [],
                         }
+                with Transaction().set_context(currency_rate=currency_rate):
+                    record = {
+                        'date': invoice.invoice_date,
+                        'party_name': invoice.party.rec_name,
+                        'vat_number': invoice.party.vat_number,
+                        'tax_name': percepcion.tax.name,
+                        'base': Currency.compute(invoice.currency,
+                            invoice.untaxed_amount, invoice.company.currency),
+                        'amount': Currency.compute(invoice.currency,
+                            percepcion.amount, invoice.company.currency),
+                        }
                 if kind == 'purchase':
-                    record = {
-                        'date': invoice.invoice_date,
-                        'invoice_type': invoice.tipo_comprobante_string,
-                        'invoice_number': invoice.reference,
-                        'party_name': invoice.party.rec_name,
-                        'vat_number': invoice.party.vat_number,
-                        'tax_name': percepcion.tax.name,
-                        'base': invoice.untaxed_amount,
-                        'amount': percepcion.amount,
-                        }
+                    record['invoice_type'] = (
+                        invoice.tipo_comprobante_string)
+                    record['invoice_number'] = invoice.reference
                 else:  # kind == 'sale'
-                    record = {
-                        'date': invoice.invoice_date,
-                        'invoice_type': (
-                            invoice.invoice_type.invoice_type_string),
-                        'invoice_number': invoice.number,
-                        'party_name': invoice.party.rec_name,
-                        'vat_number': invoice.party.vat_number,
-                        'tax_name': percepcion.tax.name,
-                        'base': invoice.untaxed_amount,
-                        'amount': percepcion.amount,
-                        }
+                    record['invoice_type'] = (
+                        invoice.invoice_type.invoice_type_string)
+                    record['invoice_number'] = invoice.number
                 res[key]['records'].append(record)
 
         return res.values()
