@@ -539,8 +539,8 @@
     </table:table-row>
    </table:table>
    <text:p text:style-name="P21"/>
-   <text:p text:style-name="P29"><text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;record.payment_amount&quot;&gt;</text:placeholder></text:span></text:p>
-   <text:p text:style-name="P13">Importe sujeto a retención:<text:span text:style-name="T1"> </text:span><text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;format_currency(record.payment_amount, record.party.lang, currency=record.voucher.currency)&gt;</text:placeholder></text:span></text:p>
+   <text:p text:style-name="P29"><text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;record.taxable_amount&quot;&gt;</text:placeholder></text:span></text:p>
+   <text:p text:style-name="P13">Importe sujeto a retención:<text:span text:style-name="T1"> </text:span><text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;format_currency(record.taxable_amount, record.party.lang, currency=record.voucher.currency)&gt;</text:placeholder></text:span></text:p>
    <text:p text:style-name="P29"><text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;/if&gt;</text:placeholder></text:span></text:p>
    <text:p text:style-name="P13">Monto de la Retención: <text:span text:style-name="T1"><text:placeholder text:placeholder-type="text">&lt;format_currency(record.amount, record.party.lang, currency=record.voucher.currency)&gt;</text:placeholder></text:span></text:p>
    <text:p text:style-name="P13">Imposibilidad de Retención: <text:span text:style-name="T2">No</text:span></text:p>
