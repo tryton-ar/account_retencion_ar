@@ -258,6 +258,7 @@ class AccountVoucher(metaclass=PoolMeta):
                 pass
 
         else:
+            used_regimen = None
             for line in self.lines:
                 origin = str(line.move_line.move_origin)
                 if origin[:origin.find(',')] != 'account.invoice':
@@ -279,9 +280,15 @@ class AccountVoucher(metaclass=PoolMeta):
                             'accumulated_amount': Decimal(0),
                             'accumulated_withheld': Decimal(0),
                             }
+                    if used_regimen is None:
+                        used_regimen = tax
                     payment_amount = invoice_line.amount * payment_rate
                     res[tax.id]['payment_amount'] += (
                         payment_amount.quantize(quantize))
+            if used_regimen and self.lines_debits:
+                for line in self.lines_debits:
+                    res[used_regimen.id]['payment_amount'] -= (
+                        line.amount_original)
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
@@ -302,6 +309,7 @@ class AccountVoucher(metaclass=PoolMeta):
             ('state', '=', 'posted'),
             ])
         for voucher in vouchers:
+            used_regimen = None
             for line in voucher.lines:
                 origin = str(line.move_line.move_origin)
                 if origin[:origin.find(',')] != 'account.invoice':
@@ -318,9 +326,15 @@ class AccountVoucher(metaclass=PoolMeta):
                     tax = invoice_line.ganancias_regimen or default_regimen
                     if tax.id not in res:
                         continue
+                    if used_regimen is None:
+                        used_regimen = tax
                     accumulated_amount = invoice_line.amount * payment_rate
                     res[tax.id]['accumulated_amount'] += (
                         accumulated_amount.quantize(quantize))
+            if used_regimen and voucher.lines_debits:
+                for line in voucher.lines_debits:
+                    res[used_regimen.id]['accumulated_amount'] -= (
+                        line.amount_original)
 
             if voucher.amount > voucher.amount_to_pay:
                 difference = ((voucher.amount - voucher.amount_to_pay) /
@@ -488,6 +502,10 @@ class AccountVoucher(metaclass=PoolMeta):
                 payment_amount = invoice.pyafipws_imp_iva * payment_rate
                 res[tax.id]['payment_amount'] += (
                         payment_amount.quantize(quantize))
+            if self.lines_debits:
+                for line in self.lines_debits:
+                    res[tax.id]['payment_amount'] -= (
+                        line.amount_original)
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
@@ -641,6 +659,10 @@ class AccountVoucher(metaclass=PoolMeta):
                             invoice.untaxed_amount / invoice.total_amount)
                     res[tax.id]['payment_amount'] += payment_amount.quantize(
                         quantize)
+                if self.lines_debits:
+                    for line in self.lines_debits:
+                        res[tax.id]['payment_amount'] -= (
+                            line.amount_original)
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
