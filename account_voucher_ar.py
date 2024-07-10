@@ -101,8 +101,7 @@ class AccountVoucher(metaclass=PoolMeta):
         pool = Pool()
         TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
         if self.retenciones_efectuadas:
-            with Transaction().set_context(delete_calculated=True):
-                TaxWithholdingSubmitted.delete(self.retenciones_efectuadas)
+            TaxWithholdingSubmitted.delete(self.retenciones_efectuadas)
 
     @classmethod
     @ModelView.button

@@ -254,10 +254,8 @@ class TaxWithholdingSubmitted(ModelSQL, ModelView):
 
     @classmethod
     def check_delete(cls, retenciones):
-        if Transaction().context.get('delete_calculated', False):
-            return
         for retencion in retenciones:
-            if retencion.voucher:
+            if retencion.voucher and retencion.voucher.state != 'calculated':
                 raise UserError(gettext(
                     'account_retencion_ar.msg_not_delete',
                     retencion=retencion.name))
