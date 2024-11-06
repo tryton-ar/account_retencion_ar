@@ -286,8 +286,16 @@ class AccountVoucher(metaclass=PoolMeta):
                         payment_amount.quantize(quantize))
             if used_regimen and self.lines_debits:
                 for line in self.lines_debits:
+                    origin = str(line.move_line.move_origin)
+                    if origin[:origin.find(',')] == 'account.invoice':
+                        invoice = Invoice(line.move_line.move_origin.id)
+                        vat_rate = Decimal(invoice.untaxed_amount /
+                            invoice.total_amount)
+                        payment_amount = line.amount_original * vat_rate
+                    else:
+                        payment_amount = line.amount_original
                     res[used_regimen.id]['payment_amount'] -= (
-                        line.amount_original)
+                        payment_amount.quantize(quantize))
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
@@ -332,8 +340,16 @@ class AccountVoucher(metaclass=PoolMeta):
                         accumulated_amount.quantize(quantize))
             if used_regimen and voucher.lines_debits:
                 for line in voucher.lines_debits:
+                    origin = str(line.move_line.move_origin)
+                    if origin[:origin.find(',')] == 'account.invoice':
+                        invoice = Invoice(line.move_line.move_origin.id)
+                        vat_rate = Decimal(invoice.untaxed_amount /
+                            invoice.total_amount)
+                        accumulated_amount = line.amount_original * vat_rate
+                    else:
+                        accumulated_amount = line.amount_original
                     res[used_regimen.id]['accumulated_amount'] -= (
-                        line.amount_original)
+                        accumulated_amount.quantize(quantize))
 
             if voucher.amount > voucher.amount_to_pay:
                 difference = ((voucher.amount - voucher.amount_to_pay) /
@@ -503,8 +519,16 @@ class AccountVoucher(metaclass=PoolMeta):
                         payment_amount.quantize(quantize))
             if self.lines_debits:
                 for line in self.lines_debits:
+                    origin = str(line.move_line.move_origin)
+                    if origin[:origin.find(',')] == 'account.invoice':
+                        invoice = Invoice(line.move_line.move_origin.id)
+                        vat_rate = Decimal(invoice.untaxed_amount /
+                            invoice.total_amount)
+                        payment_amount = line.amount_original * vat_rate
+                    else:
+                        payment_amount = line.amount_original
                     res[tax.id]['payment_amount'] -= (
-                        line.amount_original)
+                        payment_amount.quantize(quantize))
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
@@ -660,8 +684,16 @@ class AccountVoucher(metaclass=PoolMeta):
                         quantize)
                 if self.lines_debits:
                     for line in self.lines_debits:
+                        origin = str(line.move_line.move_origin)
+                        if origin[:origin.find(',')] == 'account.invoice':
+                            invoice = Invoice(line.move_line.move_origin.id)
+                            vat_rate = Decimal(invoice.untaxed_amount /
+                                invoice.total_amount)
+                            payment_amount = line.amount_original * vat_rate
+                        else:
+                            payment_amount = line.amount_original
                         res[tax.id]['payment_amount'] -= (
-                            line.amount_original)
+                            payment_amount.quantize(quantize))
 
         # Verify exemptions
         taxes = [x for x in res.keys()]
