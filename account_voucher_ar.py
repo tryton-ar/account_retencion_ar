@@ -310,6 +310,7 @@ class AccountVoucher(metaclass=PoolMeta):
         period_first_date = self.date + relativedelta(day=1)
         period_last_date = self.date + relativedelta(day=31)
         vouchers = AccountVoucher.search([
+            ('voucher_type', '=', 'payment'),
             ('party', '=', self.party),
             ('date', '>=', period_first_date),
             ('date', '<=', period_last_date),
