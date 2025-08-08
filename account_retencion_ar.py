@@ -13,7 +13,6 @@ from trytond.pyson import Eval, Bool, Not, Id
 from trytond.transaction import Transaction
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
-from trytond.tools.multivalue import migrate_property
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
 
@@ -110,22 +109,6 @@ class TaxWithholdingTypeSequence(ModelSQL, CompanyValueMixin):
                 Id('account_retencion_ar', 'seq_type_account_retencion')),
             ('company', 'in', [Eval('company', -1), None]),
             ])
-
-    @classmethod
-    def __register__(cls, module_name):
-        exist = backend.TableHandler.table_exist(cls._table)
-        super().__register__(module_name)
-        if not exist:
-            cls._migrate_property([], [], [])
-
-    @classmethod
-    def _migrate_property(cls, field_names, value_names, fields):
-        field_names.append('sequence')
-        value_names.append('sequence')
-        fields.append('company')
-        migrate_property(
-            'account.retencion', field_names, cls, value_names,
-            parent='retencion', fields=fields)
 
 
 class TaxWithholdingTypeScale(ModelSQL, ModelView):
