@@ -558,7 +558,7 @@ class PrintPerceptionBySubdivisionStart(ModelView):
         ], 'Kind', required=True)
     date = fields.Selection([
         ('date', 'Effective Date'),
-        ('post_date', 'Post Date'),
+        #('post_date', 'Post Date'),
         ], 'Use', required=True)
     start_date = fields.Date('Start date', required=True)
     end_date = fields.Date('End date', required=True)
@@ -569,7 +569,7 @@ class PrintPerceptionBySubdivisionStart(ModelView):
 
     @staticmethod
     def default_date():
-        return 'post_date'
+        return 'date'
 
 
 class PrintPerceptionBySubdivision(Wizard):
