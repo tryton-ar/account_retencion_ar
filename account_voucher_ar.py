@@ -217,12 +217,12 @@ class AccountVoucher(metaclass=PoolMeta):
         TaxWithholdingSubmitted = pool.get('account.retencion.efectuada')
 
         # Verify conditions
+        if self.party.iva_condition not in ['responsable_inscripto', 'exento']:
+            return {}
         if not self.party.ganancias_condition:
             raise UserError(gettext(
                 'account_retencion_ar.msg_party_ganancias_condition'))
         if self.party.ganancias_condition == 'ex':
-            return {}
-        if self.party.iva_condition not in ['responsable_inscripto', 'exento']:
             return {}
 
         quantize = Decimal(10) ** -Decimal(2)
@@ -610,12 +610,12 @@ class AccountVoucher(metaclass=PoolMeta):
         Invoice = pool.get('account.invoice')
 
         # Verify conditions
+        if self.party.iva_condition not in ['responsable_inscripto', 'exento']:
+            return {}
         if not self.party.iibb_condition:
             raise UserError(gettext(
                 'account_retencion_ar.msg_party_iibb_condition'))
         if self.party.iibb_condition in ['ex', 'rs', 'na', 'cs']:
-            return {}
-        if self.party.iva_condition not in ['responsable_inscripto', 'exento']:
             return {}
         company_address = self.company.party.address_get('invoice')
         if not company_address or not company_address.subdivision:
