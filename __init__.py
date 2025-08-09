@@ -11,6 +11,8 @@ from . import product
 from . import invoice
 from . import sicore
 
+__all__ = ['register']
+
 
 def register():
     Pool.register(
