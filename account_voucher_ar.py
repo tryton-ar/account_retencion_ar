@@ -734,6 +734,7 @@ class AccountVoucher(metaclass=PoolMeta):
 
         if self.voucher_type == 'receipt':
             if self.retenciones_soportadas:
+                period = Period.find(self.company, date=self.date)
                 for retencion in self.retenciones_soportadas:
                     move_lines.append({
                         'debit': retencion.amount,
@@ -742,11 +743,12 @@ class AccountVoucher(metaclass=PoolMeta):
                             else None),
                         'move': self.move.id,
                         'journal': self.journal.id,
-                        'period': Period.find(self.company.id, date=self.date),
+                        'period': period.id,
                         })
 
         if self.voucher_type == 'payment':
             if self.retenciones_efectuadas:
+                period = Period.find(self.company, date=self.date)
                 for retencion in self.retenciones_efectuadas:
                     move_lines.append({
                         'debit': Decimal('0.0'),
@@ -755,7 +757,7 @@ class AccountVoucher(metaclass=PoolMeta):
                             else None),
                         'move': self.move.id,
                         'journal': self.journal.id,
-                        'period': Period.find(self.company.id, date=self.date),
+                        'period': period.id,
                         })
 
         return move_lines
