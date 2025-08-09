@@ -3,26 +3,28 @@ Account Retencion Scenario
 ==========================
 
 Imports::
-    >>> import datetime
+    >>> import datetime as dt
     >>> from dateutil.relativedelta import relativedelta
     >>> from decimal import Decimal
-    >>> from operator import attrgetter
     >>> from proteus import Model, Wizard
     >>> from trytond.tests.tools import activate_modules
+    >>> from trytond.modules.currency.tests.tools import get_currency
     >>> from trytond.modules.company.tests.tools import create_company, \
     ...     get_company
-    >>> from trytond.modules.currency.tests.tools import get_currency
     >>> from trytond.modules.account.tests.tools import create_fiscalyear, \
-    ...     create_chart, get_accounts, create_tax, create_tax_code
+    ...     create_chart
+    >>> from trytond.modules.account_ar.tests.tools import get_accounts
     >>> from trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences
     >>> from trytond.modules.account_voucher_ar.tests.tools import \
     ...     set_fiscalyear_voucher_sequences
+    >>> from trytond.modules.account_invoice_ar.tests.tools import \
+    ...     get_tax
     >>> from trytond.modules.account_retencion_ar.tests.tools import \
     ...     create_retencion_sequence
-    >>> today = datetime.date.today()
+    >>> today = dt.date.today()
 
-Install account_invoice::
+Install account_retencion_ar::
 
     >>> config = activate_modules('account_retencion_ar')
 
@@ -32,7 +34,7 @@ Create company::
     >>> _ = create_company(currency=currency)
     >>> company = get_company()
     >>> tax_identifier = company.party.identifiers.new()
-    >>> tax_identifier.type = 'ar_cuit'
+    >>> tax_identifier.type = 'ar_vat'
     >>> tax_identifier.code = '30710158254' # gcoop CUIT
     >>> company.party.iva_condition = 'responsable_inscripto'
     >>> company.party.save()
@@ -48,38 +50,20 @@ Create fiscal year::
 
 Create chart of accounts::
 
-    >>> _ = create_chart(company)
+    >>> _ = create_chart(company, chart='account_ar.root_ar')
     >>> accounts = get_accounts(company)
-    >>> receivable = accounts['receivable']
-    >>> revenue = accounts['revenue']
-    >>> expense = accounts['expense']
-    >>> account_tax = accounts['tax']
+    >>> account_receivable = accounts['receivable']
+    >>> account_revenue = accounts['revenue']
+    >>> account_expense = accounts['expense']
+    >>> account_tax = accounts['sale_tax']
     >>> account_cash = accounts['cash']
 
-Create tax groups::
+Create taxes::
 
-    >>> TaxGroup = Model.get('account.tax.group')
-    >>> tax_group = TaxGroup()
-    >>> tax_group.name = 'gravado'
-    >>> tax_group.code = 'gravado'
-    >>> tax_group.kind = 'both'
-    >>> tax_group.afip_kind = 'gravado'
-    >>> tax_group.save()
-
-Create tax::
-
-    >>> TaxCode = Model.get('account.tax.code')
-    >>> tax = create_tax(Decimal('.10'))
-    >>> tax.group = tax_group
-    >>> tax.save()
-    >>> invoice_base_code = create_tax_code(tax, 'base', 'invoice')
-    >>> invoice_base_code.save()
-    >>> invoice_tax_code = create_tax_code(tax, 'tax', 'invoice')
-    >>> invoice_tax_code.save()
-    >>> credit_note_base_code = create_tax_code(tax, 'base', 'credit')
-    >>> credit_note_base_code.save()
-    >>> credit_note_tax_code = create_tax_code(tax, 'tax', 'credit')
-    >>> credit_note_tax_code.save()
+    >>> sale_tax = get_tax('IVA Ventas 21%')
+    >>> sale_tax_nogravado = get_tax('IVA Ventas No Gravado')
+    >>> purchase_tax = get_tax('IVA Compras 21%')
+    >>> purchase_tax_nogravado = get_tax('IVA Compras No Gravado')
 
 Create payment method voucher_ar::
 
@@ -114,8 +98,8 @@ Create Write Off method::
     >>> writeoff_method = WriteOff()
     >>> writeoff_method.name = 'Rate loss'
     >>> writeoff_method.journal = journal_writeoff
-    >>> writeoff_method.credit_account = expense
-    >>> writeoff_method.debit_account = expense
+    >>> writeoff_method.credit_account = account_expense
+    >>> writeoff_method.debit_account = account_expense
     >>> writeoff_method.save()
 
 Create party::
@@ -123,6 +107,7 @@ Create party::
     >>> Party = Model.get('party.party')
     >>> party = Party(name='Party')
     >>> party.iva_condition = 'consumidor_final'
+    >>> party.account_receivable = account_receivable
     >>> party.save()
 
 Create account category::
@@ -130,9 +115,10 @@ Create account category::
     >>> ProductCategory = Model.get('product.category')
     >>> account_category = ProductCategory(name="Account Category")
     >>> account_category.accounting = True
-    >>> account_category.account_expense = expense
-    >>> account_category.account_revenue = revenue
-    >>> account_category.customer_taxes.append(tax)
+    >>> account_category.account_expense = account_expense
+    >>> account_category.account_revenue = account_revenue
+    >>> account_category.customer_taxes.append(sale_tax)
+    >>> account_category.supplier_taxes.append(purchase_tax)
     >>> account_category.save()
 
 Create product::
@@ -185,16 +171,17 @@ Create invoice::
     >>> line.unit_price = Decimal('40')
     >>> line = InvoiceLine()
     >>> invoice.lines.append(line)
-    >>> line.account = revenue
+    >>> line.account = account_revenue
+    >>> line.taxes.append(sale_tax_nogravado)
     >>> line.description = 'Test'
     >>> line.quantity = 1
     >>> line.unit_price = Decimal(20)
     >>> invoice.untaxed_amount
     Decimal('220.00')
     >>> invoice.tax_amount
-    Decimal('20.00')
+    Decimal('42.00')
     >>> invoice.total_amount
-    Decimal('240.00')
+    Decimal('262.00')
     >>> invoice.save()
 
 Post invoice::
@@ -207,9 +194,9 @@ Post invoice::
     >>> invoice.untaxed_amount
     Decimal('220.00')
     >>> invoice.tax_amount
-    Decimal('20.00')
+    Decimal('42.00')
     >>> invoice.total_amount
-    Decimal('240.00')
+    Decimal('262.00')
 
 Pay invoice::
 
@@ -227,11 +214,11 @@ Pay invoice::
     >>> pay_line = LinePaymode()
     >>> voucher.pay_lines.append(pay_line)
     >>> pay_line.pay_mode = paymode
-    >>> pay_line.pay_amount = Decimal('200')
+    >>> pay_line.pay_amount = Decimal('250')
     >>> retencion_line = RetencionSoportada()
     >>> voucher.retenciones_soportadas.append(retencion_line)
     >>> retencion_line.name = '1111'
-    >>> retencion_line.amount = Decimal('40')
+    >>> retencion_line.amount = Decimal('12')
     >>> retencion_line.tax = retencion_soportada
     >>> retencion_line.party = invoice.party
     >>> voucher.save()
@@ -262,14 +249,15 @@ Create supplier invoice::
     >>> line.unit_price = Decimal('40')
     >>> line = InvoiceLine()
     >>> invoice.lines.append(line)
-    >>> line.account = expense
+    >>> line.account = account_expense
+    >>> line.taxes.append(purchase_tax_nogravado)
     >>> line.description = 'Test'
     >>> line.quantity = 1
     >>> line.unit_price = Decimal(20)
     >>> invoice.untaxed_amount
     Decimal('220.00')
     >>> invoice.total_amount
-    Decimal('220.00')
+    Decimal('262.00')
     >>> invoice.save()
     >>> invoice.state
     'draft'
@@ -295,7 +283,7 @@ Post invoice::
     >>> invoice.untaxed_amount
     Decimal('220.00')
     >>> invoice.total_amount
-    Decimal('220.00')
+    Decimal('262.00')
 
 Pay invoice::
 
@@ -313,11 +301,11 @@ Pay invoice::
     >>> pay_line = LinePaymode()
     >>> voucher.pay_lines.append(pay_line)
     >>> pay_line.pay_mode = paymode
-    >>> pay_line.pay_amount = Decimal('200')
+    >>> pay_line.pay_amount = Decimal('250')
     >>> retencion_line = RetencionEfectuada()
     >>> voucher.retenciones_efectuadas.append(retencion_line)
     >>> retencion_line.name = '1111'
-    >>> retencion_line.amount = Decimal('20')
+    >>> retencion_line.amount = Decimal('12')
     >>> retencion_line.tax = retencion_efectuada
     >>> retencion_line.party = invoice.party
     >>> voucher.save()
