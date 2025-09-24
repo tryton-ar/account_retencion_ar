@@ -15,17 +15,10 @@
             <field name="type">tree</field>
             <field name="name">retenciones_efectuadas_tree</field>
         </record>
-
         <record model="ir.ui.view" id="retenciones_soportadas_view_tree">
             <field name="model">account.retencion.soportada</field>
             <field name="type">tree</field>
             <field name="name">retenciones_soportadas_tree</field>
-        </record>
-
-        <record model="ir.model.button" id="retencion_efectuada_execute_report_button">
-            <field name="name">execute_report</field>
-           <field name="string">Print</field>
-            <field name="model" search="[('model', '=', 'account.retencion.efectuada')]"/>
         </record>
 
         <record model="ir.model.button" id="voucher_calculate_button">
@@ -57,6 +50,12 @@
             id="voucher_recalculate_button_group_account">
             <field name="button" ref="voucher_recalculate_button"/>
             <field name="group" ref="account.group_account"/>
+        </record>
+
+        <record model="ir.model.button" id="retencion_efectuada_execute_report_button">
+            <field name="name">execute_report</field>
+           <field name="string">Print</field>
+            <field name="model" search="[('model', '=', 'account.retencion.efectuada')]"/>
         </record>
 
 <!-- Wizard: Recalculate withholdings -->

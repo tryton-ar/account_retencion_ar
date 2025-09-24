@@ -284,11 +284,11 @@ msgstr "Jurisdicción"
 
 msgctxt "field:account.voucher,retenciones_efectuadas:"
 msgid "Tax Withholding Submitted"
-msgstr "Retención efectuada"
+msgstr "Retenciones efectuadas"
 
 msgctxt "field:account.voucher,retenciones_soportadas:"
 msgid "Tax Withholding Received"
-msgstr "Retención soportada"
+msgstr "Retenciones soportadas"
 
 msgctxt "field:account.voucher.recalculate_withholdings.start,amount:"
 msgid "Payment Amount"

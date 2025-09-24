@@ -20,8 +20,8 @@
             <field name="wiz_name">account.sicore</field>
         </record>
 
-        <menuitem parent="account.menu_reporting" action="wizard_sicore"
-            id="menu_sicore" icon="tryton-export"/>
+        <menuitem action="wizard_sicore" id="menu_sicore"
+            parent="account.menu_reporting" icon="tryton-export"/>
 
         <record model="ir.model.field.access"
             id="access_sicore_start_regimenes_retencion">
