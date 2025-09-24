@@ -2,6 +2,11 @@
 <tryton>
     <data>
 
+<!-- Treasury / Tax Withholdings -->
+
+        <menuitem name="Tax Withholdings" id="menu_retenciones"
+            parent="account_voucher_ar.menu_treasury" sequence="30"/>
+
 <!-- Tax Withholding Sequence -->
 
         <record model="ir.sequence.type" id="seq_type_account_retencion">
@@ -48,12 +53,9 @@
             <field name="act_window" ref="act_retencion_tree"/>
         </record>
 
-        <menuitem parent="account.menu_account_configuration"
-            action="act_retencion_tree"
-            id="menu_retencion_configuration" sequence="50"/>
-
-        <menuitem name="Tax Withholdings" parent="account.menu_account"
-            id="menu_retenciones" sequence="22"/>
+        <menuitem action="act_retencion_tree"
+            id="menu_retencion_configuration"
+            parent="account.menu_taxes" sequence="120"/>
 
 <!-- Tax Withholding Type Scales -->
 
@@ -97,8 +99,10 @@
             <field name="view" ref="account_retencion_efectuada_form"/>
             <field name="act_window" ref="act_retencion_efectuada_tree"/>
         </record>
-        <menuitem parent="menu_retenciones" action="act_retencion_efectuada_tree"
-            id="menu_retencion_efectuada" sequence="5"/>
+
+        <menuitem action="act_retencion_efectuada_tree"
+            id="menu_retencion_efectuada"
+            parent="menu_retenciones" sequence="5"/>
 
 <!-- Tax Withholdings Received -->
 
@@ -129,8 +133,10 @@
             <field name="view" ref="account_retencion_soportada_form"/>
             <field name="act_window" ref="act_retencion_soportada_tree"/>
         </record>
-        <menuitem parent="menu_retenciones" action="act_retencion_soportada_tree"
-            id="menu_retencion_soportada" sequence="10"/>
+
+        <menuitem action="act_retencion_soportada_tree"
+            id="menu_retencion_soportada"
+            parent="menu_retenciones" sequence="10"/>
 
 <!-- Tax Withholding Submitted Report -->
 
@@ -175,9 +181,9 @@
             <field name="act_window" ref="act_percepcion_tree"/>
         </record>
 
-        <menuitem parent="account.menu_account_configuration"
-            action="act_percepcion_tree"
-            id="menu_percepcion_configuration" sequence="55"/>
+        <menuitem action="act_percepcion_tree"
+            id="menu_percepcion_configuration"
+            parent="account.menu_taxes" sequence="130"/>
 
 <!-- Retenciones y Percepciones de Ingresos Brutos por Jurisdicción -->
 
