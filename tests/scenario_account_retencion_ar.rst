@@ -158,7 +158,7 @@ Create invoice::
 
     >>> Invoice = Model.get('account.invoice')
     >>> InvoiceLine = Model.get('account.invoice.line')
-    >>> invoice = Invoice()
+    >>> invoice = Invoice(type='out')
     >>> invoice.party = party
     >>> invoice.payment_term = payment_term
     >>> line = InvoiceLine()
@@ -234,9 +234,8 @@ Create supplier invoice::
 
     >>> Invoice = Model.get('account.invoice')
     >>> InvoiceLine = Model.get('account.invoice.line')
-    >>> invoice = Invoice()
+    >>> invoice = Invoice(type='in')
     >>> invoice.party = party
-    >>> invoice.type = 'in'
     >>> invoice.payment_term = None
     >>> invoice.invoice_date = today
     >>> line = InvoiceLine()
