@@ -16,6 +16,8 @@ Imports::
     >>> from trytond.modules.account_ar.tests.tools import get_accounts
     >>> from trytond.modules.account_invoice.tests.tools import \
     ...     set_fiscalyear_invoice_sequences
+    >>> from trytond.modules.account_invoice_ar.tests.tools import \
+    ...     create_pos, get_invoice_types
     >>> from trytond.modules.account_voucher_ar.tests.tools import \
     ...     set_fiscalyear_voucher_sequences
     >>> from trytond.modules.account_ar.tests.tools import \
@@ -53,6 +55,7 @@ Create chart of accounts::
     >>> _ = create_chart(company, chart='account_ar.root_ar')
     >>> accounts = get_accounts(company)
     >>> account_receivable = accounts['receivable']
+    >>> account_payable = accounts['payable']
     >>> account_revenue = accounts['revenue']
     >>> account_expense = accounts['expense']
     >>> account_tax = accounts['sale_tax']
@@ -87,6 +90,11 @@ Create payment method::
     >>> payment_method.debit_account = account_cash
     >>> payment_method.save()
 
+Create point of sale::
+
+    >>> pos = create_pos(company)
+    >>> invoice_types = get_invoice_types()
+
 Create Write Off method::
 
     >>> WriteOff = Model.get('account.move.reconcile.write_off')
@@ -99,13 +107,24 @@ Create Write Off method::
     >>> writeoff_method.debit_account = account_expense
     >>> writeoff_method.save()
 
-Create party::
+Create client::
 
     >>> Party = Model.get('party.party')
-    >>> party = Party(name='Party')
-    >>> party.iva_condition = 'consumidor_final'
-    >>> party.account_receivable = account_receivable
-    >>> party.save()
+    >>> client = Party(name='Client')
+    >>> client.iva_condition = 'consumidor_final'
+    >>> client.account_receivable = account_receivable
+    >>> client.account_payable = account_payable
+    >>> client.save()
+
+Create suupplier::
+
+    >>> Party = Model.get('party.party')
+    >>> supplier = Party(name='Supplier',
+    ...     iva_condition='responsable_inscripto',
+    ...     vat_number='33333333339')
+    >>> supplier.account_receivable = account_receivable
+    >>> supplier.account_payable = account_payable
+    >>> supplier.save()
 
 Create account category::
 
@@ -159,7 +178,8 @@ Create invoice::
     >>> Invoice = Model.get('account.invoice')
     >>> InvoiceLine = Model.get('account.invoice.line')
     >>> invoice = Invoice(type='out')
-    >>> invoice.party = party
+    >>> invoice.party = client
+    >>> invoice.pos = pos
     >>> invoice.payment_term = payment_term
     >>> line = InvoiceLine()
     >>> invoice.lines.append(line)
@@ -235,9 +255,12 @@ Create supplier invoice::
     >>> Invoice = Model.get('account.invoice')
     >>> InvoiceLine = Model.get('account.invoice.line')
     >>> invoice = Invoice(type='in')
-    >>> invoice.party = party
+    >>> invoice.party = supplier
     >>> invoice.payment_term = None
     >>> invoice.invoice_date = today
+    >>> invoice.tipo_comprobante = '001'
+    >>> invoice.ref_pos_number = '1'
+    >>> invoice.ref_voucher_number = '312'
     >>> line = InvoiceLine()
     >>> invoice.lines.append(line)
     >>> line.product = product
