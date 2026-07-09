@@ -31,7 +31,7 @@ class Company(metaclass=PoolMeta):
     iibb_regimenes_percepcion = fields.Many2Many('company.percepcion.iibb',
         'company', 'regimen', 'Jurisdicciones de Ingresos Brutos',
         domain=[
-            ('company', '=', Eval('id')),
+            ('company', '=', Eval('id', -1)),
             ('group.afip_kind', '=', 'provincial'),
             ('perception_tax_code', '=', 'iibb'),
             ('group.kind', '=', 'sale'),
