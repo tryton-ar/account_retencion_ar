@@ -18,7 +18,7 @@ Imports::
     ...     set_fiscalyear_invoice_sequences
     >>> from trytond.modules.account_voucher_ar.tests.tools import \
     ...     set_fiscalyear_voucher_sequences
-    >>> from trytond.modules.account_invoice_ar.tests.tools import \
+    >>> from trytond.modules.account_ar.tests.tools import \
     ...     get_tax
     >>> from trytond.modules.account_retencion_ar.tests.tools import \
     ...     create_retencion_sequence
@@ -305,6 +305,9 @@ Pay invoice::
     >>> retencion_line.tax = retencion_efectuada
     >>> retencion_line.party = invoice.party
     >>> voucher.save()
+    >>> voucher.click('calculate')
+    >>> voucher.state
+    'calculated'
     >>> voucher.click('post')
     >>> voucher.state
     'posted'
