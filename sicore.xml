@@ -25,8 +25,8 @@
 
         <record model="ir.model.field.access"
             id="access_sicore_start_regimenes_retencion">
-            <field name="field"
-                search="[('name', '=', 'regimenes_retencion'), ('model.model', '=', 'account.sicore.start')]"/>
+            <field name="model">account.sicore.start</field>
+            <field name="field">regimenes_retencion</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
             <field name="perm_create" eval="False"/>
