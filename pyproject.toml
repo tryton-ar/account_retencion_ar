@@ -63,6 +63,7 @@ readme = 'README.rst'
 [tool.hatch.metadata.hooks.tryton.prefixes]
 account_ar = 'trytonar'
 account_voucher_ar = 'trytonar'
+account_invoice_ar = 'trytonar'
 
 [tool.hatch.metadata.hooks.tryton-ar]
 
