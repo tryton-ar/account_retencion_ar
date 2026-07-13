@@ -45,6 +45,7 @@ include = [
     'view/**/*.xml',
     'locale/**/*.po',
     '**/*.fodt',
+    '**/*.fods',
     'icons/**/*.svg',
     'tests/**/*.rst',
     'tests/**/*.json',
