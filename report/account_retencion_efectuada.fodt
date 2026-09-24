@@ -513,7 +513,7 @@
     </table:table-row>
     <table:table-row>
      <table:table-cell table:style-name="comprobantes.A2" table:number-columns-spanned="2" office:value-type="string">
-      <text:p text:style-name="P5"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;line.amount != 0&quot;&gt;</text:placeholder></text:p>
+      <text:p text:style-name="P5"><text:placeholder text:placeholder-type="text">&lt;if test=&quot;str(line.move_line.move_origin).startswith('account.invoice,') and line.amount != 0&quot;&gt;</text:placeholder></text:p>
      </table:table-cell>
      <table:covered-table-cell/>
     </table:table-row>
