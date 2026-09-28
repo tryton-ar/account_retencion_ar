@@ -141,6 +141,8 @@ class AccountVoucher(metaclass=PoolMeta):
             if origin[:origin.find(',')] != 'account.invoice':
                 continue
             invoice = Invoice(line.move_line.move_origin.id)
+            if invoice.journal.do_not_report:
+                continue
             if invoice.tipo_comprobante in (
                     '051', '052', '053', '054', '118', '119', '120'):
                 return True
@@ -259,13 +261,14 @@ class AccountVoucher(metaclass=PoolMeta):
         else:
             used_regimen = None
             for line in self.lines:
+                if not line.amount:
+                    continue
                 origin = str(line.move_line.move_origin)
                 if origin[:origin.find(',')] != 'account.invoice':
                     continue
-                if not line.amount:
-                    continue
-
                 invoice = Invoice(line.move_line.move_origin.id)
+                if invoice.journal.do_not_report:
+                    continue
                 payment_rate = Decimal(line.amount / invoice.total_amount)
 
                 for invoice_line in invoice.lines:
@@ -319,13 +322,14 @@ class AccountVoucher(metaclass=PoolMeta):
         for voucher in vouchers:
             used_regimen = None
             for line in voucher.lines:
+                if not line.amount:
+                    continue
                 origin = str(line.move_line.move_origin)
                 if origin[:origin.find(',')] != 'account.invoice':
                     continue
-                if not line.amount:
-                    continue
-
                 invoice = Invoice(line.move_line.move_origin.id)
+                if invoice.journal.do_not_report:
+                    continue
                 payment_rate = Decimal(line.amount / invoice.total_amount)
 
                 for invoice_line in invoice.lines:
@@ -499,10 +503,13 @@ class AccountVoucher(metaclass=PoolMeta):
 
         else:
             for line in self.lines:
+                if not line.amount:
+                    continue
                 origin = str(line.move_line.move_origin)
                 if origin[:origin.find(',')] != 'account.invoice':
                     continue
-                if not line.amount:
+                invoice = Invoice(line.move_line.move_origin.id)
+                if invoice.journal.do_not_report:
                     continue
 
                 if tax.id not in res:
@@ -513,7 +520,6 @@ class AccountVoucher(metaclass=PoolMeta):
                         'accumulated_withheld': Decimal(0),
                         }
 
-                invoice = Invoice(line.move_line.move_origin.id)
                 payment_rate = Decimal(line.amount / invoice.total_amount)
                 payment_amount = invoice.pyafipws_imp_iva * payment_rate
                 res[tax.id]['payment_amount'] += (
@@ -661,10 +667,13 @@ class AccountVoucher(metaclass=PoolMeta):
 
             else:
                 for line in self.lines:
+                    if not line.amount:
+                        continue
                     origin = str(line.move_line.move_origin)
                     if origin[:origin.find(',')] != 'account.invoice':
                         continue
-                    if not line.amount:
+                    invoice = Invoice(line.move_line.move_origin.id)
+                    if invoice.journal.do_not_report:
                         continue
 
                     if tax.id not in res:
@@ -675,7 +684,6 @@ class AccountVoucher(metaclass=PoolMeta):
                             'accumulated_withheld': Decimal(0),
                             }
 
-                    invoice = Invoice(line.move_line.move_origin.id)
                     if line.amount == invoice.total_amount:
                         payment_amount = invoice.untaxed_amount
                     else:
