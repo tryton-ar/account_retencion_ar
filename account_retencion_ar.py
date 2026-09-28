@@ -524,9 +524,9 @@ class IIBBSubdivisionReport(Report):
             ('type', '=', 'out'),
             ['OR', ('state', 'in', ['posted', 'paid']),
                 [('state', '=', 'cancelled'), ('number', '!=', None)]],
+            ('pos.pos_do_not_report', '!=', True),
             ('move.date', '>=', start_date),
             ('move.date', '<=', end_date),
-            #('pos.pos_do_not_report', '=', False),
             ], order=[
             ('number', 'ASC'),
             ('invoice_date', 'ASC'),
@@ -631,6 +631,7 @@ class PerceptionBySubdivisionReport(Report):
             invoices_clause.extend([
                 ('type', '=', 'in'),
                 ('state', 'in', ['posted', 'paid']),
+                ('journal.do_not_report', '!=', True),
                 ])
             perceptions_clause.extend([
                 ('group.kind', '=', 'purchase'),
@@ -640,7 +641,7 @@ class PerceptionBySubdivisionReport(Report):
                 ('type', '=', 'out'),
                 ['OR', ('state', 'in', ['posted', 'paid']),
                     [('state', '=', 'cancelled'), ('number', '!=', None)]],
-                #('pos.pos_do_not_report', '=', False),
+                ('pos.pos_do_not_report', '!=', True),
                 ])
             perceptions_clause.extend([
                 ('group.kind', '=', 'sale'),
