@@ -139,18 +139,19 @@ class SICORE(object):
         if not voucher:
             return None
 
+        # Orden de Pago como comprobante origen
         comprobante = {
             'codigo': 6,
             'fecha': voucher.date,
             'numero': ''.join(filter(str.isdigit, voucher.number)),
             'importe': voucher.amount,
             }
+        if retencion.amount < 0:  # Nota de crédito
+            comprobante['codigo'] = 3
 
-        # Orden de Pago como comprobante origen
         if True:
             return comprobante
 
-        # Factura como comprobante origen
         if not voucher.lines:
             return comprobante
         for line in voucher.lines:
@@ -161,12 +162,15 @@ class SICORE(object):
             if not invoices:
                 continue
             invoice = invoices[0]
+            # Factura como comprobante origen
             comprobante = {
                 'codigo': 1,
                 'fecha': invoice.invoice_date,
                 'numero': ''.join(filter(str.isdigit, invoice.reference)),
                 'importe': invoice.untaxed_amount,
                 }
+            if retencion.amount < 0:  # Nota de crédito
+                comprobante['codigo'] = 3
             return comprobante
         return comprobante
 
@@ -256,8 +260,12 @@ class ExportSICORE(Wizard):
         Cbte.cod_regimen = Cbte._format_integer(
             retencion.regime_code, 3)
         Cbte.cod_operacion = '1'  # Retención
-        Cbte.base_calculo = Cbte._format_float(
-            retencion.payment_amount or 0, 11, 2)
+        if comprobante['codigo'] == 3:  # Nota de crédito
+            Cbte.base_calculo = Cbte._format_float(
+                retencion.amount, 11, 2)
+        else:
+            Cbte.base_calculo = Cbte._format_float(
+                retencion.payment_amount or 0, 11, 2)
         Cbte.fecha_retencion = Cbte._format_date(
             retencion.date)
         Cbte.cod_condicion = Cbte.get_condicion(retencion)
