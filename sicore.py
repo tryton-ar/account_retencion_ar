@@ -142,7 +142,7 @@ class SICORE(object):
         comprobante = {
             'codigo': 6,
             'fecha': voucher.date,
-            'numero': voucher.number,
+            'numero': ''.join(filter(str.isdigit, voucher.number)),
             'importe': voucher.amount,
             }
 
@@ -164,7 +164,7 @@ class SICORE(object):
             comprobante = {
                 'codigo': 1,
                 'fecha': invoice.invoice_date,
-                'numero': invoice.reference,
+                'numero': ''.join(filter(str.isdigit, invoice.reference)),
                 'importe': invoice.untaxed_amount,
                 }
             return comprobante
